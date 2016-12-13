@@ -1,0 +1,10 @@
+rest\Application.class
+pojo\Question.class
+repositories\QuestionRepository.class
+repositories\BaseRepository.class
+rest\QuestionREST.class
+pojo\TipoResposta.class
+repositories\QuestionCrudService.class
+pojo\Answer.class
+repositories\AnswerRepository.class
+rest\AnswerREST.class
