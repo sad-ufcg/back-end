@@ -1,11 +1,9 @@
 package com.github.sadufcg.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.github.sadufcg.pojo.Question;
 import com.github.sadufcg.repositories.QuestionRepository;
 
@@ -38,8 +36,8 @@ final class RepositoryQuestionService implements QuestionService {
 	@Transactional(readOnly = true)
 	@Override
 	public Question findById(Long id) {
-		Question todoEntry = findQuestionEntryById(id);
-		return todoEntry;
+		Question questionEntry = findQuestionEntryById(id);
+		return questionEntry;
 	}
 
 	private Question findQuestionEntryById(Long id) {

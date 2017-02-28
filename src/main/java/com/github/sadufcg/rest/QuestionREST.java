@@ -3,7 +3,6 @@ package com.github.sadufcg.rest;
 import java.util.List;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.sadufcg.pojo.AnswerType;
 import com.github.sadufcg.pojo.Question;
 import com.github.sadufcg.services.QuestionService;
 
@@ -60,9 +57,10 @@ public class QuestionREST {
 		Question question = questionService.findById(id);
 		return question;
 	}
-	
+
 	/**
 	 * Finds all the question entries
+	 * 
 	 * @return A list with all the questions
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -79,15 +77,20 @@ public class QuestionREST {
 	 * @return The updated information of the updated question.
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	Question update(@RequestBody @Valid Question updatedQuestion) {
-		Question updated = questionService.update(updatedQuestion);
-		return updated;
+	Question update(@PathVariable("id") Long id, @RequestBody @Valid Question updatedQuestion) {
+		if (id != updatedQuestion.getId()) {
+			return null;
+		} else {
+			Question updated = questionService.update(updatedQuestion);
+			return updated;
+		}
 	}
-	
+
 	/**
 	 * Deletes a question entry.
 	 * 
-	 * @param id of the question.
+	 * @param id
+	 *            of the question.
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable("id") Long id) {

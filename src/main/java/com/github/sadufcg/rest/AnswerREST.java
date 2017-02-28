@@ -46,9 +46,10 @@ public class AnswerREST {
 		Answer created = answerService.create(newAnswer);
 		return created;
 	}
-	
+
 	/**
 	 * Finds all the answer entries
+	 * 
 	 * @return A list with all the answers
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -78,15 +79,20 @@ public class AnswerREST {
 	 * @return The updated information of the updated answer.
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	Answer update(@RequestBody @Valid Answer updatedAnswer) {
-		Answer updated = answerService.update(updatedAnswer);
-		return updated;
+	Answer update(@PathVariable("id") Long id, @RequestBody @Valid Answer updatedAnswer) {
+		if (id != updatedAnswer.getId()) {
+			return null;
+		} else {
+			Answer updated = answerService.update(updatedAnswer);
+			return updated;
+		}
 	}
-	
+
 	/**
 	 * Deletes an answer entry from the database
 	 * 
-	 * @param id of the answer which will be deleted
+	 * @param id
+	 *            of the answer which will be deleted
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable("id") Long id) {

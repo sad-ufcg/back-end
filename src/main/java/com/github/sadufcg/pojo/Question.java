@@ -1,15 +1,13 @@
 package com.github.sadufcg.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
 public class Question {
 
 	@Id
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column
 	private Long id;
 
