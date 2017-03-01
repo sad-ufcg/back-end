@@ -5,12 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.github.sadufcg.pojo.Question;
 import com.github.sadufcg.services.QuestionService;
 
@@ -38,6 +33,7 @@ public class QuestionREST {
 	 *            The information of the created question.
 	 * @return The information of the created question.
 	 */
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	Question create(@RequestBody @Valid Question newQuestion) {
@@ -52,6 +48,7 @@ public class QuestionREST {
 	 *            The id of the requested question.
 	 * @return The information of the requested question.
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	Question findById(@PathVariable("id") Long id) {
 		Question question = questionService.findById(id);
@@ -63,6 +60,7 @@ public class QuestionREST {
 	 * 
 	 * @return A list with all the questions
 	 */
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
 	List<Question> findAll() {
 		List<Question> questionEntries = questionService.findAll();
@@ -76,6 +74,7 @@ public class QuestionREST {
 	 *            The new information of the updated question.
 	 * @return The updated information of the updated question.
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	Question update(@PathVariable("id") Long id, @RequestBody @Valid Question updatedQuestion) {
 		if (id != updatedQuestion.getId()) {
@@ -92,6 +91,7 @@ public class QuestionREST {
 	 * @param id
 	 *            of the question.
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable("id") Long id) {
 		questionService.delete(id);

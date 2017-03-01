@@ -3,12 +3,7 @@ package com.github.sadufcg.rest;
 import javax.validation.Valid;
 import com.github.sadufcg.pojo.Course;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.github.sadufcg.services.CourseService;
 import java.util.List;
 
@@ -35,6 +30,7 @@ public class CourseREST {
      *            The information of the created course.
      * @return The information of the created course.
      */
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     Course create(@RequestBody @Valid Course newCourse) {
@@ -49,6 +45,7 @@ public class CourseREST {
      *            The id of the requested course.
      * @return The information of the requested course.
      */
+    @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     Course findById(@PathVariable("id") String id) {
         Course course = courseService.findById(id);
@@ -60,6 +57,7 @@ public class CourseREST {
      *
      * @return A list with all the courses
      */
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     List<Course> findAll() {
         List<Course> courseEntries = courseService.findAll();
@@ -73,6 +71,7 @@ public class CourseREST {
      *            The new information of the updated course.
      * @return The updated information of the updated course.
      */
+    @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     Course update(@PathVariable("id") String id, @RequestBody @Valid Course updatedCourse) {
         if (!id.equals(updatedCourse.getId())) {
@@ -89,6 +88,7 @@ public class CourseREST {
      * @param id
      *            of the course.
      */
+    @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     void delete(@PathVariable("id") String id) {
         courseService.delete(id);

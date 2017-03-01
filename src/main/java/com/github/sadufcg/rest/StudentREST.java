@@ -4,12 +4,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.github.sadufcg.pojo.Student;
 import com.github.sadufcg.services.StudentService;
 
@@ -37,6 +32,7 @@ public class StudentREST {
      *            The information of the created student.
      * @return The information of the created student.
      */
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     Student create(@RequestBody @Valid Student newStudent) {
@@ -51,6 +47,7 @@ public class StudentREST {
      *            The id of the requested student.
      * @return The information of the requested student.
      */
+    @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     Student findById(@PathVariable("id") Long id) {
         Student question = studentService.findById(id);
@@ -62,6 +59,7 @@ public class StudentREST {
      *
      * @return A list with all the questions
      */
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     List<Student> findAll() {
         List<Student> studentEntries = studentService.findAll();
@@ -75,6 +73,7 @@ public class StudentREST {
      *            The new information of the updated student.
      * @return The updated student.
      */
+    @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     Student update(@PathVariable("id") Long id, @RequestBody @Valid Student updatedStudent) {
         if (id != updatedStudent.getId()) {
@@ -91,6 +90,7 @@ public class StudentREST {
      * @param id
      *            of the student.
      */
+    @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     void delete(@PathVariable("id") Long id) {
         studentService.delete(id);

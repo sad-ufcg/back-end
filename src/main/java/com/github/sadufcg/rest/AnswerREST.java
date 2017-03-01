@@ -6,12 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.github.sadufcg.pojo.Answer;
 import com.github.sadufcg.services.AnswerService;
@@ -40,6 +35,7 @@ public class AnswerREST {
 	 *            The information of the created answer.
 	 * @return The information of the created answer.
 	 */
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	Answer create(@RequestBody @Valid Answer newAnswer) {
@@ -52,6 +48,7 @@ public class AnswerREST {
 	 * 
 	 * @return A list with all the answers
 	 */
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
 	List<Answer> findAll() {
 		List<Answer> answerEntries = answerService.findAll();
@@ -65,6 +62,7 @@ public class AnswerREST {
 	 *            The id of the requested answer.
 	 * @return The information of the requested answer.
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	Answer findById(@PathVariable("id") Long id) {
 		Answer answerEntry = answerService.findById(id);
@@ -78,6 +76,7 @@ public class AnswerREST {
 	 *            The new information of the updated answer.
 	 * @return The updated information of the updated answer.
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	Answer update(@PathVariable("id") Long id, @RequestBody @Valid Answer updatedAnswer) {
 		if (id != updatedAnswer.getId()) {
@@ -94,6 +93,7 @@ public class AnswerREST {
 	 * @param id
 	 *            of the answer which will be deleted
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable("id") Long id) {
 		answerService.delete(id);
