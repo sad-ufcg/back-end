@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Teacher {
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column

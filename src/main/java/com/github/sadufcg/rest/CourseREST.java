@@ -2,6 +2,7 @@ package com.github.sadufcg.rest;
 
 import javax.validation.Valid;
 import com.github.sadufcg.pojo.Course;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.github.sadufcg.services.CourseService;
@@ -19,6 +20,7 @@ public class CourseREST {
 
     private final CourseService courseService;
 
+    @Autowired
     public CourseREST (CourseService courseService) {
         this.courseService = courseService;
     }

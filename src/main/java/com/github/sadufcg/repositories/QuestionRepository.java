@@ -17,5 +17,4 @@ public interface QuestionRepository extends BaseRepository<Question, Long> {
 	
 	List<Question> findAll();
 
-	// Perguntar a Matheus pq n tem metodo para put no repository...
 }

@@ -24,12 +24,7 @@ final class RepositoryQuestionService implements QuestionService {
 
 	@Transactional
 	public Question create(Question newQuestionEntry) {
-		
-		Question created = new Question(newQuestionEntry.getId(), newQuestionEntry.getEnunciado(),
-				newQuestionEntry.getTipoResposta(), newQuestionEntry.getComentario());
-
-		created = repository.save(created);
-
+		Question created = repository.save(newQuestionEntry);
 		return created;
 	}
 

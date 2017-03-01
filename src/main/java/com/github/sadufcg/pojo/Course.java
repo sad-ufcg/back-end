@@ -18,7 +18,7 @@ public class Course {
 	@Column
 	private int courseNumber;
 
-	@Column
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Teacher teacher;
 
 	@Column

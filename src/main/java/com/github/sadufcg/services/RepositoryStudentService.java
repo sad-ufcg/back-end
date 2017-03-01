@@ -2,6 +2,7 @@ package com.github.sadufcg.services;
 
 import com.github.sadufcg.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.github.sadufcg.pojo.Student;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by antunesdantas on 28/02/17.
  */
+@Service
 final class RepositoryStudentService implements StudentService {
 
     private StudentRepository repository;

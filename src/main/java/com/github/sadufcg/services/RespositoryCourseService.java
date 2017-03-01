@@ -23,11 +23,7 @@ final class RespositoryCourseService implements CourseService{
     @Transactional
     public Course create(Course newCourseEntry) {
 
-        Course created = new Course(newCourseEntry.getId(), newCourseEntry.getName(),
-                newCourseEntry.getCourseNumber(), newCourseEntry.getTeacher(),
-                newCourseEntry.getSemester(), newCourseEntry.getCourseStudent());
-
-        repository.save(created);
+        Course created = repository.save(newCourseEntry);
         return created;
     }
 

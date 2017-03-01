@@ -27,12 +27,7 @@ final class RepositoryAnswerService implements AnswerService {
 
     @Transactional
     public Answer create(Answer newAnswerEntry) {
-        Answer newAnswer = new Answer(newAnswerEntry.getId(),
-        		newAnswerEntry.getQuestion(),
-        		newAnswerEntry.getAnswerText(),
-        		newAnswerEntry.getChoiceNumber()),
-
-        created = repository.save(newAnswer);
+       Answer created = repository.save(newAnswerEntry);
         return created;
     }
 
