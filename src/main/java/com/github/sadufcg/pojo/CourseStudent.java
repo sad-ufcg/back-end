@@ -3,18 +3,27 @@ package com.github.sadufcg.pojo;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Antunes Dantas
  */
 
+@Entity
 @Table
 public class CourseStudent {
 
+    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
     private Student student;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
     private Course course;
 
     public CourseStudent() {
@@ -22,8 +31,10 @@ public class CourseStudent {
         this.course = new Course();
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
+    public Long getId() { return this.id; }
+
+    public void setId(Long id) { this.id = id; }
+
     public Student getStudent() {
         return this.student;
     }
@@ -32,8 +43,6 @@ public class CourseStudent {
         this.student = student;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
     public Course getCourse() {
         return course;
     }

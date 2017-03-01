@@ -18,6 +18,7 @@ public class Student {
     @Column
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CourseStudent> courseStudent;
 
 
@@ -50,7 +51,6 @@ public class Student {
         this.email = email;
     }
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     public Set<CourseStudent> getCourseStudent() {
         return courseStudent;
     }

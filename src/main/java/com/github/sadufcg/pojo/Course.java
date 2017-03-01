@@ -24,6 +24,8 @@ public class Course {
 	@Column
 	private String semester;
 
+	@Column
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CourseStudent> courseStudent;
 
 	public Course() {}
@@ -74,7 +76,6 @@ public class Course {
 		this.semester = semester;
 	}
 
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	public Set<CourseStudent> getCourseStudent() {
 		return courseStudent;
 	}
