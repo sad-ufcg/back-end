@@ -7,20 +7,20 @@ import javax.persistence.*;
 public class Teacher {
 
 	@Id
-	private Long id;
+	private String siape;
 
 	@Column
 	private String name;
 
-	public Long getId() {
-		return id;
-	}
+    public String getSiape() {
+        return siape;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setSiape(String siape) {
+        this.siape = siape;
+    }
 
-	public String getName() {
+    public String getName() {
 		return name;
 	}
 
