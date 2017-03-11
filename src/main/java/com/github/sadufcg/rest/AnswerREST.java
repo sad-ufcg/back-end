@@ -44,18 +44,6 @@ public class AnswerREST {
 	}
 
 	/**
-	 * Finds all the answer entries
-	 * 
-	 * @return A list with all the answers
-	 */
-	@CrossOrigin
-	@RequestMapping(method = RequestMethod.GET)
-	List<Answer> findAll() {
-		List<Answer> answerEntries = answerService.findAll();
-		return answerEntries;
-	}
-
-	/**
 	 * Finds a single answer.
 	 * 
 	 * @param id
