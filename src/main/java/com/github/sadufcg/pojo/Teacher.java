@@ -12,6 +12,13 @@ public class Teacher {
 	@Column
 	private String name;
 
+	public Teacher() {}
+
+	public Teacher(String siape, String name) {
+		this.siape = siape;
+		this.name = name;
+	}
+
     public String getSiape() {
         return siape;
     }
