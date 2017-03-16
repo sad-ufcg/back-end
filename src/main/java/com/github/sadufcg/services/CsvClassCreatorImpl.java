@@ -38,7 +38,7 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
         try {
             Scanner scanner = new Scanner(courseFile);
             String courseInfo = scanner.nextLine();
-            String teacherInfo = scanner.nextLine();
+            Teacher teacher = createTeacher(scanner.nextLine());
             String aluno = scanner.nextLine();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,9 +59,17 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
         return null;
     }
 
+    private Course createCourse(String data) {
+        String[] dataArray = data.split(",");
+        String courseId = (dataArray[0] + dataArray[2] + dataArray[1]).toLowerCase();
+    }
+
     private Teacher createTeacher(String data) {
         String[] dataArray = data.split(",");
-        Teacher teacher = new Teacher(dataArray[0], dataArray[1]);
+        Teacher teacher = teacherService.findById(dataArray[0]);
+        if (teacher == null) {
+            teacher = new Teacher(dataArray[0], dataArray[1]);
+        }
         return teacher;
     }
 
