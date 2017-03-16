@@ -5,11 +5,8 @@ import com.github.sadufcg.pojo.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.util.Scanner;
 
 /**
@@ -29,17 +26,22 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
         this.studentService = studentService;
     }
 
+    /**
+     * The document is structured in the following way:
+     *              courseName, courseNumber, semester
+     *              siape, teacher's name
+     *              name, lastname, email
+     * @param file
+     */
     public void createCourse(MultipartFile file) {
 
         File courseFile = convertToFile(file);
 
-        Course course = new Course();
-
         try {
             Scanner scanner = new Scanner(courseFile);
-            String courseInfo = scanner.nextLine();
+            Course course = createCourse(scanner.nextLine());
             Teacher teacher = createTeacher(scanner.nextLine());
-            String aluno = scanner.nextLine();
+            course.setTeacher(teacher);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,13 +64,18 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
     private Course createCourse(String data) {
         String[] dataArray = data.split(",");
         String courseId = (dataArray[0] + dataArray[2] + dataArray[1]).toLowerCase();
+        Course course = courseService.findById(courseId);
+        if (course == null) {
+            course = courseService.create(new Course(dataArray[0], Integer.getInteger(dataArray[1]), dataArray[2]));
+        }
+        return course;
     }
 
     private Teacher createTeacher(String data) {
         String[] dataArray = data.split(",");
         Teacher teacher = teacherService.findById(dataArray[0]);
         if (teacher == null) {
-            teacher = new Teacher(dataArray[0], dataArray[1]);
+            teacher = teacherService.create(new Teacher(dataArray[0], dataArray[1]));
         }
         return teacher;
     }
