@@ -51,4 +51,6 @@ public interface StudentService {
      */
     void delete(Long id);
 
+    Student findByEmail(String emailAdress);
+
 }

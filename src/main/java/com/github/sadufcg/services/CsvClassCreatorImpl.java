@@ -1,12 +1,15 @@
 package com.github.sadufcg.services;
 
 import com.github.sadufcg.pojo.Course;
+import com.github.sadufcg.pojo.CourseStudent;
+import com.github.sadufcg.pojo.Student;
 import com.github.sadufcg.pojo.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -42,6 +45,23 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
             Course course = createCourse(scanner.nextLine());
             Teacher teacher = createTeacher(scanner.nextLine());
             course.setTeacher(teacher);
+            String studentData = scanner.nextLine();
+
+            while(studentData != null) {
+                Student student = createStudent(scanner.nextLine());
+                CourseStudent courseStudent = new CourseStudent(student, course);
+                if (student.getCourseStudent() == null) {
+                    student.setCourseStudent(new HashSet<CourseStudent>());
+                    student.getCourseStudent().add(courseStudent);
+                }
+                if (course.getCourseStudent() == null) {
+                    course.setCourseStudent(new HashSet<CourseStudent>());
+                    course.getCourseStudent().add(courseStudent);
+                }
+                studentService.update(student);
+                courseService.update(course);
+                studentData = scanner.nextLine();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,6 +98,17 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
             teacher = teacherService.create(new Teacher(dataArray[0], dataArray[1]));
         }
         return teacher;
+    }
+
+    private Student createStudent(String data) {
+        String[] dataArray = data.split(",");
+        Student student = studentService.findByEmail(dataArray[2].trim());
+        if (student == null) {
+            String studanteName = dataArray[0] + " " + dataArray[1];
+            student = new Student(studanteName, dataArray[2].trim());
+            student = studentService.create(student);
+        }
+        return student;
     }
 
 }

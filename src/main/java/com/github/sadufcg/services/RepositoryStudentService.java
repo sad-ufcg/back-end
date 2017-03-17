@@ -56,5 +56,9 @@ final class RepositoryStudentService implements StudentService {
         repository.delete(studentEntry);
     }
 
+    @Transactional
+    public Student findByEmail(String emailAdress) {
+        return repository.findByEmail(emailAdress);
+    }
 
 }
