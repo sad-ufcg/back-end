@@ -22,7 +22,7 @@ final class RespositoryCourseService implements CourseService{
 
     @Transactional
     public Course create(Course newCourseEntry) {
-
+        newCourseEntry.setId(createCourseId(newCourseEntry));
         Course created = repository.save(newCourseEntry);
         return created;
     }
@@ -57,6 +57,11 @@ final class RespositoryCourseService implements CourseService{
     public void delete(String id) {
         Course courseEntry = findCourseEntryById(id);
         repository.delete(courseEntry);
+    }
+
+    private String createCourseId(Course course) {
+        String id = (course.getName() + course.getSemester() + course.getCourseNumber()).toLowerCase();
+        return id;
     }
 
 }

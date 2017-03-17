@@ -30,6 +30,12 @@ public class Course {
 
 	public Course() {}
 
+	public Course(String name, int courseNumber, String semester) {
+		this.name = name;
+		this.courseNumber = courseNumber;
+		this.semester = semester;
+	}
+
 	public Course(String id, String name, int courseNumber, Teacher teacher,
                   String semester, Set<CourseStudent> courseStudent) {
 	    this.id = id;
