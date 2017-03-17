@@ -36,49 +36,41 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
      *              name, lastname, email
      * @param file
      */
-    public void createCourse(MultipartFile file) {
+    public void createCourse(MultipartFile file) throws Exception {
 
         File courseFile = convertToFile(file);
 
-        try {
-            Scanner scanner = new Scanner(courseFile);
-            Course course = createCourse(scanner.nextLine());
-            Teacher teacher = createTeacher(scanner.nextLine());
-            course.setTeacher(teacher);
-            String studentData = scanner.nextLine();
+        Scanner scanner = new Scanner(courseFile);
+        Course course = createCourse(scanner.nextLine());
+        Teacher teacher = createTeacher(scanner.nextLine());
+        course.setTeacher(teacher);
+        String studentData = scanner.nextLine();
 
-            while(studentData != null) {
-                Student student = createStudent(scanner.nextLine());
-                CourseStudent courseStudent = new CourseStudent(student, course);
-                if (student.getCourseStudent() == null) {
-                    student.setCourseStudent(new HashSet<CourseStudent>());
-                    student.getCourseStudent().add(courseStudent);
-                }
-                if (course.getCourseStudent() == null) {
-                    course.setCourseStudent(new HashSet<CourseStudent>());
-                    course.getCourseStudent().add(courseStudent);
-                }
-                studentService.update(student);
-                courseService.update(course);
-                studentData = scanner.nextLine();
+        while(studentData != null) {
+            Student student = createStudent(scanner.nextLine());
+            CourseStudent courseStudent = new CourseStudent(student, course);
+            if (student.getCourseStudent() == null) {
+                student.setCourseStudent(new HashSet<CourseStudent>());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            student.getCourseStudent().add(courseStudent);
+            if (course.getCourseStudent() == null) {
+                course.setCourseStudent(new HashSet<CourseStudent>());
+            }
+            course.getCourseStudent().add(courseStudent);
+            studentService.update(student);
+            courseService.update(course);
+            studentData = scanner.nextLine();
         }
+
     }
 
-    private File convertToFile(MultipartFile file) {
-        try {
-            File convFile = new File(file.getOriginalFilename());
-            convFile.createNewFile();
-            FileOutputStream fos = new FileOutputStream(convFile);
-            fos.write(file.getBytes());
-            fos.close();
-            return convFile;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    private File convertToFile(MultipartFile file) throws Exception {
+        File convFile = new File(file.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
     }
 
     private Course createCourse(String data) {

@@ -9,6 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface CsvClassCreator {
 
-    void createCourse(MultipartFile file);
+    void createCourse(MultipartFile file) throws Exception;
 
 }
