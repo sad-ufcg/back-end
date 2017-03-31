@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface MailServerService {
 
-   void sendEmail(String recipient, String subject, String mailBody);
+   void sendEmail(String recipient, String mailBody);
 
 }
