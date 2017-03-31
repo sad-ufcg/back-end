@@ -19,12 +19,15 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
 
     private final MailServerService mailService;
     private final CourseService courseService;
+    private final AnswersListService answersListService;
 
     @Autowired
     public SendQuestionaryServiceImpl(MailServerService mailServerService,
-                                      CourseService courseService) {
+                                      CourseService courseService,
+                                      AnswersListService answersListService) {
         this.mailService = mailServerService;
         this.courseService = courseService;
+        this.answersListService = answersListService;
     }
 
     public void sendQuestionnaire(String courseId) {
@@ -32,6 +35,7 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
         for (CourseStudent courseStudent : course.getCourseStudent()) {
             String studentsEmail = courseStudent.getStudent().getEmail();
             String mailBody = generateMailBody(courseStudent);
+
             mailService.sendEmail(studentsEmail, mailBody);
         }
     }

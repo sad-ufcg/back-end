@@ -12,9 +12,11 @@ import java.util.List;
 public class AnswersList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Long id;
+
+    @Column
+    private String courseId;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
@@ -35,5 +37,13 @@ public class AnswersList {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 }
