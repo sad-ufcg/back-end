@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ff8443f9-21f5-41f0-9f3d-6fa8156fa4f7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/pojo/CourseStudent.java" afterPath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/pojo/CourseStudent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/repositories/StudentRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/repositories/StudentRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/services/CsvClassCreatorImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/services/CsvClassCreatorImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/services/RepositoryStudentService.java" afterPath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/services/RepositoryStudentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/services/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/com/github/sadufcg/services/StudentService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,7 +35,7 @@
       <file leaf-file-name="AnswerREST.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sadufcg/rest/AnswerREST.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
+            <state relative-caret-position="285">
               <caret line="30" column="7" lean-forward="true" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
               <folding />
             </state>
@@ -80,7 +75,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="803" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -523,10 +518,18 @@
       <option name="presentableId" value="Default" />
       <updated>1488380487917</updated>
     </task>
+    <task id="LOCAL-00001" summary="Fazendo a REST de CourseCreator">
+      <created>1489760750609</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1489760750609</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="803" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="800" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -561,6 +564,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fazendo a REST de CourseCreator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fazendo a REST de CourseCreator" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -571,7 +578,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -819,7 +826,7 @@
         <state relative-caret-position="315">
           <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -845,8 +852,8 @@
         <state relative-caret-position="562">
           <caret line="58" column="18" lean-forward="true" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
           <folding>
-            <element signature="e#1671#1672#0" expanded="true" />
-            <element signature="e#1729#1730#0" expanded="true" />
+            <element signature="e#1671#1672#0" expanded="false" />
+            <element signature="e#1729#1730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -881,7 +888,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sadufcg/rest/AnswerREST.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
+        <state relative-caret-position="285">
           <caret line="30" column="7" lean-forward="true" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
           <folding />
         </state>
