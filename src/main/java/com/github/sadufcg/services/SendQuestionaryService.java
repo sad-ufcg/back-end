@@ -5,6 +5,8 @@ package com.github.sadufcg.services;
  */
 public interface SendQuestionaryService {
 
-    void sendEmail();
+    void sendQuestionnaire(String classId);
+
+    void sendQuestionnaireForAllCourses();
 
 }
