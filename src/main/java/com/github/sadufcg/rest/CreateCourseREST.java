@@ -1,12 +1,13 @@
 package com.github.sadufcg.rest;
 
-import com.github.sadufcg.services.CsvClassCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.github.sadufcg.services.CsvClassCreator;
 
 /**
  * Created by Antunes Dantas on 17/03/17.

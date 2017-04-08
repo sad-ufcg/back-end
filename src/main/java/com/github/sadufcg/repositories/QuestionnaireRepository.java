@@ -1,8 +1,8 @@
 package com.github.sadufcg.repositories;
 
-import com.github.sadufcg.pojo.Questionnaire;
-
 import java.util.List;
+
+import com.github.sadufcg.pojo.Questionnaire;
 
 /**
  * @author Antunes Dantas on 31/03/17.

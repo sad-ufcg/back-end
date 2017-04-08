@@ -1,8 +1,8 @@
 package com.github.sadufcg.services;
 
-import com.github.sadufcg.pojo.Course;
-
 import java.util.List;
+
+import com.github.sadufcg.pojo.Course;
 
 /**
  * This service provides operations for {@link Course} objects.

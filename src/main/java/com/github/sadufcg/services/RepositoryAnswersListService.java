@@ -1,9 +1,10 @@
 package com.github.sadufcg.services;
 
-import com.github.sadufcg.pojo.AnswersList;
-import com.github.sadufcg.repositories.AnswersListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.github.sadufcg.pojo.AnswersList;
+import com.github.sadufcg.repositories.AnswersListRepository;
 
 /**
  * @author Antunes Dantas on 31/03/17.

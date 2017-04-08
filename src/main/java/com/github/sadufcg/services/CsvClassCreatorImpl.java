@@ -1,16 +1,18 @@
 package com.github.sadufcg.services;
 
-import com.github.sadufcg.pojo.Course;
-import com.github.sadufcg.pojo.CourseStudent;
-import com.github.sadufcg.pojo.Student;
-import com.github.sadufcg.pojo.Teacher;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashSet;
 import java.util.Scanner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.github.sadufcg.pojo.Course;
+import com.github.sadufcg.pojo.CourseStudent;
+import com.github.sadufcg.pojo.Student;
+import com.github.sadufcg.pojo.Teacher;
 
 /**
  * @author Antunes Dantas

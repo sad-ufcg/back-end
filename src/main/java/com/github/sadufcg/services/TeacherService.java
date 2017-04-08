@@ -1,7 +1,8 @@
 package com.github.sadufcg.services;
 
-import com.github.sadufcg.pojo.Teacher;
 import java.util.List;
+
+import com.github.sadufcg.pojo.Teacher;
 
 /**
  * This service provides operations for {@link Teacher} objects.

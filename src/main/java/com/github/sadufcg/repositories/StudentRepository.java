@@ -1,9 +1,10 @@
 package com.github.sadufcg.repositories;
 
-import com.github.sadufcg.pojo.Student;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import com.github.sadufcg.pojo.Student;
 
 /**
  * Created by antunesdantas on 28/02/17.

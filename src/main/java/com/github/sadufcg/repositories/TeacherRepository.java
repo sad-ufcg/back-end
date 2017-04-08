@@ -1,7 +1,8 @@
 package com.github.sadufcg.repositories;
 
-import com.github.sadufcg.pojo.Teacher;
 import java.util.List;
+
+import com.github.sadufcg.pojo.Teacher;
 
 /**
  * This repository provides operations for {@link Teacher} objects.

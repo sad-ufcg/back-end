@@ -1,7 +1,8 @@
 package com.github.sadufcg.repositories;
 
-import com.github.sadufcg.pojo.Course;
 import java.util.List;
+
+import com.github.sadufcg.pojo.Course;
 
 /**
  * This repository provides operations for (@link Course) objects.
