@@ -63,7 +63,7 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
             courseService.update(course);
             studentData = scanner.nextLine();
         }
-
+        scanner.close();
     }
 
     private File convertToFile(MultipartFile file) throws Exception {
