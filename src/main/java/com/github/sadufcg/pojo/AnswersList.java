@@ -3,10 +3,6 @@ package com.github.sadufcg.pojo;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by epol-antunes on 31/03/17.
- */
-
 @Table
 @Entity
 public class AnswersList {
