@@ -54,13 +54,13 @@ public class QuestionnaireREST {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@RequestParam("id") Long id) {
+    public ResponseEntity<Questionnaire> delete(@RequestParam("id") Long id) {
         Questionnaire questionnaire = questionnaireService.findById(id);
         if (questionnaire != null) {
             questionnaireService.delete(id);
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
