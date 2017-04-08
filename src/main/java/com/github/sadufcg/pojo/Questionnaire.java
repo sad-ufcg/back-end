@@ -15,6 +15,9 @@ public class Questionnaire {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ElementCollection
+    @CollectionTable(name="Questionnaires", joinColumns=@JoinColumn(name="questionnaire_id"))
+    @Column(name="questionnaire")
     private List<Long> questionnaire;
 
     public Questionnaire() {}

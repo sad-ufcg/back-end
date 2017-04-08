@@ -23,7 +23,7 @@ public class CreateCourseREST {
         this.service = service;
     }
 
-    RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     void createCourse(@RequestParam("file") MultipartFile file) {
 
     }

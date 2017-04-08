@@ -1,16 +1,18 @@
 package com.github.sadufcg.services;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Antunes Dantas on 17/03/17.
  */
+@Service
 public class MailServerServiceImpl implements MailServerService {
 
     JavaMailSender mailSender;
