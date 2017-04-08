@@ -25,8 +25,8 @@ public class CreateCourseREST {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    void createCourse(@RequestParam("file") MultipartFile file) {
-
+    void createCourse(@RequestParam("file") MultipartFile file) throws Exception {
+    	service.createCourse(file);
     }
 
 }
