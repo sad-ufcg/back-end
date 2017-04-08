@@ -17,15 +17,12 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
 
     private final MailServerService mailService;
     private final CourseService courseService;
-    private final AnswersListService answersListService;
 
     @Autowired
     public SendQuestionaryServiceImpl(MailServerService mailServerService,
-                                      CourseService courseService,
-                                      AnswersListService answersListService) {
+                                      CourseService courseService) {
         this.mailService = mailServerService;
         this.courseService = courseService;
-        this.answersListService = answersListService;
     }
 
     public void sendQuestionnaire(String courseId) {
