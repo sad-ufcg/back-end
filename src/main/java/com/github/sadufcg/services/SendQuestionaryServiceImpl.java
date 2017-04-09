@@ -45,7 +45,7 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
     }
 
     private String generateMailBody(CourseStudent courseStudent) {
-        return "teste teste teste";
+        return courseStudent.toString();
     }
 
 }
