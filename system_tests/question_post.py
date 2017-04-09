@@ -57,10 +57,10 @@ def token(t):
 
 
 
-# insecure_upload()
-# upload()
-# questionario()
-# questoes()
-# mailman()
+insecure_upload()
+upload()
+questionario()
+questoes()
+mailman()
 
 token("xpto")
