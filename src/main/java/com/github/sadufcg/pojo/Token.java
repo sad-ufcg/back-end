@@ -24,6 +24,7 @@ public class Token {
     }
 
     public Token(Course course) {
+    	this();
     	this.course = course;
     }
     

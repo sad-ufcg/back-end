@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class Teacher {
@@ -19,6 +21,7 @@ public class Teacher {
 	@Column
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "teacher")
 	private Set<Course> courses;
 

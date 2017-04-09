@@ -37,7 +37,7 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
         for (CourseStudent courseStudent : courseStudentRepository.findByCourse(c)) {
         	Token token = new Token(courseStudent.getCourse());
             String studentsEmail = courseStudent.getStudent().getEmail();
-            String mailBody = generateMailBody(courseStudent);
+            String mailBody = generateMailBody(token, courseStudent);
             try {
 				mailService.sendEmail(studentsEmail, mailBody);
 				tokenRepository.save(token);
@@ -55,8 +55,8 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
         }
     }
 
-    private String generateMailBody(CourseStudent courseStudent) {
-        return courseStudent.toString();
+    private String generateMailBody(Token token, CourseStudent courseStudent) {
+        return token.getId() + " - " + courseStudent.toString();
     }
 
 }

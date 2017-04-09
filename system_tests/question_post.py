@@ -47,8 +47,20 @@ def mailman():
     send('mailman', {"questionnaire": 1})
 
 
-insecure_upload()
-upload()
-questionario()
-questoes()
-mailman()
+def token(t):
+    send('questionnaireanswers', {'token': {'id': t}, 
+                                  'answers':
+                                  [{'question': {'id': 1}, "answerText": "banana2", "choiceNumber": 1},
+                                   {'question': {'id': 2}, "answerText": "banana3", "choiceNumber": 1},
+                                   {'question': {'id': 4}, "answerText": "banana2", "choiceNumber": 1}]})
+
+
+
+
+# insecure_upload()
+# upload()
+# questionario()
+# questoes()
+# mailman()
+
+token("xpto")
