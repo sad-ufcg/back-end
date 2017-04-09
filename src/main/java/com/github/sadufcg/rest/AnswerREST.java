@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Answer;
 import com.github.sadufcg.repositories.AnswerRepository;
@@ -21,8 +20,8 @@ import com.github.sadufcg.repositories.AnswerRepository;
  * 
  * @author Isabelly Cavalcante, Antunes Dantas
  */
-@RestController
-@RequestMapping("/answer")
+//@RestController
+//@RequestMapping("/answer")
 public class AnswerREST {
 
 	private final AnswerRepository answerRepository;

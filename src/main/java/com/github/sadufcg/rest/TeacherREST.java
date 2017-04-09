@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Teacher;
 import com.github.sadufcg.repositories.TeacherRepository;
@@ -22,8 +21,8 @@ import com.github.sadufcg.repositories.TeacherRepository;
  * @author Antunes Dantas
  */
 
-@RestController
-@RequestMapping("/teacher")
+//@RestController
+//@RequestMapping("/teacher")
 public class TeacherREST {
 
     private final TeacherRepository service;

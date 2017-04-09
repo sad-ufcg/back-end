@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Course;
 import com.github.sadufcg.repositories.CourseRepository;
@@ -23,8 +22,8 @@ import com.github.sadufcg.repositories.CourseRepository;
  *
  * @author Antunes Dantas
  */
-@RestController
-@RequestMapping("/course")
+//@RestController
+//@RequestMapping("/course")
 public class CourseREST {
 
     private final CourseRepository courseService;
