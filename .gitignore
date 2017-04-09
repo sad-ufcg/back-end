@@ -24,3 +24,8 @@ hs_err_pid*
 target/*
 .idea/*
 .idea/
+
+.settings/*
+.classpath
+.project
+.pydevproject
