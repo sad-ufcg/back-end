@@ -13,10 +13,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/answer/**").permitAll()
-		.and().authorizeRequests().antMatchers("/console/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/answer/**").permitAll().anyRequest().authenticated().and().httpBasic();
+		http.authorizeRequests()
+				// Student's answers POST
+				.antMatchers(HttpMethod.POST, "/answer/**").permitAll().and().authorizeRequests()
+				// Students answers GET
+				.antMatchers(HttpMethod.GET, "/answer/**").permitAll()
+				// H2 Console:
+				.antMatchers("/console/**").permitAll()
+				// Any other request:
+				.anyRequest().authenticated().and().httpBasic();
+		// Disable CSRF
 		http.csrf().disable();
+		// Disable to H2 Console:
 		http.headers().frameOptions().disable();
 	}
 
