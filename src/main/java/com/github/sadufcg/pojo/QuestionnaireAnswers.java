@@ -9,10 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table
 @Entity
-public class AnswersList {
+public class QuestionnaireAnswers {
 
     @Id
     @Column
@@ -24,7 +25,10 @@ public class AnswersList {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
 
-    public AnswersList() {}
+    @Transient
+    private Token token;
+    
+    public QuestionnaireAnswers() {}
 
     public Long getId() {
         return id;
@@ -49,4 +53,13 @@ public class AnswersList {
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
+
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
 }
