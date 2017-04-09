@@ -13,9 +13,9 @@ import com.github.sadufcg.pojo.Student;
  */
 public interface CourseStudentRepository extends BaseRepository<CourseStudent, Long> {
 
-    List<CourseStudent> findBy(Course course);
+    List<CourseStudent> findByCourse(Course course);
 
-    List<CourseStudent> findBy(Student student);
+    List<CourseStudent> findByStudent(Student student);
     
     CourseStudent save(CourseStudent course);
 

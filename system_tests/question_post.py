@@ -21,5 +21,11 @@ def questoes():
     send('question', {'enunciado': "Rabanada é bom?", 'tipoResposta': 'MULTIPLA_ESCOLHA', 'comentario': "-", "questionnaire": 1})
     send('question', {'enunciado': "Rabanada é doce?", 'tipoResposta': 'SELECAO', 'comentario': ":)", "questionnaire": 1})
 
+def mailman():
+    #TEXTO, MULTIPLA_ESCOLHA, SELECAO
+    send('mailman', {"questionnaire": 1})
+
+
 questionario()
 questoes()
+mailman()

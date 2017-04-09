@@ -29,25 +29,23 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
         this.courseStudentRepository = courseStudentRepository;
     }
 
-    public void sendQuestionnaire(Long courseId) {
-        Course course = courseService.findOne(courseId);
-        for (CourseStudent courseStudent : courseStudentRepository.findBy(course)) {
+    public void sendQuestionnaire(Course c) {
+        for (CourseStudent courseStudent : courseStudentRepository.findByCourse(c)) {
             String studentsEmail = courseStudent.getStudent().getEmail();
             String mailBody = generateMailBody(courseStudent);
-
             mailService.sendEmail(studentsEmail, mailBody);
         }
     }
 
     public void sendQuestionnaireForAllCourses() {
         List<Course> courses = courseService.findAll();
-        for(int i = 0; i < courses.size(); i++) {
-            sendQuestionnaire(courses.get(i).getId());
+        for(Course c : courses) {
+            sendQuestionnaire(c);
         }
     }
 
     private String generateMailBody(CourseStudent courseStudent) {
-        return "";
+        return "teste teste teste";
     }
 
 }
