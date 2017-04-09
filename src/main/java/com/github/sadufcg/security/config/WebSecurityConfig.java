@@ -18,6 +18,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/answer/**").permitAll().and().authorizeRequests()
 				// Students answers GET
 				.antMatchers(HttpMethod.GET, "/answer/**").permitAll()
+				// Questions GET
+				.antMatchers(HttpMethod.GET, "/question").permitAll()
+				.antMatchers(HttpMethod.OPTIONS, "/question").permitAll()
+				.antMatchers(HttpMethod.GET, "/questionnaire").permitAll()
+				.antMatchers(HttpMethod.OPTIONS, "/questionnaire").permitAll()
+				.antMatchers(HttpMethod.GET, "/question/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/questionnaire/**").permitAll()
 				// H2 Console:
 				.antMatchers("/console/**").permitAll()
 				// Any other request:
