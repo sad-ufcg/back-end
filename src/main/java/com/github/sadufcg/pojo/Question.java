@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,16 +25,21 @@ public class Question {
 	private AnswerType tipoResposta;
 
 	@Column
-	private Boolean comentario;
+	private String comentario;
 
+    @ManyToOne
+    @JoinColumn(name = "questionare_id")
+    private Questionnaire questionnaire;
+	
 	public Question() {}
 	
 	public Question(Long id, String enunciado, AnswerType tipoResposta,
-			Boolean comentario) {
+			String comentario, Questionnaire questionnaire) {
 		this.id = id;
 		this.enunciado = enunciado;
 		this.tipoResposta = tipoResposta;
 		this.comentario = comentario;
+		this.questionnaire = questionnaire;
 	}
 
 	public Long getId() {
@@ -59,11 +66,20 @@ public class Question {
 		this.tipoResposta = tipoResposta;
 	}
 
-	public Boolean getComentario() {
+	public String getComentario() {
 		return comentario;
 	}
 
-	public void setComentario(Boolean comentario) {
+	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
+
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
+	}
+
+	public void setQuestionnaire(Questionnaire questionnaire) {
+		this.questionnaire = questionnaire;
+	}
+	
 }

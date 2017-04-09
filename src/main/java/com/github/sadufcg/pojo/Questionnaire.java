@@ -1,15 +1,10 @@
 package com.github.sadufcg.pojo;
 
-import java.util.List;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -24,13 +19,11 @@ public class Questionnaire {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(name="Questionnaires", joinColumns=@JoinColumn(name="questionnaire_id"))
-    @Column(name="questionnaire")
-    private List<Long> questionnaire;
-
     public Questionnaire() {}
 
+    public Questionnaire(Long id) { this.id = id; }
+
+    
     public Long getId() {
         return id;
     }
@@ -39,19 +32,4 @@ public class Questionnaire {
         this.id = id;
     }
 
-    public List<Long> getQuestionnaire() {
-        return questionnaire;
-    }
-
-    public void setQuestionnaire(List<Long> questionnaire) {
-        this.questionnaire = questionnaire;
-    }
-
-    public void addQuestion(Long questionId) {
-        this.questionnaire.add(questionId);
-    }
-
-    public void removeQuestion(Long questionId) {
-        this.questionnaire.remove(questionId);
-    }
 }

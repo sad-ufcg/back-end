@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Question;
 import com.github.sadufcg.repositories.QuestionRepository;
+import com.github.sadufcg.repositories.QuestionnaireRepository;
 
 /**
  * This controller provides the public API that is used to perform operations
@@ -28,10 +29,12 @@ import com.github.sadufcg.repositories.QuestionRepository;
 public class QuestionREST {
 
 	private final QuestionRepository questionRepository;
-
+	private final QuestionnaireRepository questionnaireRepository;
+	
 	@Autowired
-	QuestionREST(QuestionRepository questionService) {
+	QuestionREST(QuestionRepository questionService, QuestionnaireRepository questionnaireRepository) {
 		this.questionRepository = questionService;
+		this.questionnaireRepository = questionnaireRepository;
 	}
 
 	/**
@@ -45,6 +48,7 @@ public class QuestionREST {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	Question create(@RequestBody @Valid Question newQuestion) {
+		newQuestion.setQuestionnaire(questionnaireRepository.findOne(newQuestion.getQuestionnaire().getId()));
 		Question created = questionRepository.save(newQuestion);
 		return created;
 	}
