@@ -17,4 +17,6 @@ public interface QuestionnaireRepository extends BaseRepository<Questionnaire, L
 
     void delete(Questionnaire questionnaire);
 
+	void deleteBy(Long id);
+
 }

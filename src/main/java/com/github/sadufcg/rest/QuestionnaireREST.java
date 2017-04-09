@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Questionnaire;
-import com.github.sadufcg.services.QuestionnaireService;
+import com.github.sadufcg.repositories.QuestionnaireRepository;
 
 /**
  * @author Antunes Dantas on 31/03/17.
@@ -26,22 +26,22 @@ import com.github.sadufcg.services.QuestionnaireService;
 public class QuestionnaireREST {
 
     @Autowired
-    QuestionnaireService questionnaireService;
+    QuestionnaireRepository questionnaireRepository;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Questionnaire getById(@RequestParam("id") Long id) {
-        return questionnaireService.findById(id);
+        return questionnaireRepository.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Questionnaire> findAll() {
-        return questionnaireService.findAll();
+        return questionnaireRepository.findAll();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Questionnaire> update(@RequestParam("id") Long id, @RequestBody Questionnaire questionnaire) {
         if (id == questionnaire.getId()) {
-            return new ResponseEntity<Questionnaire>(questionnaireService.update(questionnaire), HttpStatus.OK);
+            return new ResponseEntity<Questionnaire>(questionnaireRepository.save(questionnaire), HttpStatus.OK);
         } else {
             return new ResponseEntity<Questionnaire>(HttpStatus.BAD_REQUEST);
         }
@@ -50,14 +50,14 @@ public class QuestionnaireREST {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Questionnaire create(@RequestBody Questionnaire questionnaire) {
-        return questionnaireService.create(questionnaire);
+        return questionnaireRepository.save(questionnaire);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Questionnaire> delete(@RequestParam("id") Long id) {
-        Questionnaire questionnaire = questionnaireService.findById(id);
+        Questionnaire questionnaire = questionnaireRepository.findOne(id);
         if (questionnaire != null) {
-            questionnaireService.delete(id);
+            questionnaireRepository.deleteBy(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -1,57 +1,48 @@
 package com.github.sadufcg.pojo;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
 public class Course {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private String id;
+	private Long id;
 
 	@Column
+	@NotNull
 	private String name;
 
 	@Column
-	private int courseNumber;
+	@NotNull
+	private int number;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name = "siape")
 	private Teacher teacher;
 
 	@Column
+	@NotNull
 	private String semester;
-
-	@Column
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CourseStudent> courseStudent;
 
 	public Course() {}
 
-	public Course(String name, int courseNumber, String semester) {
+	public Course(String name, int number, String semester, Teacher teacher) {
 		this.name = name;
-		this.courseNumber = courseNumber;
+		this.number = number;
 		this.semester = semester;
+		this.teacher = teacher;
 	}
-
-	public Course(String id, String name, int courseNumber, Teacher teacher,
-                  String semester, Set<CourseStudent> courseStudent) {
-	    this.id = id;
-	    this.name = name;
-	    this.courseNumber = courseNumber;
-	    this.teacher = teacher;
-	    this.semester = semester;
-	    this.courseStudent = courseStudent;
-    }
 
 	public String getName() {
 		return name;
@@ -61,16 +52,20 @@ public class Course {
 		this.name = name;
 	}
 
-    public String getId() { return this.id; }
-
-    public void setId(String id) { this.id = id; }
-
-    public int getCourseNumber() {
-		return courseNumber;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCourseNumber(int courseNumber) {
-		this.courseNumber = courseNumber;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+    public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public Teacher getTeacher() {
@@ -89,11 +84,7 @@ public class Course {
 		this.semester = semester;
 	}
 
-	public Set<CourseStudent> getCourseStudent() {
-		return courseStudent;
-	}
-
-	public void setCourseStudent(Set<CourseStudent> courseStudent) {
-		this.courseStudent = courseStudent;
+	public static String getId(String name, int number, String semester, Teacher teacher) {
+		return name + "__" + number + "__" + semester + "__" + teacher.getSiape();
 	}
 }

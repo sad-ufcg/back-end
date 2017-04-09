@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Student;
-import com.github.sadufcg.services.StudentService;
+import com.github.sadufcg.repositories.StudentRepository;
 
 /**
  * This controller provides the public API that is used to perform operations
@@ -27,10 +27,10 @@ import com.github.sadufcg.services.StudentService;
 @RequestMapping("/student")
 public class StudentREST {
 
-    private final StudentService studentService;
+    private final StudentRepository studentService;
 
     @Autowired
-    StudentREST(StudentService studentService) {
+    StudentREST(StudentRepository studentService) {
         this.studentService = studentService;
     }
 
@@ -45,7 +45,7 @@ public class StudentREST {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     Student create(@RequestBody @Valid Student newStudent) {
-        Student created = studentService.create(newStudent);
+        Student created = studentService.save(newStudent);
         return created;
     }
 
@@ -59,7 +59,7 @@ public class StudentREST {
     @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     Student findById(@PathVariable("id") Long id) {
-        Student question = studentService.findById(id);
+        Student question = studentService.findOne(id);
         return question;
     }
 
@@ -88,7 +88,7 @@ public class StudentREST {
         if (id != updatedStudent.getId()) {
             return null;
         } else {
-            Student updated = studentService.update(updatedStudent);
+            Student updated = studentService.save(updatedStudent);
             return updated;
         }
     }
@@ -102,6 +102,6 @@ public class StudentREST {
     @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     void delete(@PathVariable("id") Long id) {
-        studentService.delete(id);
+        studentService.deleteBy(id);
     }
 }

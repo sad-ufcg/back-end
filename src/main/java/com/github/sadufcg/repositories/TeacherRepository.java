@@ -11,7 +11,7 @@ import com.github.sadufcg.pojo.Teacher;
  */
 public interface TeacherRepository extends BaseRepository<Teacher, String> {
 
-    Teacher findOne(String id);
+    Teacher findOne(String siape);
 
     List<Teacher> findAll();
 

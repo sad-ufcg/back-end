@@ -1,16 +1,10 @@
 package com.github.sadufcg.pojo;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,17 +21,11 @@ public class Student {
     @Column
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CourseStudent> courseStudent;
-
-
     public Student() {}
 
     public Student(String name, String email) {
         this.name = name;
         this.email = email;
-        this.courseStudent = new HashSet<CourseStudent>();
-
     }
 
     public Long getId() { return id; }
@@ -58,14 +46,6 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Set<CourseStudent> getCourseStudent() {
-        return courseStudent;
-    }
-
-    public void setCourseStudent(Set<CourseStudent> courseStudent) {
-        this.courseStudent = courseStudent;
     }
 
     @Override

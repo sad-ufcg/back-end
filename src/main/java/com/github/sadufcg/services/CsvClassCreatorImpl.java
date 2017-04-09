@@ -1,8 +1,6 @@
 package com.github.sadufcg.services;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.HashSet;
+import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,10 @@ import com.github.sadufcg.pojo.Course;
 import com.github.sadufcg.pojo.CourseStudent;
 import com.github.sadufcg.pojo.Student;
 import com.github.sadufcg.pojo.Teacher;
+import com.github.sadufcg.repositories.CourseRepository;
+import com.github.sadufcg.repositories.CourseStudentRepository;
+import com.github.sadufcg.repositories.StudentRepository;
+import com.github.sadufcg.repositories.TeacherRepository;
 
 /**
  * @author Antunes Dantas
@@ -20,15 +22,17 @@ import com.github.sadufcg.pojo.Teacher;
 @Service
 public class CsvClassCreatorImpl implements CsvClassCreator {
 
-    CourseService courseService;
-    TeacherService teacherService;
-    StudentService studentService;
+    CourseRepository courseRepository;
+    TeacherRepository teacherService;
+    StudentRepository studentRepository;
+    CourseStudentRepository courseStudentRepository;
 
     @Autowired
-    public CsvClassCreatorImpl(CourseService courseService, TeacherService teacherService, StudentService studentService) {
-        this.courseService = courseService;
+    public CsvClassCreatorImpl(CourseRepository courseService, TeacherRepository teacherService, StudentRepository studentService, CourseStudentRepository courseStudentRepository) {
+        this.courseRepository = courseService;
         this.teacherService = teacherService;
-        this.studentService = studentService;
+        this.studentRepository = studentService;
+        this.courseStudentRepository = courseStudentRepository;
     }
 
     /**
@@ -40,67 +44,44 @@ public class CsvClassCreatorImpl implements CsvClassCreator {
      */
     public void createCourse(MultipartFile file) throws Exception {
 
-        File courseFile = convertToFile(file);
-
-        Scanner scanner = new Scanner(courseFile);
-        Course course = createCourse(scanner.nextLine());
+        Scanner scanner = new Scanner(new ByteArrayInputStream(file.getBytes()));
+        String courseData = scanner.nextLine();
         Teacher teacher = createTeacher(scanner.nextLine());
-        course.setTeacher(teacher);
-        String studentData = scanner.nextLine();
+        Course course = createCourse(courseData, teacher);
 
-        while(studentData != null) {
+        while(scanner.hasNextLine()) {
             Student student = createStudent(scanner.nextLine());
             CourseStudent courseStudent = new CourseStudent(student, course);
-            if (student.getCourseStudent() == null) {
-                student.setCourseStudent(new HashSet<CourseStudent>());
-            }
-            student.getCourseStudent().add(courseStudent);
-            if (course.getCourseStudent() == null) {
-                course.setCourseStudent(new HashSet<CourseStudent>());
-            }
-            course.getCourseStudent().add(courseStudent);
-            studentService.update(student);
-            courseService.update(course);
-            studentData = scanner.nextLine();
+            courseStudentRepository.save(courseStudent);
         }
         scanner.close();
     }
 
-    private File convertToFile(MultipartFile file) throws Exception {
-        File convFile = new File(file.getOriginalFilename());
-        convFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convFile;
-    }
-
-    private Course createCourse(String data) {
-        String[] dataArray = data.split(",");
-        String courseId = (dataArray[0] + dataArray[2] + dataArray[1]).toLowerCase();
-        Course course = courseService.findById(courseId);
-        if (course == null) {
-            course = courseService.create(new Course(dataArray[0], Integer.getInteger(dataArray[1]), dataArray[2]));
-        }
+    private Course createCourse(String data, Teacher teacher) {
+        String[] dataArray = data.trim().split(",");
+        String name = dataArray[0];
+        int number = Integer.parseInt(dataArray[1]);
+        String semester = dataArray[2];
+        Course course = courseRepository.save(new Course(name, number, semester, teacher));
         return course;
     }
 
     private Teacher createTeacher(String data) {
         String[] dataArray = data.split(",");
-        Teacher teacher = teacherService.findById(dataArray[0]);
+        Teacher teacher = teacherService.findOne(dataArray[0]);
         if (teacher == null) {
-            teacher = teacherService.create(new Teacher(dataArray[0], dataArray[1]));
+            teacher = teacherService.save(new Teacher(dataArray[0], dataArray[1]));
         }
         return teacher;
     }
 
     private Student createStudent(String data) {
         String[] dataArray = data.split(",");
-        Student student = studentService.findByEmail(dataArray[2].trim());
+        Student student = studentRepository.findByEmail(dataArray[2].trim());
         if (student == null) {
             String studanteName = dataArray[0] + " " + dataArray[1];
             student = new Student(studanteName, dataArray[2].trim());
-            student = studentService.create(student);
+            student = studentRepository.save(student);
         }
         return student;
     }

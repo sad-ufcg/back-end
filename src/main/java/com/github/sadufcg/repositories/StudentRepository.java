@@ -22,4 +22,6 @@ public interface StudentRepository extends BaseRepository<Student, Long> {
     @Query("select s from Student s where s.email = ?1")
     Student findByEmail(String emailAdress);
 
+	void deleteBy(Long id);
+
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Teacher;
-import com.github.sadufcg.services.TeacherService;
+import com.github.sadufcg.repositories.TeacherRepository;
 
 /**
  * This controller provides the public API that is used to perform operations
@@ -26,10 +26,10 @@ import com.github.sadufcg.services.TeacherService;
 @RequestMapping("/teacher")
 public class TeacherREST {
 
-    private final TeacherService service;
+    private final TeacherRepository service;
 
     @Autowired
-    TeacherREST(TeacherService service) {
+    TeacherREST(TeacherRepository service) {
         this.service = service;
     }
 
@@ -37,13 +37,13 @@ public class TeacherREST {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     Teacher create(@RequestBody Teacher newTeacher) {
-        return service.create(newTeacher);
+        return service.save(newTeacher);
     }
 
     @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     Teacher findOne(@PathVariable("id") String id) {
-        return service.findById(id);
+        return service.findOne(id);
     }
 
     @CrossOrigin
@@ -58,14 +58,14 @@ public class TeacherREST {
         if (!id.equals(updatedTeacher.getSiape())) {
             return null;
         } else {
-            return service.update(updatedTeacher);
+            return service.save(updatedTeacher);
         }
     }
 
     @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     void delete(@PathVariable("id") String id) {
-            Teacher teacher = service.findById(id);
+            Teacher teacher = service.findOne(id);
             if (teacher != null) {
                 service.delete(teacher);
         }

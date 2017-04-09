@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Answer;
-import com.github.sadufcg.services.AnswerService;
+import com.github.sadufcg.repositories.AnswerRepository;
 
 /**
  * This controller provides the public API that is used to perform operations
@@ -25,11 +25,11 @@ import com.github.sadufcg.services.AnswerService;
 @RequestMapping("/answer")
 public class AnswerREST {
 
-	private final AnswerService answerService;
+	private final AnswerRepository answerRepository;
 
 	@Autowired
-	AnswerREST(AnswerService answerService) {
-		this.answerService = answerService;
+	AnswerREST(AnswerRepository answerService) {
+		this.answerRepository = answerService;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class AnswerREST {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	Answer create(@RequestBody @Valid Answer newAnswer) {
-		Answer created = answerService.create(newAnswer);
+		Answer created = answerRepository.save(newAnswer);
 		return created;
 	}
 
@@ -57,7 +57,7 @@ public class AnswerREST {
 	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	Answer findById(@PathVariable("id") Long id) {
-		Answer answerEntry = answerService.findById(id);
+		Answer answerEntry = answerRepository.findOne(id);
 		return answerEntry;
 	}
 
@@ -74,7 +74,7 @@ public class AnswerREST {
 		if (id != updatedAnswer.getId()) {
 			return null;
 		} else {
-			Answer updated = answerService.update(updatedAnswer);
+			Answer updated = answerRepository.save(updatedAnswer);
 			return updated;
 		}
 	}
@@ -88,6 +88,6 @@ public class AnswerREST {
 	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable("id") Long id) {
-		answerService.delete(id);
+		answerRepository.delete(id);
 	}
 }

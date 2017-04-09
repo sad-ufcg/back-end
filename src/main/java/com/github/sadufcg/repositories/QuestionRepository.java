@@ -17,4 +17,6 @@ public interface QuestionRepository extends BaseRepository<Question, Long> {
 	
 	List<Question> findAll();
 
+	void deleteBy(Long id);
+
 }

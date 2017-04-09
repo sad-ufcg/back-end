@@ -26,13 +26,6 @@ public class Answer {
 	private int choiceNumber;
 	
 	public Answer() {}
-	
-	public Answer(Long id, Long question, String answerText, int choiceNumber) {
-		this.id = id;
-		this.question = question;
-		this.answerText = answerText;
-		this.choiceNumber = choiceNumber;
-	}
 
 	public Long getId() {
 		return id;

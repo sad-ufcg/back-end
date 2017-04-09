@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Course;
-import com.github.sadufcg.services.CourseService;
+import com.github.sadufcg.repositories.CourseRepository;
 
 /**
  * This controller provides the public API that is used to perform operations
@@ -27,10 +27,10 @@ import com.github.sadufcg.services.CourseService;
 @RequestMapping("/course")
 public class CourseREST {
 
-    private final CourseService courseService;
+    private final CourseRepository courseService;
 
     @Autowired
-    public CourseREST (CourseService courseService) {
+    public CourseREST (CourseRepository courseService) {
         this.courseService = courseService;
     }
 
@@ -45,7 +45,7 @@ public class CourseREST {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     Course create(@RequestBody @Valid Course newCourse) {
-        Course created = courseService.create(newCourse);
+        Course created = courseService.save(newCourse);
         return created;
     }
 
@@ -58,8 +58,8 @@ public class CourseREST {
      */
     @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    Course findById(@PathVariable("id") String id) {
-        Course course = courseService.findById(id);
+    Course findById(@PathVariable("id") Long id) {
+        Course course = courseService.findOne(id);
         return course;
     }
 
@@ -88,7 +88,7 @@ public class CourseREST {
         if (!id.equals(updatedCourse.getId())) {
             return null;
         } else {
-            Course updated = courseService.update(updatedCourse);
+            Course updated = courseService.save(updatedCourse);
             return updated;
         }
     }
@@ -101,8 +101,8 @@ public class CourseREST {
      */
     @CrossOrigin
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    void delete(@PathVariable("id") String id) {
-        courseService.delete(id);
+    void delete(@PathVariable("id") Long id) {
+        courseService.deleteBy(id);
     }
 
 }

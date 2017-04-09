@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.Question;
-import com.github.sadufcg.services.QuestionService;
+import com.github.sadufcg.repositories.QuestionRepository;
 
 /**
  * This controller provides the public API that is used to perform operations
@@ -27,11 +27,11 @@ import com.github.sadufcg.services.QuestionService;
 @RequestMapping("/question")
 public class QuestionREST {
 
-	private final QuestionService questionService;
+	private final QuestionRepository questionRepository;
 
 	@Autowired
-	QuestionREST(QuestionService questionService) {
-		this.questionService = questionService;
+	QuestionREST(QuestionRepository questionService) {
+		this.questionRepository = questionService;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class QuestionREST {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	Question create(@RequestBody @Valid Question newQuestion) {
-		Question created = questionService.create(newQuestion);
+		Question created = questionRepository.save(newQuestion);
 		return created;
 	}
 
@@ -59,7 +59,7 @@ public class QuestionREST {
 	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	Question findById(@PathVariable("id") Long id) {
-		Question question = questionService.findById(id);
+		Question question = questionRepository.findOne(id);
 		return question;
 	}
 
@@ -71,7 +71,7 @@ public class QuestionREST {
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
 	List<Question> findAll() {
-		List<Question> questionEntries = questionService.findAll();
+		List<Question> questionEntries = questionRepository.findAll();
 		return questionEntries;
 	}
 
@@ -88,7 +88,7 @@ public class QuestionREST {
 		if (id != updatedQuestion.getId()) {
 			return null;
 		} else {
-			Question updated = questionService.update(updatedQuestion);
+			Question updated = questionRepository.save(updatedQuestion);
 			return updated;
 		}
 	}
@@ -102,6 +102,6 @@ public class QuestionREST {
 	@CrossOrigin
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable("id") Long id) {
-		questionService.delete(id);
+		questionRepository.deleteBy(id);
 	}
 }
