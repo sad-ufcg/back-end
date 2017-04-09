@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -19,14 +20,17 @@ public class QuestionnaireAnswers {
     @Column
     private Long id;
 
-    @Column
-    private String courseId;
+    @ManyToOne
+    private Course course;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
 
     @Transient
     private Token token;
+ 
+    @Transient
+    private boolean invalid = false;
     
     public QuestionnaireAnswers() {}
 
@@ -44,15 +48,15 @@ public class QuestionnaireAnswers {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
-    }
+    }   
 
-    public String getCourseId() {
-        return courseId;
-    }
+	public Course getCourse() {
+		return course;
+	}
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
 	public Token getToken() {
 		return token;
@@ -60,6 +64,14 @@ public class QuestionnaireAnswers {
 
 	public void setToken(Token token) {
 		this.token = token;
+	}
+
+	public boolean isInvalid() {
+		return invalid;
+	}
+
+	public void setInvalid(boolean invalid) {
+		this.invalid = invalid;
 	}
 
 }

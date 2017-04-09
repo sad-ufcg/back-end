@@ -1,13 +1,12 @@
 package com.github.sadufcg.pojo;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table
@@ -15,27 +14,29 @@ public class Token {
 
     @Column
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     @OneToOne
-    private CourseStudent courseStudent;
+    private Course course;
 
     public Token() {
-
+    	this.id = UUID.randomUUID().toString();
     }
 
+    public Token(Course course) {
+    	this.course = course;
+    }
+    
     public String getId() { return this.id; }
 
     public void setId(String id) { this.id = id; }
 
-	public CourseStudent getCourseStudent() {
-		return courseStudent;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseStudent(CourseStudent courseStudent) {
-		this.courseStudent = courseStudent;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.sadufcg.pojo.QuestionnaireAnswers;
+import com.github.sadufcg.pojo.Token;
 import com.github.sadufcg.repositories.QuestionnaireAnswersRepository;
 import com.github.sadufcg.repositories.TokenRepository;
 
@@ -27,7 +28,19 @@ public class QuestionnaireAnswersREST {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionnaireAnswers create(@RequestBody QuestionnaireAnswers questionnaire) {
-        return questionnaireRepository.save(questionnaire);
+    	Token token = tokenRepository.findOne(questionnaire.getToken().getId());
+    	if (token == null) {
+    		// TODO return correct status code
+    		return null;
+    	}
+		if (questionnaire.isInvalid()) {
+			 // TODO invalid
+			return null;
+		}
+		questionnaire.setCourse(token.getCourse());
+		QuestionnaireAnswers questionnaireAnswers = questionnaireRepository.save(questionnaire);
+		tokenRepository.delete(token);
+		return questionnaireAnswers;    			
     }
 
 }

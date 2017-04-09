@@ -28,18 +28,14 @@ public class MailServerServiceImpl implements MailServerService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmail(String recipient, String mailBody) {
+    public void sendEmail(String recipient, String mailBody) throws MessagingException {
         MimeMessage mail = mailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setTo(recipient);
-            helper.setReplyTo(replyMailAdress);
-            helper.setFrom(replyMailAdress);
-            helper.setSubject(subject);
-            helper.setText(mailBody);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } finally {}
+        MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+        helper.setTo(recipient);
+        helper.setReplyTo(replyMailAdress);
+        helper.setFrom(replyMailAdress);
+        helper.setSubject(subject);
+        helper.setText(mailBody);
         mailSender.send(mail);
     }
 
