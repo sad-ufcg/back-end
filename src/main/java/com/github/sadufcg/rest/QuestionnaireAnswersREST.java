@@ -1,8 +1,5 @@
 package com.github.sadufcg.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +34,7 @@ public class QuestionnaireAnswersREST {
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionnaireAnswers create(@RequestBody QuestionnaireAnswers questionnaire) {
     	Token token = tokenRepository.findOne(questionnaire.getToken().getId());
-    	token = tokenRepository.findAll().get(0); // TODO XXX REMOVE TEST!
+    	// token = tokenRepository.findAll().get(0);
     	for (Answer a : questionnaire.getAnswers()) {
     		a.setQuestion(questionRepository.findOne(a.getQuestion().getId()));
     	}
