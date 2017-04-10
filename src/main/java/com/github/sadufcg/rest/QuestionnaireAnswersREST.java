@@ -30,6 +30,7 @@ public class QuestionnaireAnswersREST {
     @Autowired
     TokenRepository tokenRepository;
     
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionnaireAnswers create(@RequestBody QuestionnaireAnswers questionnaire) {

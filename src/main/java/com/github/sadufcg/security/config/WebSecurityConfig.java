@@ -15,7 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				// Student's answers POST
-				.antMatchers(HttpMethod.POST, "/answer/**").permitAll().and().authorizeRequests()
+				//.antMatchers(HttpMethod.POST, "/answer/**").permitAll().and().authorizeRequests()
 				// Students answers GET
 				.antMatchers(HttpMethod.GET, "/answer/**").permitAll()
 				// Questions GET
@@ -23,6 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.OPTIONS, "/question").permitAll()
 				.antMatchers(HttpMethod.GET, "/questionnaire").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/questionnaire").permitAll()
+				.antMatchers(HttpMethod.POST, "/questionnaireanswers").permitAll()
+				.antMatchers(HttpMethod.OPTIONS, "/questionnaireanswers").permitAll()
 				.antMatchers(HttpMethod.GET, "/question/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/questionnaire/**").permitAll()
 				// H2 Console:
