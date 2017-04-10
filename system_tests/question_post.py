@@ -34,11 +34,36 @@ def questionario():
 
 
 def questoes():
+    questoes_enun = [
+        'Os pré-requisitos assumidos pela disciplina foram adequados.',
+        'O programa da disciplina está de acordo com a ementa da mesma.',
+        "A metodologia usada pelo professor (recursos didáticos, atividades dentro e fora de sala de aula) teve impacto no aprendizado.",
+        "A bibliografia apresentada teve impacto no seu aprendizado.",
+        "O professor tem domínio no assunto dado.",
+        "O método de avaliação foi apropriado para o conteúdo da disciplina.",
+        "Você aprendeu bem o material ministrado na disciplina.",
+        "O professor foi pontual.",
+        "O professor foi assíduo.",
+        "Para as aulas que o professor faltou (no caso, faltas não previstas no cronograma da disciplina), houve reposição.",
+        "O professor equilibrou teoria/prática na disciplina (em disciplinas de laboratório, considere como 'teoria' a orientação do professor para os exercícios).",
+        "A comunicação da turma com o professor foi bem efetuada.",
+        "O professor demonstra preocupação com o aprendizado dos alunos.",
+        "A climatização da sala de aula (ou laboratório) é adequada.",
+        "Os recursos didáticos (software, computador, quadro, datashow, etc.) da sala de aula (ou laboratório) são adequados.",
+        "O mobiliário (cadeiras, mesas, etc.) da sala de aula (ou laboratório) é adequado.",
+        "A limpeza da sala de aula (ou laboratório) é adequada.",
+        ]
+    
     #TEXTO, MULTIPLA_ESCOLHA, SELECAO
     assert send('question', {'enunciado': "1", 'tipoResposta': 'TEXTO', 'comentario': "", "questionnaire": 1}, False).status_code == 401
-    send('question', {'enunciado': "Banana frita é bom?", 'tipoResposta': 'TEXTO', 'comentario': "", "questionnaire": 1})
-    send('question', {'enunciado': "Rabanada é bom?", 'tipoResposta': 'MULTIPLA_ESCOLHA', 'comentario': "-", "questionnaire": 1})
-    send('question', {'enunciado': "Rabanada é doce?", 'tipoResposta': 'SELECAO', 'comentario': ":)", "questionnaire": 1})
+    
+    for q in questoes_enun:
+        send('question', {'enunciado': q, 'tipoResposta': 'MULTIPLA_ESCOLHA', 'comentario': "", "questionnaire": 1})
+        send('question', {'enunciado': "Comentário...", 'tipoResposta': 'TEXTO', 'comentario': "", "questionnaire": 1})
+
+    #send('question', {'enunciado': "Banana frita é bom?", 'tipoResposta': 'TEXTO', 'comentario': "", "questionnaire": 1})
+    #send('question', {'enunciado': "Rabanada é bom?", 'tipoResposta': 'MULTIPLA_ESCOLHA', 'comentario': "-", "questionnaire": 1})
+    #send('question', {'enunciado': "Rabanada é doce?", 'tipoResposta': 'SELECAO', 'comentario': ":)", "questionnaire": 1})
 
 
 def mailman():
@@ -63,4 +88,4 @@ questionario()
 questoes()
 mailman()
 
-token("xpto")
+#token("xpto")
