@@ -24,7 +24,7 @@ public class Answer {
 	private String answerText;
 	
 	@Column
-	private int choiceNumber;
+	private Integer choiceNumber;
 	
 	public Answer() {}
 
@@ -52,11 +52,11 @@ public class Answer {
 		this.answerText = answerText;
 	}
 
-	public int getChoiceNumber() {
+	public Integer getChoiceNumber() {
 		return choiceNumber;
 	}
 
-	public void setChoiceNumber(int choiceNumber) {
+	public void setChoiceNumber(Integer choiceNumber) {
 		this.choiceNumber = choiceNumber;
 	}
 }
