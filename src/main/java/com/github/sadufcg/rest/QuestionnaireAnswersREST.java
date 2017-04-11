@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,8 +44,9 @@ public class QuestionnaireAnswersREST {
     		return new ResponseEntity<>("Token inválido", HttpStatus.UNAUTHORIZED);
     	}
 		if (questionnaire.isInvalid()) {
-			// TODO tratar situação de negar
-			return new ResponseEntity<>("Token inválido", HttpStatus.UNAUTHORIZED);
+			tokenRepository.delete(token);
+			System.err.println(">>> TOKEN REMOVIDO: " + token + " " + token.getCourse());
+			return new ResponseEntity<>("Token removido", HttpStatus.OK);
 		}
 		questionnaire.setId(null);
 		questionnaire.setCourse(token.getCourse());
