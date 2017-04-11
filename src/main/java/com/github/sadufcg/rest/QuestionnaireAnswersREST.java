@@ -2,10 +2,12 @@ package com.github.sadufcg.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,27 +33,26 @@ public class QuestionnaireAnswersREST {
     TokenRepository tokenRepository;
     
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionnaireAnswers create(@RequestBody QuestionnaireAnswers questionnaire) {
+    public ResponseEntity<String> create(@RequestBody QuestionnaireAnswers questionnaire) {
     	Token token = tokenRepository.findOne(questionnaire.getToken().getId());
     	// token = tokenRepository.findAll().get(0);
     	for (Answer a : questionnaire.getAnswers()) {
     		a.setQuestion(questionRepository.findOne(a.getQuestion().getId()));
     	}
     	if (token == null) {
-    		// TODO return correct status code
-    		return null;
+    		return new ResponseEntity<>("Token inválido", HttpStatus.UNAUTHORIZED);
     	}
 		if (questionnaire.isInvalid()) {
-			 // TODO invalid
-			return null;
+			// TODO tratar situação de negar
+			return new ResponseEntity<>("Token inválido", HttpStatus.UNAUTHORIZED);
 		}
 		questionnaire.setId(null);
 		questionnaire.setCourse(token.getCourse());
-		QuestionnaireAnswers questionnaireAnswers = questionnaireRepository.save(questionnaire);
+		questionnaireRepository.save(questionnaire);
 		tokenRepository.delete(token);
-		return questionnaireAnswers;    			
+		return new ResponseEntity<>("Resposta registrada, obrigado!", HttpStatus.CREATED);    			
     }
 
 }
