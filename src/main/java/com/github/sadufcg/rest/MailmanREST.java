@@ -32,9 +32,9 @@ public class MailmanREST {
         //return questionnaireRepository.save(questionnaire);
     }
 
-    @RequestMapping(value = "{courseId}", method = RequestMethod.POST)
+    @RequestMapping(value = "{courseStudent}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@PathVariable("courseId") Long courseId, @RequestBody Questionnaire questionnaire) {
+    public void create(@PathVariable("courseStudent") Long courseId, @RequestBody Questionnaire questionnaire) {
     	sendQuestionaryService.sendQuestionnaire(courseRepository.findOne(courseId));
     }
 

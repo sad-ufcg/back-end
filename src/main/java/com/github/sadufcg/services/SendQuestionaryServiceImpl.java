@@ -35,16 +35,7 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
     
     public void sendQuestionnaire(Course c) {
         for (CourseStudent courseStudent : courseStudentRepository.findByCourse(c)) {
-        	Token token = new Token(courseStudent.getCourse());
-            String studentsEmail = courseStudent.getStudent().getEmail();
-            String mailBody = generateMailBody(token, courseStudent);
-            try {
-				mailService.sendEmail(studentsEmail, mailBody);
-				tokenRepository.save(token);
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        	sendQuestionnaireStudent(courseStudent);
         }
     }
 
@@ -58,5 +49,20 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
     private String generateMailBody(Token token, CourseStudent courseStudent) {
         return token.getId() + " - " + courseStudent.toString();
     }
+
+	@Override
+	public void sendQuestionnaireStudent(CourseStudent courseStudent) {
+    	Token token = new Token(courseStudent.getCourse());
+        String studentsEmail = courseStudent.getStudent().getEmail();
+        String mailBody = generateMailBody(token, courseStudent);
+        try {
+			mailService.sendEmail(studentsEmail, mailBody);
+			courseStudent.setSent(true);
+			tokenRepository.save(token);
+			courseStudentRepository.save(courseStudent);
+		} catch (MessagingException e) {
+			System.err.println(">>> MAIL ERROR: " + courseStudent.getId() + " " + studentsEmail + courseStudent.getCourse().getName());
+		}
+	}
 
 }

@@ -33,9 +33,11 @@ public class CourseStudent {
     @Cascade(CascadeType.ALL)
     private Course course;
 
+    @Column
+    private Boolean sent;
+    
     public CourseStudent() {
-        this.student = new Student();
-        this.course = new Course();
+    	this.sent = false;
     }
 
     public CourseStudent(Student student, Course course) {
@@ -62,6 +64,14 @@ public class CourseStudent {
     public void setCourse(Course course) {
         this.course = course;
     }
+    
+	public boolean isSent() {
+		return sent;
+	}
+
+	public void setSent(boolean sent) {
+		this.sent = sent;
+	}
 
 	@Override
 	public String toString() {
