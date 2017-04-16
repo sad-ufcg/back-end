@@ -85,12 +85,16 @@ public class Course {
 	}
 
 	public static String getId(String name, int number, String semester, Teacher teacher) {
-		return name + "__" + number + "__" + semester + "__" + teacher.getSiape();
+		return name + "__" + number + "__" + semester;
 	}
 
 	@Override
 	public String toString() {
-		return name + " - " + number + " Professor: " + teacher.getName() + " - " + semester;
+        if (teacher != null) {
+    		return name + " - " + number + " Professor: " + teacher.getName() + " - " + semester;
+        } else {
+    		return name + " - " + number + " - " + semester;
+        }
 	}
 
 	
