@@ -54,14 +54,14 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
 		sb.append("Sua participação é importante. Cada professor receberá um resumo"
 				+ " de como os alunos votaram na sua turma bem como comentários que"
 				+ " forem registrados por você. IMPORTANTE, VOCÊ NÃO SERÁ IDENTIFICADO" + " NESTE PROCESSO!" + nl + nl);
-		sb.append("Os resultados da avaliação docente ainda ajuda o departamento a definir"
-				+ " alterações nas alocações das disciplinas, principais pontos de ação a"
-				+ " serem tomados e para poder cobrar por melhorias perante a universidade." + nl + nl);
+		sb.append("Os resultados da avaliação docente ajudam o departamento a definir alterações nas alocações das"
+				+ " disciplinas, a identificar as principais áreas a serem trabalhadas e para poder cobrar por"
+				+ " melhorias perante a universidade." + nl + nl);
 		String disciplina = courseStudent.getCourse().toString();
 		sb.append("Pedimos que você avalie a disciplina: " + disciplina + nl + nl);
 		sb.append("Para isto, basta acessar o link: https://sad.splab.ufcg.edu.br/#!/answerform/1/"
-				+ UrlEscapers.urlFragmentEscaper().escape(disciplina) + "/" + token.getId());
-
+				+ UrlEscapers.urlFragmentEscaper().escape(disciplina) + "/" + token.getId() + nl);
+		sb.append("Importante: você só poderá votar uma única vez e o voto não poderá ser alterado após ser registrado.");
 		return sb.toString();
 	}
 
