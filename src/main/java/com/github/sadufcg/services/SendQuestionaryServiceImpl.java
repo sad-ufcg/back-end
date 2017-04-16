@@ -1,7 +1,5 @@
 package com.github.sadufcg.services;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -15,6 +13,7 @@ import com.github.sadufcg.pojo.Token;
 import com.github.sadufcg.repositories.CourseRepository;
 import com.github.sadufcg.repositories.CourseStudentRepository;
 import com.github.sadufcg.repositories.TokenRepository;
+import com.google.common.net.UrlEscapers;
 
 /**
  * Created by antunessilva on 20/03/17.
@@ -60,12 +59,8 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
 				+ " serem tomados e para poder cobrar por melhorias perante a universidade." + nl + nl);
 		String disciplina = courseStudent.getCourse().toString();
 		sb.append("Pedimos que você avalie a disciplina: " + disciplina + nl + nl);
-		try {
-			sb.append("Para isto, basta acessar o link: https://sad.splab.ufcg.edu.br/#!/answerform/1/"
-					+ URLEncoder.encode(disciplina, "UTF-8") + "/" + token.getId());
-		} catch (UnsupportedEncodingException e) {
-			sb.append("Para isto, basta acessar o link: https://sad.splab.ufcg.edu.br/#!/answerform/1/%20/" + token.getId());
-		}
+		sb.append("Para isto, basta acessar o link: https://sad.splab.ufcg.edu.br/#!/answerform/1/"
+				+ UrlEscapers.urlFragmentEscaper().escape(disciplina) + "/" + token.getId());
 
 		return token.getId() + " - " + courseStudent.toString();
 	}

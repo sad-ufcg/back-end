@@ -81,6 +81,12 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- GUAVA (URL ESCAPE) -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>19.0</version>
+		</dependency>
 		<!-- Provided (for embedded war support) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
