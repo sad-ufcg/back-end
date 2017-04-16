@@ -62,7 +62,7 @@ public class SendQuestionaryServiceImpl implements SendQuestionaryService {
 		sb.append("Para isto, basta acessar o link: https://sad.splab.ufcg.edu.br/#!/answerform/1/"
 				+ UrlEscapers.urlFragmentEscaper().escape(disciplina) + "/" + token.getId());
 
-		return token.getId() + " - " + courseStudent.toString();
+		return sb.toString();
 	}
 
 	@Override
