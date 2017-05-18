@@ -20,7 +20,7 @@ public class Answer {
 	@ManyToOne
 	private Question question;
 	
-	@Column
+	@Column(length = 65000)
 	private String answerText;
 	
 	@Column
