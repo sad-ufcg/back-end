@@ -1,0 +1,12 @@
+language: java
+sudo: required
+jdk:
+- oraclejdk8
+install: true
+script:
+- sudo apt-get update && sudo apt-get install oracle-java8-installer
+- java -version
+- mvn test -B
+notifications:
+  slack:
+    secure: SYYSTkAyPjjVmEURHyER6l6EjBRuGjr2cUk6WEPLhuuWQ9ibogEe3cezWMBP1L62p+q2IXolzxiE4z1PpwrSiTKdHlnkFML4HIZO9E3XUFiTOe+d+UwmGbwF9Pk2xonJzeUrardopW+CKGSs3Kt0vdLfnkFr04j4OdOGg0orEqPSl9oLJqssbRkn8Va/TCmgSciNMdNFJitWcXgVBMuAwikmyDI5qCJTBbF6+w7a0Ju8kTUa8vCPcpqoUc6ArITG67toft2+jjmKGE8GK2lT4Ez0txjDzLNTE/82B4bogy3j15aXKzZ60U0uTVtKi2TI1u3UMXNhSPf2FiHJl+u+ZtHxjVDnTHqmmNZQdZvcZLtk26w2cwQGY/4JJr9+xGA6BZbX+56BiWRE9osl8ZDs57N4p7vtWzk5WdK9nS9G7NMSpBZ4wAJ0BrabnBvcNX+f9wSarU2pQ52m83+bYtfNWtZtRZ1uYoNzvi+RAQTtY7L5vRgRO6GLdsWsTPuljYtKFSB6G8qVdCARVfv8Nj6OfHlzq4aCgHFHAdIxg6MkfYQZ4cM/IWu8ndJ0r6prtFKVlEj6GNHeEwLLdjY1NBQQFQYqRFXC3rfZBTpifsDPPazJeQdB1Rshnfptzpbi8XOOChuJ0nrTHtSnIDwAkfObzZKRpkWnOJGtJAR0hW8ENSU=
