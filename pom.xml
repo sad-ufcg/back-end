@@ -8,10 +8,27 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>sad</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Sistema de Avaliação Docente</name>
+	<description>API do SAD</description>
 
-	<parent>
+    <issueManagement>
+        <url>https://github.com/sad-ufcg/back-end/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <email>arthur.sampaio.correia@ccc.ufcg.edu.br</email>
+            <name>Arthur Sampaio</name>
+            <url>https://github.com/arthursampaio</url>
+            <id>arthursampaio</id>
+        </developer>
+
+        <!--Add other developers-->
+
+    </developers>
+    
+    <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.8.RELEASE</version>
