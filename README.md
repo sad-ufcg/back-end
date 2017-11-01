@@ -2,7 +2,8 @@
 > O SAD - Sistema de Avaliação Docente é um sistema que tem o objetivo de obter o feedback dos alunos em relação a qualidade da docência com o intuito de melhorar a experiência de aula dos alunos. 
 
 [![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+[![GitHub issues](https://img.shields.io/github/issues/sad-ufcg/back-end.svg)](https://github.com/sad-ufcg/back-end/issues)
+
 
 De um a dois parágrafos sobre o que é seu projeto e o que ele faz.
 
@@ -42,9 +43,6 @@ mvn test -B
     * Trabalho em andamento
 -->
 
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/sad-ufcg/back-end.svg?branch=master
 
