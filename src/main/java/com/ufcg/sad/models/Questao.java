@@ -6,16 +6,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Entidade que representa uma questão
+ * 
+ * @author Lucas Silva
+ */
 @Entity
 public class Questao implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -33,6 +38,13 @@ public class Questao implements Serializable {
 	@NotNull
 	private String comentario;
 	
+	/**
+	 * Método para construir uma instância do tipo questão
+	 * @param id
+	 * @param enunciado
+	 * @param tipoResposta (enum)
+	 * @param comentario
+	 */
 	public Questao(Long id, String enunciado, TipoResposta tipoResposta, String comentario) {
 		this.id = id;
 		this.enunciado = enunciado;
@@ -40,6 +52,9 @@ public class Questao implements Serializable {
 		this.comentario = comentario;
 	}
 	
+	/**
+	 * Método para construir uma instância do tipo questão
+	 */
 	public Questao() { }
 	
 	public Long getId() {
@@ -76,13 +91,13 @@ public class Questao implements Serializable {
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
-		result = prime * result + ((enunciado == null) ? 0 : enunciado.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((tipoResposta == null) ? 0 : tipoResposta.hashCode());
-		return result;
+		final int primo = 31;
+		int resultado = 1;
+		resultado = primo * resultado + ((comentario == null) ? 0 : comentario.hashCode());
+		resultado = primo * resultado + ((enunciado == null) ? 0 : enunciado.hashCode());
+		resultado = primo * resultado + ((id == null) ? 0 : id.hashCode());
+		resultado = primo * resultado + ((tipoResposta == null) ? 0 : tipoResposta.hashCode());
+		return resultado;
 	}
 	
 	@Override
@@ -93,23 +108,23 @@ public class Questao implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Questao other = (Questao) obj;
+		Questao outraQuestao = (Questao) obj;
 		if (comentario == null) {
-			if (other.comentario != null)
+			if (outraQuestao.comentario != null)
 				return false;
-		} else if (!comentario.equals(other.comentario))
+		} else if (!comentario.equals(outraQuestao.comentario))
 			return false;
 		if (enunciado == null) {
-			if (other.enunciado != null)
+			if (outraQuestao.enunciado != null)
 				return false;
-		} else if (!enunciado.equals(other.enunciado))
+		} else if (!enunciado.equals(outraQuestao.enunciado))
 			return false;
 		if (id == null) {
-			if (other.id != null)
+			if (outraQuestao.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id.equals(outraQuestao.id))
 			return false;
-		if (tipoResposta != other.tipoResposta)
+		if (tipoResposta != outraQuestao.tipoResposta)
 			return false;
 		return true;
 	}
