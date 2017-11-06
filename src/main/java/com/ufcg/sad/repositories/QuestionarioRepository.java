@@ -3,6 +3,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ufcg.sad.models.Questionario;
 
+/**
+ * Repositório para Questionário
+ * 
+ * @author Lucas Silva
+ */
 public interface QuestionarioRepository extends JpaRepository<Questionario, Long> {
 
 }

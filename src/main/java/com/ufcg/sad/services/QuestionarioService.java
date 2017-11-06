@@ -76,7 +76,7 @@ public class QuestionarioService {
 	 */
 	public void criaQuestionario(Questionario questionario) throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException {
 		
-		if(questionario.getName() == null || questionario.getName().isEmpty()) {
+		if(questionario.getNome() == null || questionario.getNome().isEmpty()) {
 			throw new QuestionarioSemNomeException();
 		}
 		else if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
@@ -112,8 +112,8 @@ public class QuestionarioService {
 			questionarioAtualizado.setQuestoes(questionario.getQuestoes());
 		}
 		
-		if(questionario.getName() != null && !questionario.getName().equals(questionarioAtualizado.getName())) {
-			questionarioAtualizado.setName(questionario.getName());
+		if(questionario.getNome() != null && !questionario.getNome().equals(questionarioAtualizado.getNome())) {
+			questionarioAtualizado.setNome(questionario.getNome());
 		}
 		
 		questionarioRepository.save(questionarioAtualizado);
