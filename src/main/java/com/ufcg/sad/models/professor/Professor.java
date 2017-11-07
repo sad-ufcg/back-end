@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import org.hibernate.validator.constraints.Length;
 
-import static com.ufcg.sad.util.Utils.TAMANHO_MAX_STRING;
+import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
