@@ -1,4 +1,4 @@
-package com.ufcg.sad.util;
+package com.ufcg.sad.models.util;
 
 public final class Utils {
 

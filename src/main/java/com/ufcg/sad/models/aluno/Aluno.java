@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import com.ufcg.sad.models.matricula.Matricula;
 import org.hibernate.validator.constraints.Length;
 
-import static com.ufcg.sad.util.Utils.TAMANHO_MAX_STRING;
+import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
 /**
  * Classe que representa um aluno no sistema.
