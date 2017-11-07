@@ -7,9 +7,9 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.ufcg.sad.models.Questao;
-import com.ufcg.sad.models.Questionario;
-import com.ufcg.sad.models.TipoResposta;
+import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.TipoResposta;
 
 /**
  * Classe de testes para questionário
