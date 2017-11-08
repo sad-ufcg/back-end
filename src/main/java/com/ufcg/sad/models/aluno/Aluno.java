@@ -46,7 +46,7 @@ public class Aluno implements Serializable {
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Matricula> disciplinas;
+    private Set<Matricula> matriculas;
 
     /**
      * Construtor padrão para o Hibernate.
@@ -57,13 +57,13 @@ public class Aluno implements Serializable {
      * @param id Id do aluno no bando de dados.
      * @param nome Nome do aluno.
      * @param email Email do aluno.
-     * @param disciplinas Conjunto de disciplinas onde o aluno está matriculado.
+     * @param matriculas Conjunto de matriculas onde o aluno está matriculado.
      */
-    public Aluno(Long id, String nome, String email, Set<Matricula> disciplinas) {
+    public Aluno(Long id, String nome, String email, Set<Matricula> matriculas) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.disciplinas = disciplinas;
+        this.matriculas = matriculas;
     }
 
     public Long getId() {
@@ -90,12 +90,12 @@ public class Aluno implements Serializable {
         this.email = email;
     }
 
-    public Set<Matricula> getDisciplinas() {
-        return disciplinas;
+    public Set<Matricula> getMatriculas() {
+        return matriculas;
     }
 
-    public void setDisciplinas(Set<Matricula> disciplinas) {
-        this.disciplinas = disciplinas;
+    public void setMatriculas(Set<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 
     @Override

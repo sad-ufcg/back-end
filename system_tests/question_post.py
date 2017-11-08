@@ -47,7 +47,7 @@ def questoes():
         "O professor foi pontual.",
         "O professor foi assíduo.",
         "Para as aulas que o professor faltou (no caso, faltas não previstas no cronograma da disciplina), houve reposição.",
-        "O professor equilibrou teoria/prática na disciplina (em disciplinas de laboratório, considere como 'teoria' a orientação do professor para os exercícios).",
+        "O professor equilibrou teoria/prática na disciplina (em matriculas de laboratório, considere como 'teoria' a orientação do professor para os exercícios).",
         "A comunicação da turma com o professor foi bem efetuada.",
         "O professor demonstra preocupação com o aprendizado dos alunos.",
         "A climatização da sala de aula (ou laboratório) é adequada.",

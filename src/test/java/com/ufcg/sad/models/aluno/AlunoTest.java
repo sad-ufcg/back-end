@@ -27,12 +27,12 @@ public class AlunoTest {
         aluno.setId(id);
         aluno.setNome(nome);
         aluno.setEmail(email);
-        aluno.setDisciplinas(matriculas);
+        aluno.setMatriculas(matriculas);
 
         Assert.assertEquals(id, aluno.getId());
         Assert.assertEquals(nome, aluno.getNome());
         Assert.assertEquals(email, aluno.getEmail());
-        Assert.assertEquals(matriculas, aluno.getDisciplinas());
+        Assert.assertEquals(matriculas, aluno.getMatriculas());
     }
 
     private Disciplina geraDisciplina(String nome) {
