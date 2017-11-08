@@ -1,4 +1,4 @@
-package com.ufcg.sad.models;
+package com.ufcg.sad.models.questionario;
 
 import java.io.Serializable;
 
