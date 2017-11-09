@@ -35,7 +35,6 @@ public class Questao implements Serializable {
 	private TipoResposta tipoResposta;
 	
 	@Column
-	@NotNull
 	private String comentario;
 	
 	/**
