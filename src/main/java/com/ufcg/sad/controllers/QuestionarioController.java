@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufcg.sad.exceptions.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.QuestionarioNaoExisteException;
-import com.ufcg.sad.exceptions.QuestionarioSemNomeException;
-import com.ufcg.sad.exceptions.QuestionarioVazioException;
-import com.ufcg.sad.models.Questionario;
-import com.ufcg.sad.services.QuestionarioService;
+import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
+import com.ufcg.sad.exceptions.questionario.QuestionarioNaoExisteException;
+import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
+import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
+import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.services.questionario.QuestionarioService;
 
 /**
  * Este controller provê uma API para acessar questionários.
@@ -41,7 +42,7 @@ public class QuestionarioController {
 			Questionario questionario = questionarioService.getQuestionario(id);
 			return new ResponseEntity<Questionario>(questionario, HttpStatus.OK);
 		} catch (QuestionarioNaoExisteException e) {
-			return new ResponseEntity<Questionario>(HttpStatus.FORBIDDEN);
+			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -58,7 +59,7 @@ public class QuestionarioController {
 		} catch (QuestionarioNaoExisteException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
 		} catch (QuestaoInvalidaException e) {
-			return new ResponseEntity<Questionario>(HttpStatus.FORBIDDEN);
+			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -81,11 +82,13 @@ public class QuestionarioController {
 	    try {
 	    	questionarioService.criaQuestionario(questionario);
 	    } catch (QuestionarioVazioException e) {
-	    	return new ResponseEntity<Questionario>(HttpStatus.FORBIDDEN);
+	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
 	    } catch (QuestionarioSemNomeException e) {
-	    	return new ResponseEntity<Questionario>(HttpStatus.FORBIDDEN);
+	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
 	    } catch (QuestaoInvalidaException e) {
-	    	return new ResponseEntity<Questionario>(HttpStatus.FORBIDDEN);
+	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
+		} catch (ParametroInvalidoException e) {
+			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
 		}
 	    
 	    return new ResponseEntity<Questionario>(HttpStatus.CREATED);

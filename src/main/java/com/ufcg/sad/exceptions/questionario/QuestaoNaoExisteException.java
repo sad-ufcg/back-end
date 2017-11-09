@@ -1,4 +1,4 @@
-package com.ufcg.sad.exceptions;
+package com.ufcg.sad.exceptions.questionario;
 
 /**
  * Exceção lançada quando uma questão não existe e tenta ser acessada.

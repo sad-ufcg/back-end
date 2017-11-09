@@ -1,4 +1,4 @@
-package com.ufcg.sad.services;
+package com.ufcg.sad.services.questionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.sad.exceptions.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.QuestionarioNaoExisteException;
-import com.ufcg.sad.exceptions.QuestionarioSemNomeException;
-import com.ufcg.sad.exceptions.QuestionarioVazioException;
-import com.ufcg.sad.models.Questao;
-import com.ufcg.sad.models.Questionario;
-import com.ufcg.sad.repositories.QuestionarioRepository;
+import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
+import com.ufcg.sad.exceptions.questionario.QuestionarioNaoExisteException;
+import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
+import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
+import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
 
 /**
  * Serviço para um Questionário.
@@ -27,16 +28,9 @@ public class QuestionarioService {
 
 	/**
 	 * Construtor para o tipo QuestionarioService.
-	 * @param questionarioRepository
-	 * @param questaoService
 	 */
 	@Autowired
-	public QuestionarioService(QuestionarioRepository questionarioRepository,
-						       QuestaoService questaoService) {
-		super();
-		this.questionarioRepository = questionarioRepository;
-		this.questaoService = questaoService;
-	}
+	public QuestionarioService() {}
 	
 	/**
 	 * Método que busca um questionário a partir de um certo id.
@@ -73,8 +67,13 @@ public class QuestionarioService {
 	/**
 	 * Método que salva um questionário.
 	 * @param questionario
+	 * @throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException 
 	 */
-	public void criaQuestionario(Questionario questionario) throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException {
+	public void criaQuestionario(Questionario questionario) throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException {
+		
+		if(questionario.getId() != null) {
+			throw new ParametroInvalidoException();
+		}
 		
 		if(questionario.getNome() == null || questionario.getNome().isEmpty()) {
 			throw new QuestionarioSemNomeException();

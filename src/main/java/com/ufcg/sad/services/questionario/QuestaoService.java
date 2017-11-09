@@ -1,4 +1,4 @@
-package com.ufcg.sad.services;
+package com.ufcg.sad.services.questionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.sad.exceptions.QuestaoNaoExisteException;
-import com.ufcg.sad.models.Questao;
-import com.ufcg.sad.models.TipoResposta;
-import com.ufcg.sad.repositories.QuestaoRepository;
+import com.ufcg.sad.exceptions.questionario.QuestaoNaoExisteException;
+import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questionario.TipoResposta;
+import com.ufcg.sad.repositories.questionario.QuestaoRepository;
 
 /**
  * Serviço para a entidade Questão.
@@ -19,17 +19,13 @@ import com.ufcg.sad.repositories.QuestaoRepository;
 @Service
 public class QuestaoService {
 
+	@Autowired
 	private QuestaoRepository questaoRepository;
 
 	/**
 	 * Construtor para o tipo QuestaoService.
-	 * @param questaoRepository
 	 */
-	@Autowired
-	public QuestaoService(QuestaoRepository questaoRepository) {
-		super();
-		this.questaoRepository = questaoRepository;
-	}
+	public QuestaoService() {}
 	
 	/**
 	 * Método auxiliar para validar uma questão.
@@ -37,6 +33,11 @@ public class QuestaoService {
 	 * @return boolean
 	 */
 	public boolean validaQuestao(Questao questao) {
+		
+		if(questao.getId() != null) {
+			return false;
+		}
+		
 		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
 			return false;
 		}
