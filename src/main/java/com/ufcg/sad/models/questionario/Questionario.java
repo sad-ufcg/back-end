@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.ufcg.sad.models.questao.Questao;
+
 /**
  * Entidade que representa um questionário
  * 

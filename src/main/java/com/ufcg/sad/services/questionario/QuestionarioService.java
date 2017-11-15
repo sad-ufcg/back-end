@@ -11,7 +11,7 @@ import com.ufcg.sad.exceptions.questionario.QuestionarioNaoExisteException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
-import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
 

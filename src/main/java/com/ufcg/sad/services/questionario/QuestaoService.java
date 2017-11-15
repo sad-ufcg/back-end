@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufcg.sad.exceptions.questionario.QuestaoNaoExisteException;
-import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.TipoResposta;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
 

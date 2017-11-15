@@ -2,14 +2,16 @@ package com.ufcg.sad.models.questionario;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.Questionario;
-import com.ufcg.sad.models.questionario.TipoResposta;
 
 /**
  * Classe de testes para questionário
@@ -38,10 +40,13 @@ public class QuestionarioTest {
 	 * @return Set com duas questões
 	 */
 	private Set<Questao> getQuestoes() {
-		Set<Questao> questoes = new HashSet<Questao>();
 		
-		Questao questao1 = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", TipoResposta.ESCOLHA_SIMPLES, "");
-		Questao questao2 = new Questao(new Long(2), "Você tem alguma sugestão para melhorar a disciplina?", TipoResposta.TEXTO, "");
+		Set<Questao> questoes = new HashSet<Questao>();
+		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
+		Date dataCriacao = new Date();
+		
+		Questao questao1 = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "");
+		Questao questao2 = new Questao(new Long(2), "Você tem alguma sugestão para melhorar a disciplina?", autor, dataCriacao, "");
 		
 		questoes.add(questao1);
 		questoes.add(questao2);
