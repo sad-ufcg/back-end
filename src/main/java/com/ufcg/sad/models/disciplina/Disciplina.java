@@ -3,6 +3,7 @@ package com.ufcg.sad.models.disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,7 +51,10 @@ public class Disciplina implements Serializable {
     @NotNull
     private String semestre;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "disciplina",
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Matricula> alunos;
 
     /**

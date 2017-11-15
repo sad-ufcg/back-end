@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
 import org.hibernate.validator.constraints.Length;
 
@@ -45,7 +47,10 @@ public class Aluno implements Serializable {
     @Length(max = TAMANHO_MAX_STRING)
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "aluno",
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Matricula> disciplinas;
 
     /**
@@ -96,6 +101,31 @@ public class Aluno implements Serializable {
 
     public void setDisciplinas(Set<Matricula> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    /**
+     * Adiciona uma nova Disciplina ao aluno.
+     *
+     * @param disciplina disciplina a ser adicionada.
+     */
+    public void adicionarDisciplina(Disciplina disciplina) {
+        Matricula matricula = new Matricula(this, disciplina);
+        this.disciplinas.add(matricula);
+        disciplina.getAlunos().add(matricula);
+    }
+
+    /**
+     * Remove uma disciplina
+     *
+     * @param disciplina disciplina a ser removida
+     */
+    public void removerDisciplina(Disciplina disciplina) {
+        for (Matricula matricula : this.disciplinas) {
+            if (matricula.getDisciplina().getId().equals(disciplina.getId())) {
+                matricula.getDisciplina().getAlunos().remove(matricula);
+                this.disciplinas.remove(matricula);
+            }
+        }
     }
 
     @Override
