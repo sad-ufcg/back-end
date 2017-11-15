@@ -4,6 +4,7 @@ import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,9 +23,8 @@ public class Matricula implements Serializable {
 
     private static final long serialVersionUID = -104350015797590113L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @EmbeddedId
+    private IdMatricula id;
 
     @Column
     @NotNull
@@ -39,6 +39,11 @@ public class Matricula implements Serializable {
      */
     public Matricula() {}
 
+    public Matricula(Aluno aluno, Disciplina disciplina) {
+        this.aluno = aluno;
+        this.disciplina = disciplina;
+    }
+
     /**
      * Construtor para a classe Matricula
      *
@@ -46,17 +51,17 @@ public class Matricula implements Serializable {
      * @param aluno Aluno matriculado na disciplina.
      * @param disciplina Disciplina a qual o aluno está matriculado.
      */
-    public Matricula(Long id, Aluno aluno, Disciplina disciplina) {
+    public Matricula(IdMatricula id, Aluno aluno, Disciplina disciplina) {
         this.id = id;
         this.aluno = aluno;
         this.disciplina = disciplina;
     }
 
-    public Long getId() {
+    public IdMatricula getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(IdMatricula id) {
         this.id = id;
     }
 
