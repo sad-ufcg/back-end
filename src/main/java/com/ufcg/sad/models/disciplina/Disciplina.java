@@ -44,12 +44,15 @@ public class Disciplina implements Serializable {
     private int turma;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "siape")
+    @JoinColumn(name = "id")
     private Professor professor;
 
     @Column
     @NotNull
     private String semestre;
+
+    @Column
+    private String codigo;
 
     @OneToMany(mappedBy = "disciplina",
             fetch = FetchType.EAGER,
@@ -126,6 +129,14 @@ public class Disciplina implements Serializable {
 
     public void setAlunos(Set<Matricula> alunos) {
         this.alunos = alunos;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     @Override

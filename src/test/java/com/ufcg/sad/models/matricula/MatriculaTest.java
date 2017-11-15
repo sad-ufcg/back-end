@@ -20,11 +20,8 @@ public class MatriculaTest {
         String nomeDisciplina = "Disciplina";
         disciplina.setNome(nomeDisciplina);
 
-        Long idMatricula = 2L;
+        Matricula matricula = new Matricula(aluno, disciplina);
 
-        Matricula matricula = new Matricula(idMatricula, aluno, disciplina);
-
-        Assert.assertEquals(idMatricula, matricula.getId());
         Assert.assertEquals(aluno, matricula.getAluno());
         Assert.assertEquals(disciplina, matricula.getDisciplina());
     }
