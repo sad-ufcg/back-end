@@ -10,4 +10,6 @@ import com.ufcg.sad.models.questionario.Questao;
  */
 public interface QuestaoRepository extends JpaRepository<Questao, Long> {
 
+    Questao findById(Long id);
+
 }
