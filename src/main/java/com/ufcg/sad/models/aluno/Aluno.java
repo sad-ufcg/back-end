@@ -1,6 +1,7 @@
 package com.ufcg.sad.models.aluno;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -51,7 +52,7 @@ public class Aluno implements Serializable {
             fetch = FetchType.EAGER,
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Matricula> disciplinas;
+    private Set<Matricula> matriculas;
 
     /**
      * Construtor padrão para o Hibernate.
@@ -110,7 +111,7 @@ public class Aluno implements Serializable {
      */
     public void adicionarDisciplina(Disciplina disciplina) {
         Matricula matricula = new Matricula(this, disciplina);
-        this.disciplinas.add(matricula);
+        this.matriculas.add(matricula);
         disciplina.getAlunos().add(matricula);
     }
 
@@ -120,12 +121,14 @@ public class Aluno implements Serializable {
      * @param disciplina disciplina a ser removida
      */
     public void removerDisciplina(Disciplina disciplina) {
-        for (Matricula matricula : this.disciplinas) {
-            if (matricula.getDisciplina().getId().equals(disciplina.getId())) {
-                matricula.getDisciplina().getAlunos().remove(matricula);
-                this.disciplinas.remove(matricula);
-            }
+        Iterator iterator = this.matriculas.iterator();
+        Matricula matriculaRemovida = (Matricula) iterator.next();
+        while (iterator.hasNext() && !matriculaRemovida.getDisciplina().equals(disciplina)) {
+            matriculaRemovida = (Matricula) iterator.next();
         }
+
+        matriculaRemovida.getDisciplina().getAlunos().remove(matriculaRemovida);
+        this.matriculas.remove(matriculaRemovida);
     }
 
     @Override
