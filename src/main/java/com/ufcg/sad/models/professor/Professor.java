@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,8 +39,7 @@ public class Professor implements Serializable {
     private String nome;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "professor")
     private Set<Disciplina> disciplinas;
 

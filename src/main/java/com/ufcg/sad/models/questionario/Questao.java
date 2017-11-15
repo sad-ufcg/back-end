@@ -1,4 +1,4 @@
-package com.ufcg.sad.models;
+package com.ufcg.sad.models.questionario;
 
 import java.io.Serializable;
 
@@ -35,7 +35,6 @@ public class Questao implements Serializable {
 	private TipoResposta tipoResposta;
 	
 	@Column
-	@NotNull
 	private String comentario;
 	
 	/**
