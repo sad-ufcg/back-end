@@ -65,7 +65,15 @@ public class Questao implements Serializable {
 		// A data da última edição é inicialmente a data de criação.
 		this.dataUltimaEdicao = dataCriacao;
 	}
-	
+
+
+	public Questao(String enunciado, TipoResposta tipoResposta, String comentario) {
+		this.enunciado = enunciado;
+		this.tipoResposta = tipoResposta;
+		this.comentario = comentario;
+	}
+
+
 	/**
      * Construtor padrão para o Hibernate.
      */
