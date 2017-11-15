@@ -20,6 +20,9 @@ import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
  * 
  * @author Marianne Linhares
  */
+/*
+	TODO: precisa criar uma interface QuestionarioService
+ */
 @Service
 public class QuestionarioService {
 	
@@ -51,7 +54,6 @@ public class QuestionarioService {
 	
 	/**
 	 * Método que busca todos os questionários.
-	 * @param id
 	 * @return lista contendo questionarios
 	 */
 	public List<Questionario> getTodosQuestionarios() {
