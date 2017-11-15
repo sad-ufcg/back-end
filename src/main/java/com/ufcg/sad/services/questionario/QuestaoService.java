@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ufcg.sad.exceptions.questionario.QuestaoNaoExisteException;
 import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questionario.TipoResposta;
+import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
 
 /**
@@ -41,14 +41,14 @@ public class QuestaoService {
 		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
 			return false;
 		}
-		
-		if(questao.getTipoResposta() == null) {
+
+		if(questao.getTipoQuestao() == null) {
 			return false;
 		}
 		
 		boolean tipoValido = false;
-		for(TipoResposta respostaValida : TipoResposta.values()) {
-			if(questao.getTipoResposta().equals(respostaValida)) {
+		for(TipoQuestao respostaValida : TipoQuestao.values()) {
+			if(questao.getTipoQuestao().equals(respostaValida)) {
 		       tipoValido = true;
 		       break;
 		   }

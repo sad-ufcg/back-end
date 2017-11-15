@@ -25,14 +25,16 @@ import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
  */
 @Service
 public class QuestionarioService {
-	
+
+	@Autowired
 	private QuestionarioRepository questionarioRepository;
+
+	@Autowired
 	private QuestaoService questaoService;
 
 	/**
 	 * Construtor para o tipo QuestionarioService.
 	 */
-	@Autowired
 	public QuestionarioService() {}
 	
 	/**

@@ -3,6 +3,7 @@ package com.ufcg.sad.models.opcao;
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.ufcg.sad.models.questao.Questao;
 
+@Entity
 public class Opcao {
 	
     @Id
@@ -31,10 +33,10 @@ public class Opcao {
     @NotNull
     @Length(max = TAMANHO_MAX_STRING)
     private String descricao;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Questao questao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "questao_id")
+	private Questao questao;
     
     /**
      * Contrutor padrão para o Hibernate.
@@ -53,7 +55,16 @@ public class Opcao {
     public Opcao(Long id, String nome, String descricao, Questao questao) {
         this.id = id;
         this.nome = nome;
+        this.descricao = descricao;
         this.questao = questao;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
 	public String getNome() {

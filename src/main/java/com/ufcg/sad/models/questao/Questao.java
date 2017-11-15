@@ -2,15 +2,20 @@ package com.ufcg.sad.models.questao;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
 
 /**
@@ -19,7 +24,6 @@ import com.ufcg.sad.models.professor.Professor;
  * @author Lucas Silva, Marianne Linhares
  */
 @Entity
-@Inheritance
 public class Questao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -47,6 +51,15 @@ public class Questao implements Serializable {
 	@NotNull
 	private Date dataUltimaEdicao;
 	
+	@Column
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private TipoQuestao tipoQuestao;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+               mappedBy = "questao")
+	private List<Opcao> opcoes;
+	
 
 	/**
 	 * Método para construir uma instância do tipo questão
@@ -56,23 +69,17 @@ public class Questao implements Serializable {
 	 * @param dataDeCriacao
 	 * @param comentario
 	 */
-	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, String comentario) {
+	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao) {
 		this.id = id;
 		this.enunciado = enunciado;
 		this.autor = autor;
 		this.dataCriacao = dataCriacao;
 		this.comentario = comentario;
+		this.opcoes = opcoes;
+		this.tipoQuestao = tipoQuestao;
 		// A data da última edição é inicialmente a data de criação.
 		this.dataUltimaEdicao = dataCriacao;
 	}
-
-
-	public Questao(String enunciado, TipoResposta tipoResposta, String comentario) {
-		this.enunciado = enunciado;
-		this.tipoResposta = tipoResposta;
-		this.comentario = comentario;
-	}
-
 
 	/**
      * Construtor padrão para o Hibernate.
@@ -119,39 +126,82 @@ public class Questao implements Serializable {
 		this.dataUltimaEdicao = dataEdicao;
 	}
 	
+	public TipoQuestao getTipoQuestao() {
+		return tipoQuestao;
+	}
+
+	public void setTipoQuestao(TipoQuestao tipoQuestao) {
+		this.tipoQuestao = tipoQuestao;
+	}
+
+	public List<Opcao> getOpcoes() {
+		return opcoes;
+	}
+
+	public void setOpcoes(List<Opcao> opcoes) {
+		this.opcoes = opcoes;
+	}
+
 	@Override
 	public int hashCode() {
-		final int primo = 31;
-		int resultado = 1;
-		resultado = primo * resultado + ((comentario == null) ? 0 : comentario.hashCode());
-		resultado = primo * resultado + ((enunciado == null) ? 0 : enunciado.hashCode());
-		resultado = primo * resultado + ((id == null) ? 0 : id.hashCode());
-		return resultado;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
+		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
+		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
+		result = prime * result + ((dataUltimaEdicao == null) ? 0 : dataUltimaEdicao.hashCode());
+		result = prime * result + ((enunciado == null) ? 0 : enunciado.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((opcoes == null) ? 0 : opcoes.hashCode());
+		result = prime * result + ((tipoQuestao == null) ? 0 : tipoQuestao.hashCode());
+		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Questao))
+		if (getClass() != obj.getClass())
 			return false;
-		Questao outraQuestao = (Questao) obj;
-		if (comentario == null) {
-			if (outraQuestao.comentario != null)
+		Questao other = (Questao) obj;
+		if (autor == null) {
+			if (other.autor != null)
 				return false;
-		} else if (!comentario.equals(outraQuestao.comentario))
+		} else if (!autor.equals(other.autor))
+			return false;
+		if (comentario == null) {
+			if (other.comentario != null)
+				return false;
+		} else if (!comentario.equals(other.comentario))
+			return false;
+		if (dataCriacao == null) {
+			if (other.dataCriacao != null)
+				return false;
+		} else if (!dataCriacao.equals(other.dataCriacao))
+			return false;
+		if (dataUltimaEdicao == null) {
+			if (other.dataUltimaEdicao != null)
+				return false;
+		} else if (!dataUltimaEdicao.equals(other.dataUltimaEdicao))
 			return false;
 		if (enunciado == null) {
-			if (outraQuestao.enunciado != null)
+			if (other.enunciado != null)
 				return false;
-		} else if (!enunciado.equals(outraQuestao.enunciado))
+		} else if (!enunciado.equals(other.enunciado))
 			return false;
 		if (id == null) {
-			if (outraQuestao.id != null)
+			if (other.id != null)
 				return false;
-		} else if (!id.equals(outraQuestao.id))
+		} else if (!id.equals(other.id))
+			return false;
+		if (opcoes == null) {
+			if (other.opcoes != null)
+				return false;
+		} else if (!opcoes.equals(other.opcoes))
+			return false;
+		if (tipoQuestao != other.tipoQuestao)
 			return false;
 		return true;
 	}
