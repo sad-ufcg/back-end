@@ -117,11 +117,8 @@ public class Aluno implements Serializable {
      */
     public void adicionarDisciplina(Disciplina disciplina) {
         Matricula matricula = new Matricula(this, disciplina);
-        System.out.println("criou matricula");
         this.matriculas.add(matricula);
-        System.out.println("adicionou matricula a si");
         disciplina.getAlunos().add(matricula);
-        System.out.println("adicionou matricula na cadeira");
     }
 
     /**
