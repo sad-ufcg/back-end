@@ -3,13 +3,11 @@ package com.ufcg.sad.models.matricula;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,17 +21,14 @@ public class Matricula implements Serializable {
 
     private static final long serialVersionUID = -104350015797590113L;
 
-//    @EmbeddedId
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-//    @MapsId("idAluno")
     private Aluno aluno;
 
     @ManyToOne
-//    @MapsId("idDisciplina")
     private Disciplina disciplina;
 
     /**
