@@ -2,6 +2,7 @@ package com.ufcg.sad.models.matricula;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.IdClass;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
  * Representação do id de Matrícula.
  */
 @Embeddable
+@IdClass(Matricula.class)
 public class IdMatricula implements Serializable {
 
     @Column

@@ -1,4 +1,4 @@
-package com.ufcg.sad.services.questionario;
+package com.ufcg.sad.services.disciplina;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -6,10 +6,12 @@ import com.ufcg.sad.repositories.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DisciplinaServiceImpl implements DisciplinaService {
 
-    private final String NAO_ENCONTRADO = "Disciplina não encontrada";
+    private final String NAO_ENCONTRADO = "disciplina não encontrada";
 
     @Autowired
     DisciplinaRepository disciplinaRepository;
@@ -27,6 +29,11 @@ public class DisciplinaServiceImpl implements DisciplinaService {
         } else {
             throw new EntidadeNotFoundException(NAO_ENCONTRADO);
         }
+    }
+
+    @Override
+    public List<Disciplina> listarTodasAsDisciplinas() {
+        return (List) disciplinaRepository.findAll();
     }
 
     @Override

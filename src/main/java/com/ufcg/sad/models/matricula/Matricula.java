@@ -3,14 +3,14 @@ package com.ufcg.sad.models.matricula;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,21 +23,23 @@ public class Matricula implements Serializable {
 
     private static final long serialVersionUID = -104350015797590113L;
 
-    @EmbeddedId
-    private IdMatricula id;
+//    @EmbeddedId
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column
-    @NotNull
+    @ManyToOne
+//    @MapsId("idAluno")
     private Aluno aluno;
 
-    @Column
-    @NotNull
+    @ManyToOne
+//    @MapsId("idDisciplina")
     private Disciplina disciplina;
 
     /**
      * Construtor padrão para Matrícula.
      */
-    public Matricula() {}
+    public Matricula() {  }
 
     public Matricula(Aluno aluno, Disciplina disciplina) {
         this.aluno = aluno;
@@ -49,19 +51,19 @@ public class Matricula implements Serializable {
      *
      * @param id Id da matrícula.
      * @param aluno Aluno matriculado na disciplina.
-     * @param disciplina Disciplina a qual o aluno está matriculado.
+     * @param disciplina disciplina a qual o aluno está matriculado.
      */
-    public Matricula(IdMatricula id, Aluno aluno, Disciplina disciplina) {
+    public Matricula(Long id, Aluno aluno, Disciplina disciplina) {
         this.id = id;
         this.aluno = aluno;
         this.disciplina = disciplina;
     }
 
-    public IdMatricula getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(IdMatricula id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

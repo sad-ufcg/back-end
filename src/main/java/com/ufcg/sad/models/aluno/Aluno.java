@@ -1,6 +1,7 @@
 package com.ufcg.sad.models.aluno;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
@@ -35,12 +36,16 @@ public class Aluno implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
     @Length(max = TAMANHO_MAX_STRING)
     private String nome;
+
+    @Column
+    @Length(max = TAMANHO_MAX_STRING)
+    private String sobrenome;
 
     @Column
     @NotNull
@@ -50,13 +55,15 @@ public class Aluno implements Serializable {
     @OneToMany(mappedBy = "aluno",
             fetch = FetchType.EAGER,
             orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Matricula> matriculas;
 
     /**
      * Construtor padrão para o Hibernate.
      */
-    public Aluno() {}
+    public Aluno() {
+        this.matriculas = new HashSet<>();
+    }
 
     /**
      * @param id Id do aluno no bando de dados.
@@ -104,14 +111,17 @@ public class Aluno implements Serializable {
     }
 
     /**
-     * Adiciona uma nova Disciplina ao aluno.
+     * Adiciona uma nova disciplina ao aluno.
      *
      * @param disciplina disciplina a ser adicionada.
      */
     public void adicionarDisciplina(Disciplina disciplina) {
         Matricula matricula = new Matricula(this, disciplina);
+        System.out.println("criou matricula");
         this.matriculas.add(matricula);
+        System.out.println("adicionou matricula a si");
         disciplina.getAlunos().add(matricula);
+        System.out.println("adicionou matricula na cadeira");
     }
 
     /**
@@ -130,6 +140,14 @@ public class Aluno implements Serializable {
         this.matriculas.remove(matriculaRemovida);
     }
 
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,11 +155,12 @@ public class Aluno implements Serializable {
         Aluno aluno = (Aluno) o;
         return Objects.equals(id, aluno.id) &&
                 Objects.equals(nome, aluno.nome) &&
+                Objects.equals(sobrenome, aluno.sobrenome) &&
                 Objects.equals(email, aluno.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, email);
+        return Objects.hash(id, nome, sobrenome, email);
     }
 }

@@ -1,37 +1,46 @@
-package com.ufcg.sad.services.questionario;
+package com.ufcg.sad.services.disciplina;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.disciplina.Disciplina;
 
+import java.util.List;
+
 /**
- * Serviços relacionados a entidade Disciplina.
+ * Serviços relacionados a entidade disciplina.
  *
  * @author Antunes Dantas
  */
 public interface DisciplinaService {
 
     /**
-     * Cadastra uma Disciplina no sistema
+     * Cadastra uma disciplina no sistema
      *
-     * @param disciplina Disciplina a ser adicionada no sistema.
+     * @param disciplina disciplina a ser adicionada no sistema.
      *
-     * @return Disciplina cadastrada.
+     * @return disciplina cadastrada.
      */
     Disciplina cadastrarDisciplina(Disciplina disciplina);
 
     /**
      * Recupera uma disciplina através do Id
      *
-     * @param id Id da Disciplina.
+     * @param id Id da disciplina.
      *
-     * @return Disciplina.
+     * @return disciplina.
      */
     Disciplina getDisciplina(Long id) throws EntidadeNotFoundException;
 
     /**
-     * Atualiza uma Disciplina no sistema
+     * Recupera todas as Disciplinas cadastradas.
      *
-     * @param disciplina Disciplina atualizada.
+     * @return Lista com as Disciplinas.
+     */
+    List<Disciplina> listarTodasAsDisciplinas();
+
+    /**
+     * Atualiza uma disciplina no sistema
+     *
+     * @param disciplina disciplina atualizada.
      *
      * @return Discioplina atualizada.
      */
@@ -40,7 +49,7 @@ public interface DisciplinaService {
     /**
      * Remove uma discilina do sistema.
      *
-     * @param disciplina Disciplina a ser removida.
+     * @param disciplina disciplina a ser removida.
      */
     void removerDisciplina(Disciplina disciplina) throws EntidadeNotFoundException;
 

@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Antunes Dantas
  */
-public interface MatriculaRepository extends JpaRepository<Matricula, IdMatricula> {
+public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
 }

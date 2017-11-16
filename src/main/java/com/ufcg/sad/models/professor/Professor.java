@@ -9,11 +9,14 @@ import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,6 +32,7 @@ public class Professor implements Serializable {
     private static final long serialVersionUID = 4472829715476139640L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
@@ -47,7 +51,9 @@ public class Professor implements Serializable {
     /**
      * Construtor padrão para o Hibernate.
      */
-    public Professor() {}
+    public Professor() {
+        this.disciplinas = new HashSet<>();
+    }
 
     /**
      * Construtor para classe Professor.
@@ -91,6 +97,10 @@ public class Professor implements Serializable {
 
     public void setDisciplinas(Set<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    public void addDisciplina(Disciplina disciplina) {
+        this.disciplinas.add(disciplina);
     }
 
     @Override
