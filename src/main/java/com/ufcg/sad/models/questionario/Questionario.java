@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Entidade que representa um questionário
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
  * @author Lucas Silva
  */
 @Entity
+@Table
 public class Questionario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

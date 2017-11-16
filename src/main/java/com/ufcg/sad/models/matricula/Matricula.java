@@ -3,13 +3,12 @@ package com.ufcg.sad.models.matricula;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,28 +22,31 @@ public class Matricula implements Serializable {
     private static final long serialVersionUID = -104350015797590113L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
-    @NotNull
+    @ManyToOne
     private Aluno aluno;
 
-    @Column
-    @NotNull
+    @ManyToOne
     private Disciplina disciplina;
 
     /**
      * Construtor padrão para Matrícula.
      */
-    public Matricula() {}
+    public Matricula() {  }
+
+    public Matricula(Aluno aluno, Disciplina disciplina) {
+        this.aluno = aluno;
+        this.disciplina = disciplina;
+    }
 
     /**
      * Construtor para a classe Matricula
      *
      * @param id Id da matrícula.
      * @param aluno Aluno matriculado na disciplina.
-     * @param disciplina Disciplina a qual o aluno está matriculado.
+     * @param disciplina disciplina a qual o aluno está matriculado.
      */
     public Matricula(Long id, Aluno aluno, Disciplina disciplina) {
         this.id = id;
