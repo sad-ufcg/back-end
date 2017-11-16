@@ -50,7 +50,15 @@ public class Questao implements Serializable {
 		this.tipoResposta = tipoResposta;
 		this.comentario = comentario;
 	}
-	
+
+
+	public Questao(String enunciado, TipoResposta tipoResposta, String comentario) {
+		this.enunciado = enunciado;
+		this.tipoResposta = tipoResposta;
+		this.comentario = comentario;
+	}
+
+
 	/**
 	 * Método para construir uma instância do tipo questão
 	 */
