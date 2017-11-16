@@ -21,7 +21,7 @@ public class AlunoTest extends SadApplicationTests {
         Long id = 2L;
         String nome = "Aluno da Silva";
         String email = "aluno@ccc.ufcg.edu.br";
-        Matricula matricula = new Matricula(1L, aluno, geraDisciplina("Matemática"));
+        Matricula matricula = new Matricula(aluno, geraDisciplina("Matemática"));
         Set<Matricula> matriculas = new HashSet<>();
         matriculas.add(matricula);
 

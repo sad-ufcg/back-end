@@ -1,8 +1,10 @@
 package com.ufcg.sad.models.disciplina;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,11 +17,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * Classe que representa a lógica de uma Disciplina.
+ * Classe que representa a lógica de uma disciplina.
  *
  * @author Antunes Dantas
  */
@@ -30,8 +33,7 @@ public class Disciplina implements Serializable {
     private static final long serialVersionUID = 8411864352529800054L;
 
     @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
@@ -43,23 +45,32 @@ public class Disciplina implements Serializable {
     private int turma;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "siape")
+    @JoinColumn
+    @JsonIgnore
     private Professor professor;
 
     @Column
     @NotNull
     private String semestre;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @Column
+    private String codigo;
+
+    @OneToMany(mappedBy = "disciplina",
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Matricula> alunos;
 
     /**
      * Contrutor padrão para o Hibernate.
      */
-    public Disciplina() {}
+    public Disciplina() {
+        this.alunos = new HashSet<>();
+    }
 
     /**
-     * Construtor para a classe Disciplina
+     * Construtor para a classe disciplina
      * @param id Id da disciplina.
      * @param nome Nome da disciplina.
      * @param turma Número da turma.
@@ -124,6 +135,14 @@ public class Disciplina implements Serializable {
         this.alunos = alunos;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,12 +151,11 @@ public class Disciplina implements Serializable {
         return id == that.id &&
                 turma == that.turma &&
                 Objects.equals(nome, that.nome) &&
-                Objects.equals(professor, that.professor) &&
                 Objects.equals(semestre, that.semestre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, turma, professor, semestre);
+        return Objects.hash(id, nome, turma, semestre);
     }
 }

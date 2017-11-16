@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Teste para o model Disciplina
+ * Teste para o model disciplina
  */
 public class DisciplinaTest extends SadApplicationTests {
 
