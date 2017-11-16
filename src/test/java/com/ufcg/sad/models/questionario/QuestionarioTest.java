@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ufcg.sad.SadApplicationTests;
 import org.junit.Test;
 
 import com.ufcg.sad.models.questionario.Questao;
@@ -16,7 +17,7 @@ import com.ufcg.sad.models.questionario.TipoResposta;
  * 
  * @author Lucas Silva
  */
-public class QuestionarioTest {
+public class QuestionarioTest extends SadApplicationTests {
 	/**
 	 * Método que testa o construtor de questionário
 	 */

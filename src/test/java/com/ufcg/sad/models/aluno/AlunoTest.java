@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.aluno;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
@@ -12,7 +13,7 @@ import java.util.Set;
 /**
  * Classe de teste para o model Aluno
  */
-public class AlunoTest {
+public class AlunoTest extends SadApplicationTests {
 
     @Test
     public void testaGetterESetter() {

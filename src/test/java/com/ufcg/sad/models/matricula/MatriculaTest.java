@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.matricula;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import org.junit.Assert;
@@ -8,7 +9,7 @@ import org.junit.Test;
 /**
  * Classe de teste para a entidade Matrícula
  */
-public class MatriculaTest {
+public class MatriculaTest extends SadApplicationTests {
 
     @Test
     public void testGetterESetter() {
