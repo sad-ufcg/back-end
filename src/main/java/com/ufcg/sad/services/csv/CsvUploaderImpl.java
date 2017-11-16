@@ -30,27 +30,21 @@ public class CsvUploaderImpl implements CsvUploader {
 
     @Override
     public void cadastrarDisciplina(MultipartFile csv) throws Exception {
-        System.out.println("lendo csv");
         Scanner leitor = new Scanner(new ByteArrayInputStream(csv.getBytes()));
-        System.out.println("leu o csv");
 
         String dadosDaDisciplina = leitor.nextLine();
         String dadosDoProfessor = leitor.nextLine();
         Disciplina disciplina = criaDisciplina(dadosDaDisciplina);
-        System.out.println("criando o professor");
         Professor professor = criaProfessor(dadosDoProfessor);
-        System.out.println("professor criado");
 
         disciplina.setProfessor(professor);
         professor.addDisciplina(disciplina);
 
         while (leitor.hasNext()) {
-            System.out.println("criando aluno");
             Aluno aluno = criaAluno(leitor.nextLine());
             aluno.adicionarDisciplina(disciplina);
 
             alunoService.atualizarAluno(aluno);
-            System.out.println("aluno criado");
         }
 
         professorService.atualizarProfessor(professor);
@@ -117,9 +111,7 @@ public class CsvUploaderImpl implements CsvUploader {
             aluno.setNome(dadosAluno[0]);
             aluno.setSobrenome(dadosAluno[1]);
             aluno.setEmail(dadosAluno[2]);
-            System.out.println("vai persistir");
             aluno = alunoService.criarAluno(aluno);
-            System.out.println("persistiu");
         }
 
         return aluno;
