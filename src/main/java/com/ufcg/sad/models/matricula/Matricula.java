@@ -2,13 +2,9 @@ package com.ufcg.sad.models.matricula;
 
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.token.Token;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -48,6 +44,11 @@ public class Matricula implements Serializable {
      */
     public Matricula(Long id, Aluno aluno, Disciplina disciplina) {
         this.id = id;
+        this.aluno = aluno;
+        this.disciplina = disciplina;
+    }
+
+    public Matricula(Aluno aluno, Disciplina disciplina) {
         this.aluno = aluno;
         this.disciplina = disciplina;
     }
