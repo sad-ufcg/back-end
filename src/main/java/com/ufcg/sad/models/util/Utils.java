@@ -9,9 +9,10 @@ public final class Utils {
     public static final int TAMANHO_MAX_STRING = 255;
 
 
-    public static Matricula createMatriculaTest(String nomeAluno, String nomeDisciplina) {
+    public static Matricula createMatriculaTest(Long id, String nomeAluno, String nomeDisciplina) {
         Aluno aluno = new Aluno();
         aluno.setNome(nomeAluno);
+
         Disciplina disciplina = new Disciplina();
         disciplina.setNome(nomeDisciplina);
         Matricula matricula = new Matricula(aluno, disciplina);

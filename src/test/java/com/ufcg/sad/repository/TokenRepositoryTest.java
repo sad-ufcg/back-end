@@ -28,18 +28,18 @@ public class TokenRepositoryTest extends SadApplicationTests {
 
     private Token token;
 
-    @Before
-    public void setUp() {
-        Matricula matricula = Utils.createMatriculaTest("Aluno", "Disciplina");
-        token = new Token(matricula);
-
-    }
-
     @Test
     public void retornaQuestaoPeloID () {
 
+
+        Matricula matricula = Utils.createMatriculaTest(1L,"Aluno", "Disciplina");
+        token = new Token(matricula);
+
         entityManager.persist(token);
+        entityManager.persist(matricula);
+
         entityManager.flush();
+
 
         Token encontrada = tokenRepository.findById(token.getId());
 
