@@ -56,11 +56,6 @@ public class Matricula implements Serializable {
         this.disciplina = disciplina;
     }
 
-    public Matricula(Aluno aluno, Disciplina disciplina) {
-        this.aluno = aluno;
-        this.disciplina = disciplina;
-    }
-
     public Long getId() {
         return id;
     }
