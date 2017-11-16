@@ -3,6 +3,7 @@ package com.ufcg.sad.models.questionario;
 
 import static org.junit.Assert.assertEquals;
 
+import com.ufcg.sad.SadApplicationTests;
 import org.junit.Test;
 
 import com.ufcg.sad.models.questionario.Questao;
@@ -13,7 +14,7 @@ import com.ufcg.sad.models.questionario.TipoResposta;
  * 
  * @author Lucas Silva
  */
-public class QuestaoTest {
+public class QuestaoTest extends SadApplicationTests {
 	/**
 	 * Método que testa o construtor de questão
 	 */

@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.professor;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import org.junit.Assert;
 
@@ -9,7 +10,7 @@ import java.util.Set;
 /**
  * Classe de teste para Professor.
  */
-public class ProfessorTest {
+public class ProfessorTest extends SadApplicationTests {
 
     public void testGetterESetter() {
         String siape = "111111";
