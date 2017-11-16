@@ -87,6 +87,14 @@ public class Disciplina implements Serializable {
         this.alunos = alunos;
     }
 
+    public Disciplina(String nome, int turma, Professor professor, String semestre, Set<Matricula> alunos) {
+        this.nome = nome;
+        this.turma = turma;
+        this.professor = professor;
+        this.semestre = semestre;
+        this.alunos = alunos;
+    }
+
     public Long getId() {
         return id;
     }

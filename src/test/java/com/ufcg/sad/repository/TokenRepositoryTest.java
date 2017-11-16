@@ -35,6 +35,8 @@ public class TokenRepositoryTest extends SadApplicationTests {
         Matricula matricula = Utils.createMatriculaTest(1L,"Aluno", "Disciplina");
         token = new Token(matricula);
 
+        entityManager.persist(matricula.getAluno());
+        entityManager.persist(matricula.getDisciplina());
         entityManager.persist(token);
         entityManager.persist(matricula);
 

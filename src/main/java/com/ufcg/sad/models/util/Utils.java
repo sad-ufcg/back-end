@@ -12,9 +12,12 @@ public final class Utils {
     public static Matricula createMatriculaTest(Long id, String nomeAluno, String nomeDisciplina) {
         Aluno aluno = new Aluno();
         aluno.setNome(nomeAluno);
+        aluno.setEmail("algumemail@ccc.ufcg.edu.br");
 
         Disciplina disciplina = new Disciplina();
         disciplina.setNome(nomeDisciplina);
+        disciplina.setTurma(2);
+        disciplina.setSemestre("2017.2");
         Matricula matricula = new Matricula(aluno, disciplina);
 
         return matricula;
