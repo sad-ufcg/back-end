@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questao.Questao;
@@ -19,7 +20,7 @@ import com.ufcg.sad.models.questao.TipoQuestao;
  * 
  * @author Marianne Linhares
  */
-class OpcaoTest {
+public class OpcaoTest extends SadApplicationTests {
 
 	/**
 	 * Método que testa o construtor de opcão.
