@@ -29,7 +29,11 @@ public class QuestionarioTest extends SadApplicationTests {
 	 */
 	@Test
 	public void testQuestionario() {
-		Questionario questionario = new Questionario(new Long(1), "Questionário 1", new HashSet<Questao>());
+		
+		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
+		Date dataCriacao = new Date();
+		
+		Questionario questionario = new Questionario(new Long(1), "Questionário 1", new HashSet<Questao>(), autor, dataCriacao, dataCriacao);
 		
 		assertEquals(questionario.getNome(), "Questionário 1");
 		assertEquals(questionario.getQuestoes(), new HashSet<Questao>());
@@ -38,6 +42,11 @@ public class QuestionarioTest extends SadApplicationTests {
 		questionario.setQuestoes(getQuestoes());
 		
 		assertEquals(questionario.getQuestoes().size(), 2);		
+		
+		assertEquals(autor, questionario.getAutor());
+		
+		assertEquals(dataCriacao, questionario.getDataCriacao());
+		assertEquals(dataCriacao, questionario.getDataUltimaEdicao());
 	}
 
 	/**
@@ -52,8 +61,8 @@ public class QuestionarioTest extends SadApplicationTests {
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 		
-		Questao questao1 = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
-		Questao questao2 = new Questao(new Long(2), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		Questao questao1 = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		Questao questao2 = new Questao(new Long(2), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
 		
 		questoes.add(questao1);
 		questoes.add(questao2);

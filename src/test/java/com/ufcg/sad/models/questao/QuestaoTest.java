@@ -32,7 +32,7 @@ public class QuestaoTest extends SadApplicationTests {
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 		
-		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
 		
 		assertEquals(questao.getId(), new Long(1));
 		assertEquals(questao.getEnunciado(), "A ementa da disciplina foi seguida adequadamente?");

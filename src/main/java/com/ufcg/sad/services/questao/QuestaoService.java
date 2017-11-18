@@ -1,101 +1,57 @@
 package com.ufcg.sad.services.questao;
 
-import java.util.ArrayList;
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
+import com.ufcg.sad.models.questao.Questao;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questao.TipoQuestao;
-import com.ufcg.sad.repositories.questionario.QuestaoRepository;
-
 /**
- * Serviço para a entidade Questão.
+ * Interface que provê serviços para a entidade Questão.
  * 
  * @author Marianne Linhares
  */
-/*
-TODO: precisa criar uma interface QuestaoService
-*/
-@Service
-public class QuestaoService {
+public interface QuestaoService {
 
-	@Autowired
-	private QuestaoRepository questaoRepository;
+    /**
+     * Cria um novo Questão.
+     *
+     * @param questao Questao a ser criada
+     *
+     * @return Questao
+     */
+    Questao criaQuestao(Questao questao) throws QuestaoInvalidaException;
 
-	/**
-	 * Construtor para o tipo QuestaoService.
-	 */
-	public QuestaoService() {}
+    /**
+     * Recupera um questão através do Id
+     *
+     * @param id Id de questão.
+     *
+     * @return Questao.
+     */
+    Questao getQuestao(Long id) throws EntidadeNotFoundException;
+
+    /**
+     * Recupera todos os Questões.
+     *
+     * @return Lista com as questoes.
+     */
+    List<Questao> getTodasQuestoes();
+    
 	
 	/**
 	 * Método auxiliar para validar uma questão.
 	 * @param questao
 	 * @return boolean
 	 */
-	public boolean validaQuestao(Questao questao) {
-		
-		if(questao.getId() != null) {
-			return false;
-		}
-		
-		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
-			return false;
-		}
+    boolean validaQuestao(Questao questao);
 
-		if(questao.getTipoQuestao() == null) {
-			return false;
-		}
-		
-		boolean tipoValido = false;
-		for(TipoQuestao questaoValida : TipoQuestao.values()) {
-			if(questao.getTipoQuestao().equals(questaoValida)) {
-		       tipoValido = true;
-		       break;
-		   }
-		}
-		return tipoValido;
-	}
-	
-	/**
-	 * Método para buscar uma questão a partir de um id.
-	 * @param id
-	 * @return questao
-	 */
-	public Questao getQuestao(Long id) throws EntidadeNotFoundException {
-		
-		Questao questao = questaoRepository.findOne(id);
-		
-		if(questao != null) {
-			return questao;
-		}
-		else {
-			throw new EntidadeNotFoundException();
-		}
-	}
-	
-	/**
-	 * Método para buscar todas as questões.
-	 * @return Lista contendo questoes
-	 */
-	public List<Questao> getTodasQuestoes() {
-		List<Questao> questoes = new ArrayList<>();
-
-		for (Questao questao : questaoRepository.findAll()) {
-			questoes.add(questao);
-		}
-
-		return questoes;
-	}
-	
-	/**
-	 * Método para criar uma questão.
-	 * @param questao
-	 */
-	public void criaQuestao(Questao questao) {
-		questaoRepository.save(questao);
-	}
-	
+    /**
+     * Atualiza uma Questão no sistema
+     *
+     * @param aluno Questao a ser atualizada.
+     *
+     * @return Questao atualizada.
+     */
+    Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, QuestaoInvalidaException;
 }

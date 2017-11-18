@@ -66,16 +66,15 @@ public class Questao implements Serializable {
 	 * @param dataDeCriacao
 	 * @param comentario
 	 */
-	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao) {
+	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, Date dataUltimaEdicao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao) {
 		this.id = id;
 		this.enunciado = enunciado;
 		this.autor = autor;
 		this.dataCriacao = dataCriacao;
+		this.dataUltimaEdicao = dataUltimaEdicao;
 		this.comentario = comentario;
 		this.opcoes = opcoes;
 		this.tipoQuestao = tipoQuestao;
-		// A data da última edição é inicialmente a data de criação.
-		this.dataUltimaEdicao = dataCriacao;
 	}
 
 	/**

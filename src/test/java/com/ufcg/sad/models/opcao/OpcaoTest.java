@@ -31,7 +31,7 @@ public class OpcaoTest extends SadApplicationTests {
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 		
-		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
 		
 		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao);
 		
