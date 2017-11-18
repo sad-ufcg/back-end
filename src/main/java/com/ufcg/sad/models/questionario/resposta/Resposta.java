@@ -22,21 +22,17 @@ public class Resposta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
     private Long id;
 
     @Column
-    @NotNull
+    @Temporal(TemporalType.DATE)
     private Date  dataResposta;
 
-    @Column
-    @NotNull
     @OneToOne
     private Questao questao;
 
-    @Column
-    @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "questionario")
     private QuestionarioAplicado questionarioAplicado;
 
     /**

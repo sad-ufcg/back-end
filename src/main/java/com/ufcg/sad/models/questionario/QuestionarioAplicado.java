@@ -23,15 +23,12 @@ public class QuestionarioAplicado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
     @ManyToOne
     private Questionario questionario;
 
-    @Column
     @OneToOne
     private Professor professor;
 
-    @Column
     @OneToOne
     private Disciplina disciplina;
 
