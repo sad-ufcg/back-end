@@ -33,7 +33,7 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 
     @Override
     public List<Disciplina> listarTodasAsDisciplinas() {
-        return (List) disciplinaRepository.findAll();
+        return (List<Disciplina>) disciplinaRepository.findAll();
     }
 
     @Override

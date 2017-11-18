@@ -127,7 +127,7 @@ public class Aluno implements Serializable {
      * @param disciplina disciplina a ser removida
      */
     public void removerDisciplina(Disciplina disciplina) {
-        Iterator iterator = this.matriculas.iterator();
+        Iterator<Matricula> iterator = this.matriculas.iterator();
         Matricula matriculaRemovida = (Matricula) iterator.next();
         while (iterator.hasNext() && !matriculaRemovida.getDisciplina().equals(disciplina)) {
             matriculaRemovida = (Matricula) iterator.next();
