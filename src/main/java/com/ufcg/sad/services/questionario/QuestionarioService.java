@@ -6,14 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioNaoExisteException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
+import com.ufcg.sad.services.questao.QuestaoService;
 
 /**
  * Serviço para um Questionário.
@@ -42,7 +43,7 @@ public class QuestionarioService {
 	 * @param id
 	 * @return questionario
 	 */
-	public Questionario getQuestionario(Long id) throws QuestionarioNaoExisteException {
+	public Questionario getQuestionario(Long id) throws EntidadeNotFoundException {
 		
 		Questionario questionario = questionarioRepository.findOne(id);
 		
@@ -50,7 +51,7 @@ public class QuestionarioService {
 			return questionario;
 		}
 		else {
-			throw new QuestionarioNaoExisteException();
+			throw new EntidadeNotFoundException();
 		}
 	}
 	
@@ -100,7 +101,7 @@ public class QuestionarioService {
 	 * @param id
 	 * @param questionario
 	 */
-	public void atualizaQuestionario(Long id, Questionario questionario) throws QuestionarioNaoExisteException, QuestaoInvalidaException {
+	public void atualizaQuestionario(Long id, Questionario questionario) throws EntidadeNotFoundException, QuestaoInvalidaException {
 		
 		Questionario questionarioAtualizado = getQuestionario(id);
 		

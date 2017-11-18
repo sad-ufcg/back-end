@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.ufcg.sad.SadApplicationTests;
 import org.junit.Test;
 
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -22,7 +23,7 @@ import com.ufcg.sad.models.questionario.Questionario;
  * 
  * @author Lucas Silva
  */
-public class QuestionarioTest {
+public class QuestionarioTest extends SadApplicationTests {
 	/**
 	 * Método que testa o construtor de questionário
 	 */

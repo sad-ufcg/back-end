@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ufcg.sad.models.questao.Questao;
 
@@ -20,6 +21,7 @@ import com.ufcg.sad.models.questao.Questao;
  * @author Lucas Silva
  */
 @Entity
+@Table
 public class Questionario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
