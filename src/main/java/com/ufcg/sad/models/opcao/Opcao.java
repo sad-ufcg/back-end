@@ -35,7 +35,7 @@ public class Opcao {
     private String descricao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "questao_id")
+	@JoinColumn
 	private Questao questao;
     
     /**

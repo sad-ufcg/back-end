@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioNaoExisteException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
@@ -38,14 +38,15 @@ public class QuestionarioController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Questionario> getQuestionario(@PathVariable("id") Long id) {
+		System.out.println(id);
 		try {
 			Questionario questionario = questionarioService.getQuestionario(id);
+			System.out.println(questionario);
 			return new ResponseEntity<Questionario>(questionario, HttpStatus.OK);
-		} catch (QuestionarioNaoExisteException e) {
+		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
 		}
-	}
-	
+	}	
 	/**
 	 * Método para atualizar um questionário a partir de um certo id.
 	 * @param id
@@ -56,7 +57,7 @@ public class QuestionarioController {
 		try {
 			questionarioService.atualizaQuestionario(id, questionario);
 			return new ResponseEntity<Questionario>(HttpStatus.OK);
-		} catch (QuestionarioNaoExisteException e) {
+		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
 		} catch (QuestaoInvalidaException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);

@@ -40,15 +40,12 @@ public class Questao implements Serializable {
 	private String comentario;
 	
 	@Column
-	@NotNull
 	private Professor autor;
 	
 	@Column
-	@NotNull
 	private Date dataCriacao;
 	
 	@Column
-	@NotNull
 	private Date dataUltimaEdicao;
 	
 	@Column
@@ -114,9 +111,18 @@ public class Questao implements Serializable {
 		return autor;
 	}
 	
+	public void setAutor(Professor autor) {
+		this.autor = autor;
+	}
+	
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
+	
+	public void setDataCriacao(Date data) {
+		this.dataCriacao = data;
+	}
+	
 	
 	public Date getDataUltimaEdicao() {
 		return dataUltimaEdicao;

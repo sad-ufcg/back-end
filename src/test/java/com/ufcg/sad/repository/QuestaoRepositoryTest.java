@@ -1,8 +1,12 @@
 package com.ufcg.sad.repository;
 
 import com.ufcg.sad.SadApplicationTests;
-import com.ufcg.sad.models.questionario.Questao;
-import com.ufcg.sad.models.questionario.TipoResposta;
+import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.opcao.Opcao;
+import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questao.Questao;
+import com.ufcg.sad.models.questao.TipoQuestao;
+import com.ufcg.sad.models.util.Utils;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,9 +16,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
 /**
- * Created by sampaio on 16/11/17.
  * Classe para testes do Repository de Questão
+ * @author Arthur Sampaio
  */
 @DataJpaTest
 public class QuestaoRepositoryTest extends SadApplicationTests {
@@ -27,13 +36,13 @@ public class QuestaoRepositoryTest extends SadApplicationTests {
     @Autowired
     private TestEntityManager entityManager;
 
-
-
     @Before
     public void setUp() {
-        questao = new Questao("Questao de testes",
-                                TipoResposta.MULTIPLA_ESCOLHA,
-                                "algum comentario qualquer");
+    	Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
+		Date dataCriacao = new Date();
+		List<Opcao> opcoes = new ArrayList<Opcao>();
+
+		questao = Utils.createQuestaoTest(1L, "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
     }
 
     @Test

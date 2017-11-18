@@ -1,4 +1,4 @@
-package com.ufcg.sad.services.questionario;
+package com.ufcg.sad.services.questao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.sad.exceptions.questionario.QuestaoNaoExisteException;
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
@@ -16,6 +16,9 @@ import com.ufcg.sad.repositories.questionario.QuestaoRepository;
  * 
  * @author Marianne Linhares
  */
+/*
+TODO: precisa criar uma interface QuestaoService
+*/
 @Service
 public class QuestaoService {
 
@@ -47,8 +50,8 @@ public class QuestaoService {
 		}
 		
 		boolean tipoValido = false;
-		for(TipoQuestao respostaValida : TipoQuestao.values()) {
-			if(questao.getTipoQuestao().equals(respostaValida)) {
+		for(TipoQuestao questaoValida : TipoQuestao.values()) {
+			if(questao.getTipoQuestao().equals(questaoValida)) {
 		       tipoValido = true;
 		       break;
 		   }
@@ -61,7 +64,7 @@ public class QuestaoService {
 	 * @param id
 	 * @return questao
 	 */
-	public Questao getQuestao(Long id) throws QuestaoNaoExisteException {
+	public Questao getQuestao(Long id) throws EntidadeNotFoundException {
 		
 		Questao questao = questaoRepository.findOne(id);
 		
@@ -69,7 +72,7 @@ public class QuestaoService {
 			return questao;
 		}
 		else {
-			throw new QuestaoNaoExisteException();
+			throw new EntidadeNotFoundException();
 		}
 	}
 	

@@ -44,13 +44,15 @@ public class QuestionarioService {
 	 * @return questionario
 	 */
 	public Questionario getQuestionario(Long id) throws EntidadeNotFoundException {
-		
+		System.out.println(id);
 		Questionario questionario = questionarioRepository.findOne(id);
-		
+		System.out.println(id);
+		System.out.println(questionario);
 		if(questionario != null) {
 			return questionario;
 		}
 		else {
+			System.out.println(questionario);
 			throw new EntidadeNotFoundException();
 		}
 	}

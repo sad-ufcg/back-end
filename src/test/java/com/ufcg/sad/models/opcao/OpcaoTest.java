@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.professor.Professor;

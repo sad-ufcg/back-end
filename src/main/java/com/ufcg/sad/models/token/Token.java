@@ -3,7 +3,6 @@ package com.ufcg.sad.models.token;
 import com.ufcg.sad.models.matricula.Matricula;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
