@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.disciplina;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
 import org.junit.Assert;
@@ -9,9 +10,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Teste para o model Disciplina
+ * Teste para o model disciplina
  */
-public class DisciplinaTest {
+public class DisciplinaTest extends SadApplicationTests {
 
     @Test
     public void testGetterESetter() {

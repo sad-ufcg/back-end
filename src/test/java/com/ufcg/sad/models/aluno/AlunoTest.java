@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.aluno;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
@@ -12,7 +13,7 @@ import java.util.Set;
 /**
  * Classe de teste para o model Aluno
  */
-public class AlunoTest {
+public class AlunoTest extends SadApplicationTests {
 
     @Test
     public void testaGetterESetter() {
@@ -20,7 +21,7 @@ public class AlunoTest {
         Long id = 2L;
         String nome = "Aluno da Silva";
         String email = "aluno@ccc.ufcg.edu.br";
-        Matricula matricula = new Matricula(1L, aluno, geraDisciplina("Matemática"));
+        Matricula matricula = new Matricula(aluno, geraDisciplina("Matemática"));
         Set<Matricula> matriculas = new HashSet<>();
         matriculas.add(matricula);
 

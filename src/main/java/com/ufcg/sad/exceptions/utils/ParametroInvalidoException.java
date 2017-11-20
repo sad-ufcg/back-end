@@ -5,7 +5,7 @@ package com.ufcg.sad.exceptions.utils;
  * 
  * @author Marianne Linhares
  */
-public class ParametroInvalidoException extends Exception {
+public class ParametroInvalidoException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
