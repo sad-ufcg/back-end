@@ -1,6 +1,6 @@
 package com.ufcg.sad.models.questionario.resposta;
 
-import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import org.hibernate.validator.constraints.Length;
 

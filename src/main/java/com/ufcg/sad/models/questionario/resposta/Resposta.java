@@ -1,6 +1,6 @@
 package com.ufcg.sad.models.questionario.resposta;
 
-import com.ufcg.sad.models.questionario.Questao;
+import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Resposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column
@@ -32,7 +32,7 @@ public class Resposta implements Serializable {
     private Questao questao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questionario")
+    @JoinColumn
     private QuestionarioAplicado questionarioAplicado;
 
     /**

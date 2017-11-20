@@ -23,7 +23,8 @@ public class QuestionarioAplicado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Questionario questionario;
 
     @OneToOne
@@ -34,7 +35,7 @@ public class QuestionarioAplicado implements Serializable {
 
     @Column
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "QuestionarioAplicado")
+            mappedBy = "questionarioAplicado")
     private Set<Resposta> respostas;
 
     /**
