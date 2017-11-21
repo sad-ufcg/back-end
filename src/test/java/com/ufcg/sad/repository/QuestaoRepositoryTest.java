@@ -42,7 +42,7 @@ public class QuestaoRepositoryTest extends SadApplicationTests {
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 
-		questao = Utils.createQuestaoTest(1L, "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		questao = Utils.createQuestaoTest("A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
     }
 
     @Test

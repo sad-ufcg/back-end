@@ -30,7 +30,7 @@ public class TokenRepositoryTest extends SadApplicationTests {
     @Test
     public void retornaQuestaoPeloID () {
  
-        Matricula matricula = Utils.createMatriculaTest(1L,"Aluno", "Disciplina");
+        Matricula matricula = Utils.createMatriculaTest("Aluno", "Disciplina");
         token = new Token(matricula);
 
         entityManager.persist(matricula.getAluno());
