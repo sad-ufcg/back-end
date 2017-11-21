@@ -16,6 +16,12 @@ public final class Utils {
     public static final int TAMANHO_MAX_STRING = 255;
 
 
+    /**
+     * Cria uma matricula default. Serve unicamente para testes!
+     * @param nomeAluno nome do aluno
+     * @param nomeDisciplina nome da disciplina
+     * @return uma matricula default
+     */
     public static Matricula createMatriculaTest(String nomeAluno, String nomeDisciplina) {
         Aluno aluno = new Aluno();
         aluno.setNome(nomeAluno);

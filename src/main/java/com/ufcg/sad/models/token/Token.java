@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Entidade de que representa o token de autenticação de um questionário
  *
- * Created by sampaio on 16/11/17.
+ * Created by Sampaio on 16/11/17.
  */
 @Entity
 @Table
