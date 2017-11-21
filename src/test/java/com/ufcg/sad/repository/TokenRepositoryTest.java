@@ -32,14 +32,11 @@ public class TokenRepositoryTest extends SadApplicationTests {
  
         Matricula matricula = Utils.createMatriculaTest("Aluno", "Disciplina");
         token = new Token(matricula);
-
         entityManager.persist(matricula.getAluno());
         entityManager.persist(matricula.getDisciplina());
         entityManager.persist(token);
         entityManager.persist(matricula);
-
         entityManager.flush();
-
         Token encontrada = tokenRepository.findById(token.getId());
         assertThat(encontrada.getId()).isEqualTo(token.getId());
 
@@ -50,24 +47,17 @@ public class TokenRepositoryTest extends SadApplicationTests {
 
         Matricula matricula = Utils.createMatriculaTest("Aluno", "Disciplina");
         token = new Token(matricula);
-
         entityManager.persist(matricula.getAluno());
         entityManager.persist(matricula.getDisciplina());
         entityManager.persist(token);
         entityManager.persist(matricula);
-
-
         matricula = Utils.createMatriculaTest("OutroAlunoAluno", "OutraDisciplina");
         Token outroToken = new Token(matricula);
-
         entityManager.persist(matricula.getAluno());
         entityManager.persist(matricula.getDisciplina());
         entityManager.persist(outroToken);
         entityManager.persist(matricula);
-
-
         entityManager.flush();
-
         Token encontrada = tokenRepository.findById(token.getId());
         assertThat(encontrada.getId()).isNotEqualTo(outroToken.getId());
 

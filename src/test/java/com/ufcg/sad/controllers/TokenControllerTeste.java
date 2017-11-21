@@ -68,9 +68,7 @@ public class TokenControllerTeste extends SadApplicationTests {
     public void getTokenAtivoPeloID() throws Exception {
 
         Token token = createTokenTest("Pedro", "Fisica IV");
-
         Assert.assertEquals(tokenRepository.findAll().size(), 1);
-
         mvc.perform(get("/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("tokenID", token.getId()))
@@ -79,26 +77,21 @@ public class TokenControllerTeste extends SadApplicationTests {
     }
 
     @Test
-    public void tokenInexistente_entaoTokenInvalido() throws Exception {
+    public void naoRetornaTokenSeIDInvalido() throws Exception {
 
         String tokenID = "AlgumToken%20";
-
         mvc.perform(get("/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("tokenID", tokenID))
                 .andDo(print())
                 .andExpect(status().isNotFound());
-
     }
-
-
 
     private Token createTokenTest(String nomeAluno, String nomeDisciplina) {
         Matricula matricula = Utils.createMatriculaTest(nomeAluno, nomeDisciplina);
         Token token = new Token(matricula);
         alunoRepository.saveAndFlush(matricula.getAluno());
         disciplinaRepository.saveAndFlush(matricula.getDisciplina());
-
         matriculaRepository.saveAndFlush(matricula);
         tokenRepository.saveAndFlush(token);
         return token;
