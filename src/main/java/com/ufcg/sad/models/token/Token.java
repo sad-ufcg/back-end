@@ -1,5 +1,7 @@
 package com.ufcg.sad.models.token;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ufcg.sad.models.matricula.Matricula;
 
 import javax.persistence.*;
@@ -18,7 +20,9 @@ public class Token {
     @Column
     private String id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "token",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
     private Matricula matricula;
 
     public Token(Matricula matricula) {
@@ -26,6 +30,8 @@ public class Token {
         this.matricula = matricula;
     }
 
+
+    public Token(){}
 
     public String getId() {
         return id;

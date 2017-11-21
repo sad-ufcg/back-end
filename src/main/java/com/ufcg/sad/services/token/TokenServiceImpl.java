@@ -7,7 +7,6 @@ import com.ufcg.sad.repositories.token.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,12 +19,12 @@ public class TokenServiceImpl implements TokenService {
     TokenRepository tokenRepository;
 
     @Override
-    public Token verificaSeTokenExiste(String tokenID) throws Exception {
+    public Token verificaSeTokenExiste(String tokenID) throws EntidadeNotFoundException {
         Token tokenEncontrado = tokenRepository.findById(tokenID);
-        if (tokenEncontrado == null){
-            throw new EntidadeNotFoundException("Este Token não existe");
+        if (tokenEncontrado != null){
+            return tokenEncontrado;
         }
-        return tokenEncontrado;
+        throw new EntidadeNotFoundException("Este Token não existe.");
     }
 
     @Override

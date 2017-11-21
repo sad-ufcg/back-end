@@ -6,10 +6,7 @@ import com.ufcg.sad.services.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by sampaio on 21/11/17.
@@ -22,13 +19,16 @@ public class TokenController {
     TokenService tokenService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Token> checaSeTokenExiste(@PathVariable("tokenID") String tokenId) {
-        try {
-            Token encontrado = tokenService.verificaSeTokenExiste(tokenId);
-            return new ResponseEntity<Token>(encontrado, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Token>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Token> checaSeTokenExiste(@RequestParam("tokenID") String tokenId) throws Exception {
+
+        Token encontrado = tokenService.verificaSeTokenExiste(tokenId);
+
+        if(encontrado !=null){
+            return new ResponseEntity(encontrado, HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+
     }
 
 }

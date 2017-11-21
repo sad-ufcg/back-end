@@ -2,8 +2,6 @@ package com.ufcg.sad.services.token;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.token.Token;
-
-import java.util.Collection;
 import java.util.List;
 
 /**
