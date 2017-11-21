@@ -1,4 +1,4 @@
-package com.ufcg.sad.services.questionario;
+package com.ufcg.sad.services.questao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.sad.exceptions.questionario.QuestaoNaoExisteException;
-import com.ufcg.sad.models.questionario.Questao;
-import com.ufcg.sad.models.questionario.TipoResposta;
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
+import com.ufcg.sad.models.questao.Questao;
+import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
 
 /**
@@ -16,8 +17,11 @@ import com.ufcg.sad.repositories.questionario.QuestaoRepository;
  * 
  * @author Marianne Linhares
  */
+/*
+TODO: precisa criar uma interface QuestaoService
+*/
 @Service
-public class QuestaoService {
+public class QuestaoServiceImpl implements QuestaoService {
 
 	@Autowired
 	private QuestaoRepository questaoRepository;
@@ -25,13 +29,8 @@ public class QuestaoService {
 	/**
 	 * Construtor para o tipo QuestaoService.
 	 */
-	public QuestaoService() {}
-	
-	/**
-	 * Método auxiliar para validar uma questão.
-	 * @param questao
-	 * @return boolean
-	 */
+	public QuestaoServiceImpl() {}
+
 	public boolean validaQuestao(Questao questao) {
 		
 		if(questao.getId() != null) {
@@ -41,14 +40,14 @@ public class QuestaoService {
 		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
 			return false;
 		}
-		
-		if(questao.getTipoResposta() == null) {
+
+		if(questao.getTipoQuestao() == null) {
 			return false;
 		}
 		
 		boolean tipoValido = false;
-		for(TipoResposta respostaValida : TipoResposta.values()) {
-			if(questao.getTipoResposta().equals(respostaValida)) {
+		for(TipoQuestao questaoValida : TipoQuestao.values()) {
+			if(questao.getTipoQuestao().equals(questaoValida)) {
 		       tipoValido = true;
 		       break;
 		   }
@@ -61,7 +60,7 @@ public class QuestaoService {
 	 * @param id
 	 * @return questao
 	 */
-	public Questao getQuestao(Long id) throws QuestaoNaoExisteException {
+	public Questao getQuestao(Long id) throws EntidadeNotFoundException {
 		
 		Questao questao = questaoRepository.findOne(id);
 		
@@ -69,7 +68,7 @@ public class QuestaoService {
 			return questao;
 		}
 		else {
-			throw new QuestaoNaoExisteException();
+			throw new EntidadeNotFoundException();
 		}
 	}
 	
@@ -91,8 +90,14 @@ public class QuestaoService {
 	 * Método para criar uma questão.
 	 * @param questao
 	 */
-	public void criaQuestao(Questao questao) {
-		questaoRepository.save(questao);
+	public Questao criaQuestao(Questao questao) throws QuestaoInvalidaException {
+		if(!validaQuestao(questao)) {
+			throw new QuestaoInvalidaException();
+		}
+		return questaoRepository.save(questao);
 	}
-	
+
+	public Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, QuestaoInvalidaException {
+		return questaoRepository.save(questao);
+	}
 }

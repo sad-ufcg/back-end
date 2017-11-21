@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioNaoExisteException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
 import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
@@ -41,22 +41,20 @@ public class QuestionarioController {
 		try {
 			Questionario questionario = questionarioService.getQuestionario(id);
 			return new ResponseEntity<Questionario>(questionario, HttpStatus.OK);
-		} catch (QuestionarioNaoExisteException e) {
+		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
 		}
-	}
-	
+	}	
 	/**
 	 * Método para atualizar um questionário a partir de um certo id.
 	 * @param id
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Questionario> atualizaQuestionario(@PathVariable("id") Long id,
-															 @RequestBody Questionario questionario) {
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	public ResponseEntity<Questionario> atualizaQuestionario(@RequestBody Questionario questionario) {
 		try {
-			questionarioService.atualizaQuestionario(id, questionario);
-			return new ResponseEntity<Questionario>(HttpStatus.OK);
-		} catch (QuestionarioNaoExisteException e) {
+			Questionario questionarioAtualizado = questionarioService.atualizaQuestionario(questionario);
+			return new ResponseEntity<Questionario>(questionarioAtualizado, HttpStatus.OK);
+		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
 		} catch (QuestaoInvalidaException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
@@ -80,7 +78,8 @@ public class QuestionarioController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Questionario> criaQuestionario(@RequestBody Questionario questionario) {
 	    try {
-	    	questionarioService.criaQuestionario(questionario);
+	    	Questionario questionarioCriado = questionarioService.criaQuestionario(questionario);
+	    	return new ResponseEntity<Questionario>(questionarioCriado, HttpStatus.CREATED);	
 	    } catch (QuestionarioVazioException e) {
 	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
 	    } catch (QuestionarioSemNomeException e) {
@@ -90,7 +89,5 @@ public class QuestionarioController {
 		} catch (ParametroInvalidoException e) {
 			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
 		}
-	    
-	    return new ResponseEntity<Questionario>(HttpStatus.CREATED);
 	}
 }
