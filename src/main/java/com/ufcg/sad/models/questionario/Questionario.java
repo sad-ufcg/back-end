@@ -1,6 +1,7 @@
 package com.ufcg.sad.models.questionario;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,10 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questao.Questao;
+
 /**
  * Entidade que representa um questionário
  * 
- * @author Lucas Silva
+ * @author Lucas Silva, Marianne Linhares
  */
 @Entity
 @Table
@@ -34,6 +38,15 @@ public class Questionario implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Questao> questoes;
+	
+	@Column
+	private Professor autor;
+	
+	@Column
+	private Date dataCriacao;
+	
+	@Column
+	private Date dataUltimaEdicao;
 
 	/**
 	 * Método para construir uma instância do tipo questionário
@@ -41,10 +54,13 @@ public class Questionario implements Serializable {
 	 * @param nome
 	 * @param questoes
 	 */
-	public Questionario(Long id, String nome, Set<Questao> questoes) {
+	public Questionario(Long id, String nome, Set<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao) {
 		this.id = id;
 		this.nome = nome;
 		this.questoes = questoes;
+		this.autor = autor;
+		this.dataCriacao = dataCriacao;
+		this.dataUltimaEdicao = dataUltimaEdicao;
 	}
 	
 	/**
@@ -76,6 +92,30 @@ public class Questionario implements Serializable {
 
 	public void setQuestoes(Set<Questao> questoes) {
 		this.questoes = questoes;
+	}
+
+	public Professor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Professor autor) {
+		this.autor = autor;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataUltimaEdicao() {
+		return dataUltimaEdicao;
+	}
+
+	public void setDataUltimaEdicao(Date dataUltimaEdicao) {
+		this.dataUltimaEdicao = dataUltimaEdicao;
 	}
 
 	@Override

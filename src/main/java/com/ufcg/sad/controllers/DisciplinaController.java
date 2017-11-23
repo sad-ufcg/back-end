@@ -47,7 +47,7 @@ public class DisciplinaController {
             Disciplina disciplina = disciplinaService.getDisciplina(id);
             return new ResponseEntity<Disciplina>(disciplina, HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
-           return new ResponseEntity(HttpStatus.NOT_FOUND);
+           return new ResponseEntity<Disciplina>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -74,7 +74,7 @@ public class DisciplinaController {
     public ResponseEntity<List<Disciplina>> getAll() {
         List<Disciplina> disciplinas = disciplinaService.listarTodasAsDisciplinas();
 
-        return new ResponseEntity(disciplinas, HttpStatus.OK);
+        return new ResponseEntity<List<Disciplina>>(disciplinas, HttpStatus.OK);
     }
 
     /**
