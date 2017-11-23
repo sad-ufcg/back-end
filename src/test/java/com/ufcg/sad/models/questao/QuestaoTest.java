@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
-import com.ufcg.sad.models.resposta.Resposta;
 import org.junit.Test;
 
 import com.ufcg.sad.SadApplicationTests;
@@ -30,11 +28,11 @@ public class QuestaoTest extends SadApplicationTests {
 	@Test
 	public void testQuestao() {
 		
-		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
+		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 		
-		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
+		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
 		
 		assertEquals(questao.getId(), new Long(1));
 		assertEquals(questao.getEnunciado(), "A ementa da disciplina foi seguida adequadamente?");

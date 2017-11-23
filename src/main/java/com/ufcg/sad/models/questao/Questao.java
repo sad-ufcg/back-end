@@ -4,12 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.resposta.Resposta;
 
 /**
  * Entidade que representa uma questão genérica.
@@ -32,7 +39,7 @@ public class Questao implements Serializable {
 	@Column
 	private String comentario;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@Column
 	private Professor autor;
 	
 	@Column
@@ -49,9 +56,6 @@ public class Questao implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY,
                mappedBy = "questao")
 	private List<Opcao> opcoes;
-
-	@OneToOne(mappedBy = "questao", fetch = FetchType.LAZY)
-	private Resposta resposta;
 	
 
 	/**
@@ -59,11 +63,10 @@ public class Questao implements Serializable {
 	 * @param id
 	 * @param enunciado
 	 * @param autor
-	 * @param dataCriacao
+	 * @param dataDeCriacao
 	 * @param comentario
-	 * @param resposta
 	 */
-	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, Date dataUltimaEdicao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao, Resposta resposta) {
+	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, Date dataUltimaEdicao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao) {
 		this.id = id;
 		this.enunciado = enunciado;
 		this.autor = autor;
@@ -72,7 +75,6 @@ public class Questao implements Serializable {
 		this.comentario = comentario;
 		this.opcoes = opcoes;
 		this.tipoQuestao = tipoQuestao;
-		this.resposta = resposta;
 	}
 
 	/**
@@ -119,7 +121,8 @@ public class Questao implements Serializable {
 	public void setDataCriacao(Date data) {
 		this.dataCriacao = data;
 	}
-
+	
+	
 	public Date getDataUltimaEdicao() {
 		return dataUltimaEdicao;
 	}
@@ -144,14 +147,6 @@ public class Questao implements Serializable {
 		this.opcoes = opcoes;
 	}
 
-	public Resposta getResposta() {
-		return resposta;
-	}
-
-	public void setResposta(Resposta resposta) {
-		this.resposta = resposta;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -164,7 +159,6 @@ public class Questao implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((opcoes == null) ? 0 : opcoes.hashCode());
 		result = prime * result + ((tipoQuestao == null) ? 0 : tipoQuestao.hashCode());
-		result = prime * result + ((resposta == null) ? 0 : resposta.hashCode());
 		return result;
 	}
 
@@ -211,11 +205,6 @@ public class Questao implements Serializable {
 			if (other.opcoes != null)
 				return false;
 		} else if (!opcoes.equals(other.opcoes))
-			return false;
-		if (resposta == null) {
-			if (other.resposta != null)
-				return false;
-		} else if (!resposta.equals(other.resposta))
 			return false;
 		if (tipoQuestao != other.tipoQuestao)
 			return false;
