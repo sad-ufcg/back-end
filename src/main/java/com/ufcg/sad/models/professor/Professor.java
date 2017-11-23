@@ -2,18 +2,14 @@ package com.ufcg.sad.models.professor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import org.hibernate.engine.internal.Cascade;
 import org.hibernate.validator.constraints.Length;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -48,6 +44,9 @@ public class Professor implements Serializable {
             mappedBy = "professor")
     private Set<Disciplina> disciplinas;
 
+    @OneToOne(mappedBy = "professor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private QuestionarioAplicado questionarioAplicado;
+
     /**
      * Construtor padrão para o Hibernate.
      */
@@ -60,11 +59,13 @@ public class Professor implements Serializable {
      * @param siape Código de identificação único do professor.
      * @param nome Nome do professor.
      * @param disciplinas Conjunto de Disciplinas do professor.
+     * @param questionarioAplicado Questionario aplicado pelo professor.
      */
-    public Professor(String siape, String nome, Set<Disciplina> disciplinas) {
+    public Professor(String siape, String nome, Set<Disciplina> disciplinas, QuestionarioAplicado questionarioAplicado) {
         this.siape = siape;
         this.nome = nome;
         this.disciplinas = disciplinas;
+        this.questionarioAplicado = questionarioAplicado;
     }
 
     public Long getId() {
@@ -103,6 +104,10 @@ public class Professor implements Serializable {
         this.disciplinas.add(disciplina);
     }
 
+    public QuestionarioAplicado getQuestionarioAplicado() { return questionarioAplicado; }
+
+    public void setQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) { this.questionarioAplicado = questionarioAplicado; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,11 +116,12 @@ public class Professor implements Serializable {
         return Objects.equals(id, professor.id) &&
                 Objects.equals(siape, professor.siape) &&
                 Objects.equals(nome, professor.nome) &&
-                Objects.equals(disciplinas, professor.disciplinas);
+                Objects.equals(disciplinas, professor.disciplinas) &&
+                Objects.equals(questionarioAplicado, professor.questionarioAplicado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, siape, nome, disciplinas);
+        return Objects.hash(id, siape, nome, disciplinas, questionarioAplicado);
     }
 }

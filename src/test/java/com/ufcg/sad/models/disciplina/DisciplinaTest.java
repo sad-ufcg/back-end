@@ -3,6 +3,7 @@ package com.ufcg.sad.models.disciplina;
 import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,8 +23,9 @@ public class DisciplinaTest extends SadApplicationTests {
         Professor professor = new Professor();
         String semestre = "20172";
         Set<Matricula> alunos = new HashSet<>();
+        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado();
 
-        Disciplina disciplina = new Disciplina(id, nome, turma, professor, semestre, alunos);
+        Disciplina disciplina = new Disciplina(id, nome, turma, professor, semestre, alunos, questionarioAplicado);
 
         Assert.assertEquals(id, disciplina.getId());
         Assert.assertEquals(nome, disciplina.getNome());
