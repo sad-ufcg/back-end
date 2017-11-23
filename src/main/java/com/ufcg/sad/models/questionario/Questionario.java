@@ -36,6 +36,9 @@ public class Questionario implements Serializable {
 	@Column
 	private String nome;
 	
+	@Column
+	private String descricao;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Questao> questoes;
 	
@@ -54,9 +57,10 @@ public class Questionario implements Serializable {
 	 * @param nome
 	 * @param questoes
 	 */
-	public Questionario(Long id, String nome, Set<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao) {
+	public Questionario(Long id, String nome, String descricao, Set<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao) {
 		this.id = id;
 		this.nome = nome;
+		this.descricao = descricao;
 		this.questoes = questoes;
 		this.autor = autor;
 		this.dataCriacao = dataCriacao;
@@ -86,6 +90,14 @@ public class Questionario implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
 	public Set<Questao> getQuestoes() {
 		return questoes;
 	}
@@ -154,4 +166,6 @@ public class Questionario implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 }
