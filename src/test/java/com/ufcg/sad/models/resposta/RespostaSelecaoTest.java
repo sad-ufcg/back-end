@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.resposta;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
@@ -9,7 +10,12 @@ import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import org.junit.Test;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +24,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Arthur Costa
  */
-public class RespostaSelecaoTest {
+public class RespostaSelecaoTest extends SadApplicationTests {
 
     @Test
     public void testaConstrutor() {

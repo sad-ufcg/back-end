@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.resposta;
 
+import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Arthur Costa
  */
-public class RepostaMultiplaEscolhaTest {
+public class RepostaMultiplaEscolhaTest extends SadApplicationTests {
 
     @Test
     public void testaConstrutor() {
