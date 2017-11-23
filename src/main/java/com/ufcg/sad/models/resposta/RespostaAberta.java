@@ -1,4 +1,4 @@
-package com.ufcg.sad.models.questionario.resposta;
+package com.ufcg.sad.models.resposta;
 
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
@@ -16,9 +16,13 @@ public class RespostaAberta extends Resposta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column
     @Length(max = TAMANHO_MAX_STRING)
     private String comentario;
+
+    /**
+     * Construtor vazio para o hibernate
+     */
+    public RespostaAberta() {}
 
     public RespostaAberta(Date dataResposta, Questao questao, QuestionarioAplicado questionarioAplicado, String comentario) {
         super(dataResposta, questao, questionarioAplicado);

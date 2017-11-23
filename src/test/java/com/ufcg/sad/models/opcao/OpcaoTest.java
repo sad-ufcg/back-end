@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.ufcg.sad.models.resposta.Resposta;
+import com.ufcg.sad.models.resposta.RespostaMultiplaEscolha;
+import com.ufcg.sad.models.resposta.RespostaSelecao;
 import org.junit.Test;
 
 import com.ufcg.sad.SadApplicationTests;
@@ -27,13 +31,13 @@ public class OpcaoTest extends SadApplicationTests {
 	 */
 	@Test
 	public void testQuestao() {	
-		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
+		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 		
-		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
 		
-		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao);
+		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, new RespostaMultiplaEscolha(), new RespostaSelecao());
 		
 		assertEquals(new Long(1), opcao.getId());
 		assertEquals("opcao 1", opcao.getNome());

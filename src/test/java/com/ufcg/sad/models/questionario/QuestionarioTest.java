@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.ufcg.sad.SadApplicationTests;
+import com.ufcg.sad.models.resposta.Resposta;
 import org.junit.Test;
 
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -30,10 +31,10 @@ public class QuestionarioTest extends SadApplicationTests {
 	@Test
 	public void testQuestionario() {
 		
-		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
+		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
 		Date dataCriacao = new Date();
 		
-		Questionario questionario = new Questionario(new Long(1), "Questionário 1", new HashSet<Questao>(), autor, dataCriacao, dataCriacao);
+		Questionario questionario = new Questionario(new Long(1), "Questionário 1", new HashSet<Questao>(), autor, dataCriacao, dataCriacao, new HashSet<QuestionarioAplicado>());
 		
 		assertEquals(questionario.getNome(), "Questionário 1");
 		assertEquals(questionario.getQuestoes(), new HashSet<Questao>());
@@ -57,12 +58,12 @@ public class QuestionarioTest extends SadApplicationTests {
 		
 		Set<Questao> questoes = new HashSet<Questao>();
 		
-		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
+		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 		
-		Questao questao1 = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
-		Questao questao2 = new Questao(new Long(2), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES);
+		Questao questao1 = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
+		Questao questao2 = new Questao(new Long(2), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
 		
 		questoes.add(questao1);
 		questoes.add(questao2);

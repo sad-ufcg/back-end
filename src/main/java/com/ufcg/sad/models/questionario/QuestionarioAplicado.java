@@ -2,10 +2,11 @@ package com.ufcg.sad.models.questionario;
 
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.questionario.resposta.Resposta;
+import com.ufcg.sad.models.resposta.Resposta;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -27,13 +28,14 @@ public class QuestionarioAplicado implements Serializable {
     @JoinColumn
     private Questionario questionario;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Professor professor;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Disciplina disciplina;
 
-    @Column
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "questionarioAplicado")
     private Set<Resposta> respostas;
@@ -43,7 +45,7 @@ public class QuestionarioAplicado implements Serializable {
      * Construtor vazio para o hibernate.
      *
      */
-    public QuestionarioAplicado() {}
+    public QuestionarioAplicado() {this.respostas = new HashSet<Resposta>();}
 
     /**
      * Construtor de questionario aplicado.

@@ -1,10 +1,9 @@
-package com.ufcg.sad.models.questionario.resposta;
+package com.ufcg.sad.models.resposta;
 
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,14 +20,14 @@ public class Resposta implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
     @Temporal(TemporalType.DATE)
     private Date  dataResposta;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Questao questao;
 
     @ManyToOne(fetch = FetchType.LAZY)
