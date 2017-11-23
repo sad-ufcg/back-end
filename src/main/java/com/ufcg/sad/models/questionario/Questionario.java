@@ -52,7 +52,7 @@ public class Questionario implements Serializable {
 	 * Método para construir uma instância do tipo questionário
 	 * @param id
 	 * @param nome
-	 * @param  descricao
+	 * @param descricao
 	 * @param questoes
 	 * @param autor
 	 * @param dataCriacao

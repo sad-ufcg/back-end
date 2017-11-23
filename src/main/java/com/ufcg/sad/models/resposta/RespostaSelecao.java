@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 public class RespostaSelecao extends Resposta implements Serializable {
@@ -22,7 +24,7 @@ public class RespostaSelecao extends Resposta implements Serializable {
     /**
      * Construtor vazio para o hibernate
      */
-    public RespostaSelecao() {}
+    public RespostaSelecao() { this.opcoesSelecionadas = new HashSet<Opcao>();}
 
     public RespostaSelecao(Date dataResposta, Questao questao, QuestionarioAplicado questionarioAplicado, Set<Opcao> opcoesSelecionadas) {
         super(dataResposta, questao, questionarioAplicado);

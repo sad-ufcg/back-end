@@ -40,7 +40,7 @@ public class Opcao {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private RespostaSelecao respostaSelecao;
-    
+
     /**
      * Contrutor padrão para o Hibernate.
      */
@@ -52,10 +52,8 @@ public class Opcao {
      * @param nome Nome da opcao.
 	 * @param descricao Descricao da opcao.
 	 * @param questao Questao relacionada a opcao.
-	 * @param respostaMultiplaEscolha Resposta multipla escolha associada a opcao.
-	 * @param respostaSelecao Resposta selecao associada a opcao.
      */
-    public Opcao(Long id, String nome, String descricao, Questao questao, RespostaMultiplaEscolha respostaMultiplaEscolha, RespostaSelecao respostaSelecao) {
+    public Opcao(Long id, String nome, String descricao, Questao questao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -63,6 +61,40 @@ public class Opcao {
         this.respostaMultiplaEscolha = respostaMultiplaEscolha;
         this.respostaSelecao = respostaSelecao;
     }
+
+	/**
+	 * Construtor para a classe Opcao
+	 * @param id Id da opcao.
+	 * @param nome Nome da opcao.
+	 * @param descricao Descricao da opcao.
+	 * @param questao Questao relacionada a opcao.
+	 * @param respostaMultiplaEscolha Resposta multipla escolha associada a opcao.
+	 */
+	public Opcao(Long id, String nome, String descricao, Questao questao, RespostaMultiplaEscolha respostaMultiplaEscolha) {
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.questao = questao;
+		this.respostaMultiplaEscolha = respostaMultiplaEscolha;
+		this.respostaSelecao = null;
+	}
+
+	/**
+	 * Construtor para a classe Opcao
+	 * @param id Id da opcao.
+	 * @param nome Nome da opcao.
+	 * @param descricao Descricao da opcao.
+	 * @param questao Questao relacionada a opcao.
+	 * @param respostaSelecao Resposta selecao associada a opcao.
+	 */
+	public Opcao(Long id, String nome, String descricao, Questao questao, RespostaSelecao respostaSelecao) {
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.questao = questao;
+		this.respostaMultiplaEscolha = null;
+		this.respostaSelecao = respostaSelecao;
+	}
     
     public Long getId() {
         return id;
@@ -95,8 +127,24 @@ public class Opcao {
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
 	}
-    
-    @Override
+
+	public RespostaMultiplaEscolha getRespostaMultiplaEscolha() {
+		return respostaMultiplaEscolha;
+	}
+
+	public void setRespostaMultiplaEscolha(RespostaMultiplaEscolha respostaMultiplaEscolha) {
+		this.respostaMultiplaEscolha = respostaMultiplaEscolha;
+	}
+
+	public RespostaSelecao getRespostaSelecao() {
+		return respostaSelecao;
+	}
+
+	public void setRespostaSelecao(RespostaSelecao respostaSelecao) {
+		this.respostaSelecao = respostaSelecao;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

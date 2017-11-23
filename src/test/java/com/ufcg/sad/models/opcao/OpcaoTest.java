@@ -1,6 +1,7 @@
 package com.ufcg.sad.models.opcao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,12 +38,17 @@ public class OpcaoTest extends SadApplicationTests {
 		
 		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
 		
-		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, new RespostaMultiplaEscolha(), new RespostaSelecao());
+		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao);
 		
 		assertEquals(new Long(1), opcao.getId());
 		assertEquals("opcao 1", opcao.getNome());
 		assertEquals("primeira opcao", opcao.getDescricao());
-		assertEquals(questao, opcao.getQuestao());	
+		assertEquals(questao, opcao.getQuestao());
+
+		Opcao opcao2 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, new RespostaMultiplaEscolha());
+
+		assertEquals(opcao2.getRespostaMultiplaEscolha(), new RespostaMultiplaEscolha());
+		assertTrue(opcao2.getRespostaSelecao() == null);
 	}
 
 }

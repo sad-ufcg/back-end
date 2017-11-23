@@ -11,6 +11,11 @@ import java.util.Date;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
+/**
+ * Classe que representa uma resposta aberta.
+ *
+ * @author Arthur Costa
+ */
 @Entity
 public class RespostaAberta extends Resposta implements Serializable {
 

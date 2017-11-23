@@ -25,7 +25,7 @@ public class QuestionarioAplicadoTest {
     public void testaConstrucao() {
 
         Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
-        Questionario questionario = new Questionario(new Long(1), "Questionario", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
+        Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
 
         QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(questionario, professor, new Disciplina(), new HashSet<Resposta>());
 
