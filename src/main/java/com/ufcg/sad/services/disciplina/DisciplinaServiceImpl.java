@@ -1,12 +1,15 @@
 package com.ufcg.sad.services.disciplina;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.repositories.DisciplinaRepository;
+import com.ufcg.sad.services.aluno.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class DisciplinaServiceImpl implements DisciplinaService {
@@ -15,6 +18,9 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 
     @Autowired
     DisciplinaRepository disciplinaRepository;
+
+    @Autowired
+    AlunoService alunoService;
 
     @Override
     public Disciplina cadastrarDisciplina(Disciplina disciplina) {
@@ -48,5 +54,19 @@ public class DisciplinaServiceImpl implements DisciplinaService {
         } else {
             throw new EntidadeNotFoundException(NAO_ENCONTRADO);
         }
+    }
+
+    @Override
+    public Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException {
+        Disciplina disciplina = disciplinaRepository.findOne(idDisciplina);
+
+        Aluno novoAluno = alunoService.procurarPorEmail(aluno.getEmail());
+        if(novoAluno == null) {
+            novoAluno = alunoService.criarAluno(aluno);
+        }
+        novoAluno.adicionarDisciplina(disciplina);
+        alunoService.atualizarAluno(novoAluno);
+
+        return novoAluno;
     }
 }

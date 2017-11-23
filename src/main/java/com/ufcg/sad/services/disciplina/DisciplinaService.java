@@ -1,6 +1,7 @@
 package com.ufcg.sad.services.disciplina;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 
 import java.util.List;
@@ -53,4 +54,15 @@ public interface DisciplinaService {
      */
     void removerDisciplina(Disciplina disciplina) throws EntidadeNotFoundException;
 
+    /**
+     * Adiciona um novo Aluno a uma Disciplina já existente.
+     *
+     * @param aluno Aluno a ser adicionado.
+     * @param idDisciplina Disciplina a qual o Aluno será vinculado.
+     *
+     * @return Disciplina atualizada.
+     *
+     * @throws EntidadeNotFoundException Lança exceção se a turma passada não existir
+     */
+    Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException;
 }

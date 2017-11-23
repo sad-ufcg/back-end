@@ -1,6 +1,7 @@
 package com.ufcg.sad.models.disciplina;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
 
@@ -57,16 +58,17 @@ public class Disciplina implements Serializable {
     private String codigo;
 
     @OneToMany(mappedBy = "disciplina",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    private Set<Matricula> alunos;
+    @JsonIgnore
+    private Set<Matricula> matriculas;
 
     /**
      * Contrutor padrão para o Hibernate.
      */
     public Disciplina() {
-        this.alunos = new HashSet<>();
+        this.matriculas = new HashSet<>();
     }
 
     /**
@@ -76,23 +78,23 @@ public class Disciplina implements Serializable {
      * @param turma Número da turma.
      * @param professor Professor responsável pela disciplina.
      * @param semestre Semestre a qual a disciplina foi ministrada.
-     * @param alunos Conjunto de alunos que cursaram a disciplina.
+     * @param matriculas Conjunto de matriculas que cursaram a disciplina.
      */
-    public Disciplina(Long id, String nome, int turma, Professor professor, String semestre, Set<Matricula> alunos) {
+    public Disciplina(Long id, String nome, int turma, Professor professor, String semestre, Set<Matricula> matriculas) {
         this.id = id;
         this.nome = nome;
         this.turma = turma;
         this.professor = professor;
         this.semestre = semestre;
-        this.alunos = alunos;
+        this.matriculas = matriculas;
     }
 
-    public Disciplina(String nome, int turma, Professor professor, String semestre, Set<Matricula> alunos) {
+    public Disciplina(String nome, int turma, Professor professor, String semestre, Set<Matricula> matriculas) {
         this.nome = nome;
         this.turma = turma;
         this.professor = professor;
         this.semestre = semestre;
-        this.alunos = alunos;
+        this.matriculas = matriculas;
     }
 
     public Long getId() {
@@ -135,12 +137,12 @@ public class Disciplina implements Serializable {
         this.semestre = semestre;
     }
 
-    public Set<Matricula> getAlunos() {
-        return alunos;
+    public Set<Matricula> getMatriculas() {
+        return matriculas;
     }
 
-    public void setAlunos(Set<Matricula> alunos) {
-        this.alunos = alunos;
+    public void setMatriculas(Set<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 
     public String getCodigo() {

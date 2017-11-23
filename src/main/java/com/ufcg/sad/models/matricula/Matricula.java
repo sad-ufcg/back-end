@@ -1,5 +1,7 @@
 package com.ufcg.sad.models.matricula;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.token.Token;
@@ -28,9 +30,11 @@ public class Matricula implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Aluno aluno;
 
     @ManyToOne
+    @JsonBackReference
     private Disciplina disciplina;
 
     /**

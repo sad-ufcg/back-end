@@ -1,34 +1,27 @@
 package com.ufcg.sad.controller;
 
 import com.ufcg.sad.SadApplicationTests;
-import com.ufcg.sad.controllers.ControllerParaTestes;
+import com.ufcg.sad.controllers.DisciplinaController;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-/**
- * Created by sampaio on 15/11/17.
- */
-@WebMvcTest(ControllerParaTestes.class)
-public class ControllerTestes extends SadApplicationTests {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+@WebMvcTest(DisciplinaController.class)
+public class DisciplinaControllerTest extends SadApplicationTests {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @Test
-    public void verificaSeControllerFunciona() throws Exception {
-
-        mvc.perform(get("/testes/")
+    public void verificaGetAll() throws Exception {
+        mockMvc.perform(get("/disciplinas")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isFound());
-
+                .andExpect(MockMvcResultMatchers.status().isFound());
     }
-
-
-
 
 }

@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
 import org.hibernate.validator.constraints.Length;
@@ -56,6 +58,7 @@ public class Aluno implements Serializable {
             fetch = FetchType.EAGER,
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JsonIgnore
     private Set<Matricula> matriculas;
 
     /**
@@ -118,7 +121,7 @@ public class Aluno implements Serializable {
     public void adicionarDisciplina(Disciplina disciplina) {
         Matricula matricula = new Matricula(this, disciplina);
         this.matriculas.add(matricula);
-        disciplina.getAlunos().add(matricula);
+        disciplina.getMatriculas().add(matricula);
     }
 
     /**
@@ -133,7 +136,7 @@ public class Aluno implements Serializable {
             matriculaRemovida = (Matricula) iterator.next();
         }
 
-        matriculaRemovida.getDisciplina().getAlunos().remove(matriculaRemovida);
+        matriculaRemovida.getDisciplina().getMatriculas().remove(matriculaRemovida);
         this.matriculas.remove(matriculaRemovida);
     }
 
