@@ -17,12 +17,13 @@ import com.ufcg.sad.models.resposta.Resposta;
  * @author Lucas Silva, Marianne Linhares
  */
 @Entity
+@Table
 public class Questao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
