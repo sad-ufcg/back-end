@@ -38,7 +38,10 @@ public class OpcaoTest extends SadApplicationTests {
 		
 		Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
 		
-		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao);
+		RespostaSelecao respostaSelecao = new RespostaSelecao();
+		RespostaMultiplaEscolha respostaME = new RespostaMultiplaEscolha();
+		
+		Opcao opcao = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, respostaME, respostaSelecao);
 		
 		assertEquals(new Long(1), opcao.getId());
 		assertEquals("opcao 1", opcao.getNome());

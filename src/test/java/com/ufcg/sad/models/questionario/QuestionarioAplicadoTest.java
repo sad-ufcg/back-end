@@ -10,7 +10,6 @@ import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.resposta.RespostaAberta;
 import org.junit.Test;
 
-import javax.validation.constraints.AssertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;

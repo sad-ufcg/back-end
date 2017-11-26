@@ -1,7 +1,5 @@
 package com.ufcg.sad.models.token;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ufcg.sad.models.matricula.Matricula;
 
 import javax.persistence.*;

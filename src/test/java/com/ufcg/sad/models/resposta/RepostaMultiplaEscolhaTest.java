@@ -31,17 +31,17 @@ public class RepostaMultiplaEscolhaTest extends SadApplicationTests {
         List<Opcao> opcoes = new ArrayList<Opcao>();
 
         Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
-        Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao);
-        Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao", questao);
-
 
         Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
         Questionario questionario = new Questionario(new Long(1), "Questionario", "Uma descrição", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
-
+       
         QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(questionario, professor, new Disciplina(), new HashSet<Resposta>());
 
-        RespostaMultiplaEscolha respostaMultiplaEscolha = new RespostaMultiplaEscolha(dataCriacao, questao, questionarioAplicado, opcao1,"um comentario aqui");
-
+        Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, null, null);
+        Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao", questao, null, null);
+        
+        RespostaMultiplaEscolha respostaMultiplaEscolha = new RespostaMultiplaEscolha(dataCriacao, questao, questionarioAplicado, opcao1, "um comentario aqui");
+ 
         assertEquals(respostaMultiplaEscolha.getOpcaoEscolhida(), opcao1);
         assertEquals(respostaMultiplaEscolha.getComentario(), "um comentario aqui");
 

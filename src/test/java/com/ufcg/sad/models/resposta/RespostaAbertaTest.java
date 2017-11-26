@@ -8,7 +8,6 @@ import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;

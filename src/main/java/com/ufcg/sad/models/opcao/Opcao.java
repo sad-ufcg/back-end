@@ -62,7 +62,7 @@ public class Opcao {
 	 * @param descricao Descricao da opcao.
 	 * @param questao Questao relacionada a opcao.
      */
-    public Opcao(Long id, String nome, String descricao, Questao questao) {
+    public Opcao(Long id, String nome, String descricao, Questao questao, RespostaMultiplaEscolha respostaMultiplaEscolha, RespostaSelecao respostaSelecao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
