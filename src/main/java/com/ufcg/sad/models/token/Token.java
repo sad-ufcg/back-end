@@ -2,8 +2,15 @@ package com.ufcg.sad.models.token;
 
 import com.ufcg.sad.models.matricula.Matricula;
 
-import javax.persistence.*;
 import java.util.UUID;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * Entidade de que representa o token de autenticação de um questionário
