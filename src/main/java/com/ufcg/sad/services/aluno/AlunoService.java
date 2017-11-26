@@ -53,5 +53,5 @@ public interface AlunoService {
      */
     void removerAluno(Aluno aluno) throws EntidadeNotFoundException;
 
-    Aluno procurarPorEmail(String email) throws EntidadeNotFoundException;
+    Aluno procurarPorEmail(String email);
 }

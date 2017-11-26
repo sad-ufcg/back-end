@@ -82,10 +82,10 @@ public class AlunoController {
 	 */
 	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
 	public ResponseEntity<Aluno> procurarPorEmail(@PathVariable("email") String email) {
-		try {
-			Aluno aluno = alunoService.procurarPorEmail(email);
+		Aluno aluno = alunoService.procurarPorEmail(email);
+		if (aluno != null) {
 			return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
-		} catch (EntidadeNotFoundException e) {
+		} else {
 			return new ResponseEntity<Aluno>(HttpStatus.NOT_FOUND);
 		}
 	}
