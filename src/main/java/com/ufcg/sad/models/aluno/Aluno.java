@@ -30,7 +30,7 @@ import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
  */
 @Entity
 @Table
-public class    Aluno implements Serializable {
+public class Aluno implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
