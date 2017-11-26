@@ -32,7 +32,7 @@ public class DisciplinaTest extends SadApplicationTests {
         Assert.assertEquals(turma, disciplina.getTurma());
         Assert.assertEquals(professor, disciplina.getProfessor());
         Assert.assertEquals(semestre, disciplina.getSemestre());
-        Assert.assertEquals(alunos, disciplina.getAlunos());
+        Assert.assertEquals(alunos, disciplina.getMatriculas());
     }
 
 }

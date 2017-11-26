@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Antunes Dantas
  */
 public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
+
 }

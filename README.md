@@ -1,5 +1,5 @@
 # Sistema de Avaliação Docente
-> O SAD - Sistema de Avaliação Docente é um sistema que tem o objetivo de obter o feedback dos alunos em relação a qualidade da docência com o intuito de melhorar a experiência de aula dos alunos. 
+> O SAD - Sistema de Avaliação Docente é um sistema que tem o objetivo de obter o feedback dos matriculas em relação a qualidade da docência com o intuito de melhorar a experiência de aula dos matriculas.
 
 [![Build Status][travis-image]][travis-url]
 [![GitHub issues](https://img.shields.io/github/issues/sad-ufcg/back-end.svg)](https://github.com/sad-ufcg/back-end/issues)

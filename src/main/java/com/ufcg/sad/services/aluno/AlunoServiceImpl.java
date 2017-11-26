@@ -52,13 +52,8 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public Aluno procurarPorEmail(String email) throws EntidadeNotFoundException {
+    public Aluno procurarPorEmail(String email) {
         Aluno aluno = alunoRepository.findByEmail(email);
-
-        if(aluno != null) {
-            return aluno;
-        } else {
-            throw new EntidadeNotFoundException();
-        }
+        return aluno;
     }
 }

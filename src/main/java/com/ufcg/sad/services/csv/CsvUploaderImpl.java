@@ -103,15 +103,14 @@ public class CsvUploaderImpl implements CsvUploader {
      */
     private Aluno criaAluno(String entrada) {
         String[] dadosAluno = entrada.split(LINE_SEPARATOR);
-        Aluno aluno;
-        try {
-            aluno = alunoService.procurarPorEmail(dadosAluno[2]);
-        } catch (Exception e) {
+        Aluno aluno = alunoService.procurarPorEmail(dadosAluno[2]);
+        if (aluno == null) {
             aluno = new Aluno();
             aluno.setNome(dadosAluno[0]);
             aluno.setSobrenome(dadosAluno[1]);
             aluno.setEmail(dadosAluno[2]);
             aluno = alunoService.criarAluno(aluno);
+
         }
 
         return aluno;
