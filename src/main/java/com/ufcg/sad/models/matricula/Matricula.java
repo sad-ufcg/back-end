@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.token.Token;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -34,6 +30,18 @@ public class Matricula implements Serializable {
     @ManyToOne
     @JsonBackReference
     private Disciplina disciplina;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Token token;
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
 
     /**
      * Construtor padrão para Matrícula.

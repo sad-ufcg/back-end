@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -64,6 +67,9 @@ public class Disciplina implements Serializable {
     @JsonIgnore
     private Set<Matricula> matriculas;
 
+    @OneToOne(mappedBy = "disciplina", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private QuestionarioAplicado questionarioAplicado;
+
     /**
      * Contrutor padrão para o Hibernate.
      */
@@ -79,13 +85,16 @@ public class Disciplina implements Serializable {
      * @param professor Professor responsável pela disciplina.
      * @param semestre Semestre a qual a disciplina foi ministrada.
      * @param matriculas Conjunto de matriculas que cursaram a disciplina.
+     * @param alunos Conjunto de alunos que cursaram a disciplina.
+     * @param questionarioAplicado Questionario aplicado associado aquela disciplina.
      */
-    public Disciplina(Long id, String nome, int turma, Professor professor, String semestre, Set<Matricula> matriculas) {
+    public Disciplina(Long id, String nome, int turma, Professor professor, String semestre, Set<Matricula> matriculas, QuestionarioAplicado questionarioAplicado) {
         this.id = id;
         this.nome = nome;
         this.turma = turma;
         this.professor = professor;
         this.semestre = semestre;
+        this.questionarioAplicado = questionarioAplicado;
         this.matriculas = matriculas;
     }
 
@@ -153,6 +162,10 @@ public class Disciplina implements Serializable {
         this.codigo = codigo;
     }
 
+    public QuestionarioAplicado getQuestionarioAplicado() { return questionarioAplicado; }
+
+    public void setQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) { this.questionarioAplicado = questionarioAplicado; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -161,11 +174,12 @@ public class Disciplina implements Serializable {
         return id == that.id &&
                 turma == that.turma &&
                 Objects.equals(nome, that.nome) &&
-                Objects.equals(semestre, that.semestre);
+                Objects.equals(semestre, that.semestre) &&
+                Objects.equals(questionarioAplicado, that.questionarioAplicado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, turma, semestre);
+        return Objects.hash(id, nome, turma, semestre, questionarioAplicado);
     }
 }

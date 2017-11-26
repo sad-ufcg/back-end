@@ -1,5 +1,7 @@
 package com.ufcg.sad.models.token;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ufcg.sad.models.matricula.Matricula;
 
 import javax.persistence.*;
@@ -8,7 +10,7 @@ import java.util.UUID;
 /**
  * Entidade de que representa o token de autenticação de um questionário
  *
- * Created by sampaio on 16/11/17.
+ * Created by Sampaio on 16/11/17.
  */
 @Entity
 @Table
@@ -18,13 +20,18 @@ public class Token {
     @Column
     private String id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "token",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
     private Matricula matricula;
 
     public Token(Matricula matricula) {
         this.id = UUID.randomUUID().toString();
         this.matricula = matricula;
     }
+
+
+    public Token(){}
 
     public String getId() {
         return id;

@@ -16,7 +16,13 @@ public final class Utils {
     public static final int TAMANHO_MAX_STRING = 255;
 
 
-    public static Matricula createMatriculaTest(Long id, String nomeAluno, String nomeDisciplina) {
+    /**
+     * Cria uma matricula default. Serve unicamente para testes!
+     * @param nomeAluno nome do aluno
+     * @param nomeDisciplina nome da disciplina
+     * @return uma matricula default
+     */
+    public static Matricula createMatriculaTest(String nomeAluno, String nomeDisciplina) {
         Aluno aluno = new Aluno();
         aluno.setNome(nomeAluno);
         aluno.setEmail("algumemail@ccc.ufcg.edu.br");
@@ -31,7 +37,7 @@ public final class Utils {
     }
   
     
-    public static Questao createQuestaoTest(Long id, String enunciado, Professor autor, Date dataCriacao, String comentario, List<Opcao> opcoes, TipoQuestao tipo) {
+    public static Questao createQuestaoTest(String enunciado, Professor autor, Date dataCriacao, String comentario, List<Opcao> opcoes, TipoQuestao tipo) {
     	Questao questao = new Questao();
     	
     	questao.setEnunciado(enunciado);

@@ -5,17 +5,21 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
+import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questao.Questao;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.questao.Questao;
 
 /**
  * Entidade que representa um questionário
@@ -36,10 +40,13 @@ public class Questionario implements Serializable {
 	@Column
 	private String nome;
 	
+	@Column
+	private String descricao;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Questao> questoes;
 	
-	@Column
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Professor autor;
 	
 	@Column
@@ -48,19 +55,30 @@ public class Questionario implements Serializable {
 	@Column
 	private Date dataUltimaEdicao;
 
+	@OneToMany(fetch = FetchType.LAZY,
+				mappedBy = "questionario")
+	private Set<QuestionarioAplicado> questionariosAplicados;
+
 	/**
 	 * Método para construir uma instância do tipo questionário
 	 * @param id
 	 * @param nome
+	 * @param descricao
 	 * @param questoes
+	 * @param autor
+	 * @param dataCriacao
+	 * @param dataUltimaEdicao
+	 * @param questionariosAplicados
 	 */
-	public Questionario(Long id, String nome, Set<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao) {
+	public Questionario(Long id, String nome, String descricao, Set<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao, Set<QuestionarioAplicado> questionariosAplicados) {
 		this.id = id;
 		this.nome = nome;
+		this.descricao = descricao;
 		this.questoes = questoes;
 		this.autor = autor;
 		this.dataCriacao = dataCriacao;
 		this.dataUltimaEdicao = dataUltimaEdicao;
+		this.questionariosAplicados = questionariosAplicados;
 	}
 	
 	/**
@@ -68,6 +86,7 @@ public class Questionario implements Serializable {
 	 */
 	public Questionario() { 
 		this.questoes = new HashSet<Questao>();
+		this.questionariosAplicados = new HashSet<QuestionarioAplicado>();
 	}
 
 	public Long getId() {
@@ -86,6 +105,14 @@ public class Questionario implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
 	public Set<Questao> getQuestoes() {
 		return questoes;
 	}
@@ -118,6 +145,14 @@ public class Questionario implements Serializable {
 		this.dataUltimaEdicao = dataUltimaEdicao;
 	}
 
+	public Set<QuestionarioAplicado> getQuestionariosAplicados() {
+		return questionariosAplicados;
+	}
+
+	public void setQuestionariosAplicados(Set<QuestionarioAplicado> questionariosAplicados) {
+		this.questionariosAplicados = questionariosAplicados;
+	}
+
 	@Override
 	public int hashCode() {
 		final int primo = 31;
@@ -125,6 +160,7 @@ public class Questionario implements Serializable {
 		resultado = primo * resultado + ((id == null) ? 0 : id.hashCode());
 		resultado = primo * resultado + ((nome == null) ? 0 : nome.hashCode());
 		resultado = primo * resultado + ((questoes == null) ? 0 : questoes.hashCode());
+		resultado = primo * resultado + ((questionariosAplicados == null) ? 0 : questionariosAplicados.hashCode());
 		return resultado;
 	}
 
@@ -152,6 +188,14 @@ public class Questionario implements Serializable {
 				return false;
 		} else if (!questoes.equals(outroQuestionario.questoes))
 			return false;
+		if (questionariosAplicados == null) {
+			if (outroQuestionario.questionariosAplicados != null)
+				return false;
+		} else if (!questionariosAplicados.equals(outroQuestionario.questionariosAplicados))
+			return false;
+
 		return true;
 	}
+
+	
 }
