@@ -4,7 +4,6 @@ import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;

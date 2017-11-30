@@ -1,6 +1,5 @@
 package com.ufcg.sad.controllers;
 
-import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.token.Token;
 import com.ufcg.sad.services.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,9 @@ public class TokenController {
         Token encontrado = tokenService.verificaSeTokenExiste(tokenId);
 
         if(encontrado !=null){
-            return new ResponseEntity(encontrado, HttpStatus.OK);
+            return new ResponseEntity<Token>(encontrado, HttpStatus.OK);
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Token>(HttpStatus.NOT_FOUND);
         }
 
     }

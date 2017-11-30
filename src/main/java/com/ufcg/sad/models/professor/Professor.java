@@ -2,9 +2,7 @@ package com.ufcg.sad.models.professor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ufcg.sad.models.disciplina.Disciplina;
-import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
-import org.hibernate.engine.internal.Cascade;
 import org.hibernate.validator.constraints.Length;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;

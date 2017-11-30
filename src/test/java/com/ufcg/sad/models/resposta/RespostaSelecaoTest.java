@@ -55,8 +55,8 @@ public class RespostaSelecaoTest extends SadApplicationTests {
 
         Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
 
-        Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao);
-        Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao", questao);
+        Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, null, respostaSelecao);
+        Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao", questao, null, respostaSelecao);
 
         Set<Opcao> opcoesAdd = new HashSet<Opcao>();
 
