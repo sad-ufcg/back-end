@@ -44,7 +44,7 @@ public interface QuestionarioService {
     /**
      * Atualiza um Questionário no sistema
      *
-     * @param aluno Questionário a ser atualizado.
+     * @param questionario Questionário a ser atualizado.
      *
      * @return Questionário atualizado.
      */
