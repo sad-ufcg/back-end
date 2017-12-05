@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
