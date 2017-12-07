@@ -13,7 +13,6 @@ import com.ufcg.sad.repositories.DisciplinaRepository;
 import com.ufcg.sad.repositories.ProfessorRepository;
 import com.ufcg.sad.repositories.questionario.QuestionarioAplicadoRepository;
 import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
-import com.ufcg.sad.repositories.resposta.RespostaRepository;
 import com.ufcg.sad.repositories.token.TokenRepository;
 import org.junit.After;
 import org.junit.Assert;

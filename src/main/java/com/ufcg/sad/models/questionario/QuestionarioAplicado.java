@@ -34,21 +34,21 @@ public class QuestionarioAplicado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     @JoinColumn
     private Questionario questionario;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     @JoinColumn
     private Professor professor;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     @JoinColumn
     private Disciplina disciplina;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "questionarioAplicado",
-            cascade=CascadeType.ALL)
+               mappedBy = "questionarioAplicado",
+               cascade=CascadeType.MERGE)
     private Set<Resposta> respostas;
     
 
