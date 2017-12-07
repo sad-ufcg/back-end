@@ -3,7 +3,9 @@ package com.ufcg.sad.models.questionario;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.resposta.Resposta;
+import com.ufcg.sad.models.token.Token;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,21 +34,27 @@ public class QuestionarioAplicado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn
     private Questionario questionario;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn
     private Professor professor;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn
     private Disciplina disciplina;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "questionarioAplicado")
+            mappedBy = "questionarioAplicado",
+            cascade=CascadeType.ALL)
     private Set<Resposta> respostas;
+    
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Token token;
 
     /**
      *
@@ -108,6 +116,14 @@ public class QuestionarioAplicado implements Serializable {
 
     public void setRespostas(Set<Resposta> respostas) {
         this.respostas = respostas;
+    }
+    
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 
     @Override

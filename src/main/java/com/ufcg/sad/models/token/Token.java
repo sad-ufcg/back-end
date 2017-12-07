@@ -1,6 +1,6 @@
 package com.ufcg.sad.models.token;
 
-import com.ufcg.sad.models.matricula.Matricula;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import java.util.UUID;
 
@@ -28,13 +28,12 @@ public class Token {
     @OneToOne(mappedBy = "token",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
-    private Matricula matricula;
+    private QuestionarioAplicado questionarioAplicado;
 
-    public Token(Matricula matricula) {
+    public Token(QuestionarioAplicado questionarioAplicado) {
         this.id = UUID.randomUUID().toString();
-        this.matricula = matricula;
+        this.questionarioAplicado = questionarioAplicado;
     }
-
 
     public Token(){}
 
@@ -46,29 +45,12 @@ public class Token {
         this.id = id;
     }
 
-    public Matricula getMatricula() {
-        return matricula;
+    public QuestionarioAplicado getQuestionarioAplicado() {
+        return questionarioAplicado;
     }
 
-    public void setMatricula(Matricula matricula) {
-        this.matricula = matricula;
+    public void setQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) {
+        this.questionarioAplicado = questionarioAplicado;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Token token = (Token) o;
-
-        if (id != null ? !id.equals(token.id) : token.id != null) return false;
-        return matricula != null ? matricula.equals(token.matricula) : token.matricula == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (matricula != null ? matricula.hashCode() : 0);
-        return result;
-    }
 }

@@ -2,12 +2,18 @@ package com.ufcg.sad.controllers;
 
 import com.ufcg.sad.SadApplication;
 import com.ufcg.sad.SadApplicationTests;
-import com.ufcg.sad.models.matricula.Matricula;
+import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questao.Questao;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.token.Token;
-import com.ufcg.sad.models.util.Utils;
-import com.ufcg.sad.repositories.AlunoRepository;
 import com.ufcg.sad.repositories.DisciplinaRepository;
-import com.ufcg.sad.repositories.MatriculaRepository;
+import com.ufcg.sad.repositories.ProfessorRepository;
+import com.ufcg.sad.repositories.questionario.QuestionarioAplicadoRepository;
+import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
+import com.ufcg.sad.repositories.resposta.RespostaRepository;
 import com.ufcg.sad.repositories.token.TokenRepository;
 import org.junit.After;
 import org.junit.Assert;
@@ -23,6 +29,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Date;
+import java.util.HashSet;
 
 
 /**
@@ -44,10 +53,13 @@ public class TokenControllerTeste extends SadApplicationTests {
     private TokenRepository tokenRepository;
 
     @Autowired
-    private MatriculaRepository matriculaRepository;
+    private QuestionarioAplicadoRepository questionarioAplicadoRepository;
 
     @Autowired
-    private AlunoRepository alunoRepository;
+    private QuestionarioRepository questionarioRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private DisciplinaRepository disciplinaRepository;
@@ -88,11 +100,25 @@ public class TokenControllerTeste extends SadApplicationTests {
     }
 
     private Token createTokenTest(String nomeAluno, String nomeDisciplina) {
-        Matricula matricula = Utils.createMatriculaTest(nomeAluno, nomeDisciplina);
-        Token token = new Token(matricula);
-        alunoRepository.saveAndFlush(matricula.getAluno());
-        disciplinaRepository.saveAndFlush(matricula.getDisciplina());
-        matriculaRepository.saveAndFlush(matricula);
+        
+    	Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
+    	Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
+    	Disciplina disciplina = new Disciplina();
+    	disciplina.setTurma(1);
+    	disciplina.setSemestre("1");
+    	disciplina.setNome("Disciplina 1");
+    	
+    	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(questionario, professor, disciplina, new HashSet<Resposta>());
+
+    	Token token = new Token(questionarioAplicado);
+        professorRepository.saveAndFlush(questionarioAplicado.getProfessor());
+        questionarioRepository.saveAndFlush(questionarioAplicado.getQuestionario());
+        disciplinaRepository.saveAndFlush(questionarioAplicado.getDisciplina());
+        
+        // TODO: verificar como fazer saveAndFlush para caso de coleções.
+        //respostaRepository.saveAndFlush(questionarioAplicado.getRespostas());
+        
+        questionarioAplicadoRepository.saveAndFlush(questionarioAplicado);
         tokenRepository.saveAndFlush(token);
         return token;
     }

@@ -31,18 +31,6 @@ public class Matricula implements Serializable {
     @JsonBackReference
     private Disciplina disciplina;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Token token;
-
-    public Token getToken() {
-        return token;
-    }
-
-    public void setToken(Token token) {
-        this.token = token;
-    }
-
     /**
      * Construtor padrão para Matrícula.
      */

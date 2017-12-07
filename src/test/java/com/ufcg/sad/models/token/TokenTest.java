@@ -1,9 +1,16 @@
 package com.ufcg.sad.models.token;
 
 import com.ufcg.sad.SadApplicationTests;
-import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
-import com.ufcg.sad.models.matricula.Matricula;
+import com.ufcg.sad.models.professor.Professor;
+import com.ufcg.sad.models.questao.Questao;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.ufcg.sad.models.resposta.Resposta;
+
+import java.util.Date;
+import java.util.HashSet;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,38 +20,28 @@ import org.junit.Test;
  */
 public class TokenTest extends SadApplicationTests {
 
-    private Token token1;
-    private Token token2;
-
-    private static final String ALUNO1 = "Aluno";
-    private static final String ALUNO2 = "Aluno2";
-    private static final String DISCIPLINA1 = "Disciplina";
-    private static final String DISCIPLINA2 = "Disciplina2";
-
-
-
+	private Token token1;
+	private Token token2;
+	
+	private QuestionarioAplicado questionarioAplicado;
+	
     @Before
     public void setUp() {
 
-        token1 = new Token(createMatriculaTest(ALUNO1, DISCIPLINA1) );
-        token2 = new Token(createMatriculaTest(ALUNO2, DISCIPLINA2));
+    	Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
+    	Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
+	
+    	questionarioAplicado = new QuestionarioAplicado(questionario, professor, new Disciplina(), new HashSet<Resposta>());
+    	
+        token1 = new Token(questionarioAplicado);
+        token2 = new Token(questionarioAplicado);
     }
 
 
     @Test
     public void testaGetter(){
         Assert.assertNotEquals(token1.getId(),token2.getId());
-        Assert.assertEquals(token1.getMatricula().getAluno().getNome(), ALUNO1);
+        Assert.assertEquals(questionarioAplicado, token1.getQuestionarioAplicado());
     }
 
-
-    public Matricula createMatriculaTest(String nomeAluno, String nomeDisciplina) {
-        Aluno aluno = new Aluno();
-        aluno.setNome(nomeAluno);
-        Disciplina disciplina = new Disciplina();
-        disciplina.setNome(nomeDisciplina);
-        Matricula matricula = new Matricula(aluno, disciplina);
-
-        return matricula;
-    }
 }
