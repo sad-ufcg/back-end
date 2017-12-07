@@ -50,7 +50,7 @@ public class TokenRepositoryTest extends SadApplicationTests {
     	disciplina.setSemestre("1");
     	disciplina.setNome("Disciplina 1");
     	
-    	questionarioAplicado = new QuestionarioAplicado(questionario, professor, disciplina, new HashSet<Resposta>());
+    	questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, disciplina, new HashSet<Resposta>());
     }
 
     @Test

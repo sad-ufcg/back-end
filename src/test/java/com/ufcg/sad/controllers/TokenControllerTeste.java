@@ -107,7 +107,7 @@ public class TokenControllerTeste extends SadApplicationTests {
     	disciplina.setSemestre("1");
     	disciplina.setNome("Disciplina 1");
     	
-    	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(questionario, professor, disciplina, new HashSet<Resposta>());
+    	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, disciplina, new HashSet<Resposta>());
 
     	Token token = new Token(questionarioAplicado);
         professorRepository.saveAndFlush(questionarioAplicado.getProfessor());

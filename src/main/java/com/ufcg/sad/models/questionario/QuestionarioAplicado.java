@@ -34,21 +34,21 @@ public class QuestionarioAplicado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn
     private Questionario questionario;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn
     private Professor professor;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn
     private Disciplina disciplina;
 
     @OneToMany(fetch = FetchType.LAZY,
                mappedBy = "questionarioAplicado",
-               cascade=CascadeType.MERGE)
+               cascade=CascadeType.ALL)
     private Set<Resposta> respostas;
     
 
@@ -71,8 +71,9 @@ public class QuestionarioAplicado implements Serializable {
      * @param disciplina A disciplina para a qual o questionario foi aplicada
      * @param respostas As resposta do questionario que foi aplicado
      */
-    public QuestionarioAplicado(Questionario questionario, Professor professor, Disciplina disciplina, Set<Resposta> respostas) {
-        this.questionario = questionario;
+    public QuestionarioAplicado(Long id, Questionario questionario, Professor professor, Disciplina disciplina, Set<Resposta> respostas) {
+        this.id = id;
+    	this.questionario = questionario;
         this.professor = professor;
         this.disciplina = disciplina;
         this.respostas = respostas;
