@@ -26,8 +26,7 @@ public class Token {
     private String id;
 
     @OneToOne(mappedBy = "token",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
+            fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private QuestionarioAplicado questionarioAplicado;
 
     public Token(QuestionarioAplicado questionarioAplicado) {
@@ -83,7 +82,4 @@ public class Token {
 			return false;
 		return true;
 	}
-    
-    
-
 }

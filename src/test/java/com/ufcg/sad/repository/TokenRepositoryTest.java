@@ -50,20 +50,20 @@ public class TokenRepositoryTest extends SadApplicationTests {
     	disciplina.setSemestre("1");
     	disciplina.setNome("Disciplina 1");
     	
-    	questionarioAplicado = new QuestionarioAplicado(questionario, professor, disciplina, new HashSet<Resposta>());
+    	questionarioAplicado = new QuestionarioAplicado(null, questionario, professor, disciplina, new HashSet<Resposta>());
     }
 
     @Test
     public void retonaTokenPeloID () {
- 
+
     	token = new Token(questionarioAplicado);
         entityManager.persist(questionarioAplicado.getProfessor());
         entityManager.persist(questionarioAplicado.getQuestionario());
         entityManager.persist(questionarioAplicado.getDisciplina());
         // TODO: persistir conjunto no futuro.
         //entityManager.persist(questionarioAplicado.getRespostas());
-        entityManager.persist(token);
         entityManager.persist(questionarioAplicado);
+        entityManager.persist(token);
         entityManager.flush();
         Token encontrada = tokenRepository.findById(token.getId());
         assertThat(encontrada.getId()).isEqualTo(token.getId());
@@ -79,8 +79,9 @@ public class TokenRepositoryTest extends SadApplicationTests {
         entityManager.persist(questionarioAplicado.getQuestionario());
         // TODO: persistir conjunto no futuro.
         //entityManager.persist(questionarioAplicado.getRespostas());
-        entityManager.persist(token);
         entityManager.persist(questionarioAplicado);
+        
+        entityManager.persist(token);
         
         // TODO: melhor criar outro questionarioAplicado no futuro.
         Token outroToken = new Token(questionarioAplicado);

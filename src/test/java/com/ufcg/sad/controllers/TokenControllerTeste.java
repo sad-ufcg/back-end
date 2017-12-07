@@ -103,11 +103,12 @@ public class TokenControllerTeste extends SadApplicationTests {
     	Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
     	Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
     	Disciplina disciplina = new Disciplina();
+    	disciplina.setId(new Long(1));
     	disciplina.setTurma(1);
     	disciplina.setSemestre("1");
-    	disciplina.setNome("Disciplina 1");
+    	disciplina.setNome(nomeDisciplina);
     	
-    	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(questionario, professor, disciplina, new HashSet<Resposta>());
+    	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, disciplina, new HashSet<Resposta>());
 
     	Token token = new Token(questionarioAplicado);
         professorRepository.saveAndFlush(questionarioAplicado.getProfessor());
@@ -116,9 +117,9 @@ public class TokenControllerTeste extends SadApplicationTests {
         
         // TODO: verificar como fazer saveAndFlush para caso de coleções.
         //respostaRepository.saveAndFlush(questionarioAplicado.getRespostas());
-        
         questionarioAplicadoRepository.saveAndFlush(questionarioAplicado);
         tokenRepository.saveAndFlush(token);
+        
         return token;
     }
 
