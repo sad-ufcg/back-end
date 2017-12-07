@@ -1,7 +1,6 @@
 package com.ufcg.sad.models.disciplina;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;

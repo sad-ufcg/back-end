@@ -38,7 +38,8 @@ public class TokenServiceImpl implements TokenService {
     public Token criaToken(Token token) {
         if(token != null){
             return tokenRepository.save(token);
+        } else {
+        	throw new ParametroInvalidoException();
         }
-        throw new ParametroInvalidoException();
     }
 }
