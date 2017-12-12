@@ -95,8 +95,8 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 
 	/**
 	 * Método que atualiza um questionário.
-	 * @param id
 	 * @param questionario
+	 * @return questionario atualizado
 	 */
 	public Questionario atualizaQuestionario(Questionario questionario) throws EntidadeNotFoundException, QuestaoInvalidaException {
 		

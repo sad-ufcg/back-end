@@ -35,7 +35,7 @@ public class RepostaMultiplaEscolhaTest extends SadApplicationTests {
         Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
         Questionario questionario = new Questionario(new Long(1), "Questionario", "Uma descrição", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
        
-        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(questionario, professor, new Disciplina(), new HashSet<Resposta>());
+        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, new Disciplina(), new HashSet<Resposta>());
 
         Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, null, null);
         Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao", questao, null, null);
