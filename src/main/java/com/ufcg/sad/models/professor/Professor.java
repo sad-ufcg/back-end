@@ -51,7 +51,7 @@ public class Professor implements Serializable {
             mappedBy = "professor")
     private Set<Disciplina> disciplinas;
 
-    @OneToOne(mappedBy = "professor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private QuestionarioAplicado questionarioAplicado;
 
     /**

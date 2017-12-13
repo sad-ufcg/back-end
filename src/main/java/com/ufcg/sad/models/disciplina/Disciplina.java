@@ -66,7 +66,7 @@ public class Disciplina implements Serializable {
     @JsonIgnore
     private Set<Matricula> matriculas;
 
-    @OneToOne(mappedBy = "disciplina", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private QuestionarioAplicado questionarioAplicado;
 
     /**

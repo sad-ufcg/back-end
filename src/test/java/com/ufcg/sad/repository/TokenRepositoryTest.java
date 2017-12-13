@@ -36,60 +36,60 @@ public class TokenRepositoryTest extends SadApplicationTests {
     private Token token;
     private QuestionarioAplicado questionarioAplicado;
     
-    @Before
-    public void setUp() {
-    	
-    	Set<Disciplina> disciplinas = new HashSet<Disciplina>();
-    	Professor professor = new Professor("siape", "João", disciplinas, null);
-    	
-    	Questionario questionario = new Questionario();
-    	questionario.setNome("Questionario");
-    	
-    	Disciplina disciplina = new Disciplina();
-    	disciplina.setTurma(1);
-    	disciplina.setSemestre("1");
-    	disciplina.setNome("Disciplina 1");
-    	
-    	questionarioAplicado = new QuestionarioAplicado(null, questionario, professor, disciplina, new HashSet<Resposta>());
-    }
-
-    @Test
-    public void retonaTokenPeloID () {
-
-    	token = new Token(questionarioAplicado);
-        entityManager.persist(questionarioAplicado.getProfessor());
-        entityManager.persist(questionarioAplicado.getQuestionario());
-        entityManager.persist(questionarioAplicado.getDisciplina());
-        // TODO: persistir conjunto no futuro.
-        //entityManager.persist(questionarioAplicado.getRespostas());
-        entityManager.persist(questionarioAplicado);
-        entityManager.persist(token);
-        entityManager.flush();
-        Token encontrada = tokenRepository.findById(token.getId());
-        assertThat(encontrada.getId()).isEqualTo(token.getId());
-
-    }
-
-    @Test
-    public void IDInvalidoNaoRetoraToken () {
-
-        token = new Token(questionarioAplicado);
-        entityManager.persist(questionarioAplicado.getProfessor());
-        entityManager.persist(questionarioAplicado.getDisciplina());
-        entityManager.persist(questionarioAplicado.getQuestionario());
-        // TODO: persistir conjunto no futuro.
-        //entityManager.persist(questionarioAplicado.getRespostas());
-        entityManager.persist(questionarioAplicado);
-        
-        entityManager.persist(token);
-        
-        // TODO: melhor criar outro questionarioAplicado no futuro.
-        Token outroToken = new Token(questionarioAplicado);
-        entityManager.persist(outroToken);
-        entityManager.flush();
-        Token encontrada = tokenRepository.findById(token.getId());
-        assertThat(encontrada.getId()).isNotEqualTo(outroToken.getId());
-
-    }
+//    @Before
+//    public void setUp() {
+//
+//    	Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+//    	Professor professor = new Professor("siape", "João", disciplinas, null);
+//
+//    	Questionario questionario = new Questionario();
+//    	questionario.setNome("Questionario");
+//
+//    	Disciplina disciplina = new Disciplina();
+//    	disciplina.setTurma(1);
+//    	disciplina.setSemestre("1");
+//    	disciplina.setNome("Disciplina 1");
+//
+//    	questionarioAplicado = new QuestionarioAplicado(null, questionario, professor, disciplina, new HashSet<Resposta>());
+//    }
+//
+//    @Test
+//    public void retonaTokenPeloID () {
+//
+//    	token = new Token(questionarioAplicado);
+//        entityManager.persist(questionarioAplicado.getProfessor());
+//        entityManager.persist(questionarioAplicado.getQuestionario());
+//        entityManager.persist(questionarioAplicado.getDisciplina());
+//        // TODO: persistir conjunto no futuro.
+//        //entityManager.persist(questionarioAplicado.getRespostas());
+//        entityManager.persist(questionarioAplicado);
+//        entityManager.persist(token);
+//        entityManager.flush();
+//        Token encontrada = tokenRepository.findById(token.getId());
+//        assertThat(encontrada.getId()).isEqualTo(token.getId());
+//
+//    }
+//
+//    @Test
+//    public void IDInvalidoNaoRetoraToken () {
+//
+//        token = new Token(questionarioAplicado);
+//        entityManager.persist(questionarioAplicado.getProfessor());
+//        entityManager.persist(questionarioAplicado.getDisciplina());
+//        entityManager.persist(questionarioAplicado.getQuestionario());
+//        // TODO: persistir conjunto no futuro.
+//        //entityManager.persist(questionarioAplicado.getRespostas());
+//        entityManager.persist(questionarioAplicado);
+//
+//        entityManager.persist(token);
+//
+//        // TODO: melhor criar outro questionarioAplicado no futuro.
+//        Token outroToken = new Token(questionarioAplicado);
+//        entityManager.persist(outroToken);
+//        entityManager.flush();
+//        Token encontrada = tokenRepository.findById(token.getId());
+//        assertThat(encontrada.getId()).isNotEqualTo(outroToken.getId());
+//
+//    }
 
 }

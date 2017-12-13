@@ -27,21 +27,21 @@ public class TokenTest extends SadApplicationTests {
 	
     @Before
     public void setUp() {
-
-    	Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
-    	Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
-	
-    	questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, new Disciplina(), new HashSet<Resposta>());
-    	
-        token1 = new Token(questionarioAplicado);
-        token2 = new Token(questionarioAplicado);
+//
+//    	Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
+//    	Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
+//
+//    	questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, new Disciplina(), new HashSet<Resposta>());
+//
+//        token1 = new Token(questionarioAplicado);
+//        token2 = new Token(questionarioAplicado);
     }
 
 
     @Test
     public void testaGetter(){
         Assert.assertNotEquals(token1.getId(),token2.getId());
-        Assert.assertEquals(questionarioAplicado, token1.getQuestionarioAplicado());
+        Assert.assertEquals(questionarioAplicado, token1.getIdQuestionarioAplicado());
     }
 
 }

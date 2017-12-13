@@ -4,12 +4,9 @@ import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,16 +22,17 @@ public class Token {
     @Column
     private String id;
 
-    @OneToOne(mappedBy = "token",
-            fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    private QuestionarioAplicado questionarioAplicado;
+    @Column
+    private Long idQuestionarioAplicado;
 
-    public Token(QuestionarioAplicado questionarioAplicado) {
+    public Token(Long idQuestionarioAplicado) {
         this.id = UUID.randomUUID().toString();
-        this.questionarioAplicado = questionarioAplicado;
+        this.idQuestionarioAplicado = idQuestionarioAplicado;
     }
 
-    public Token(){}
+    public Token(){
+        this.id = UUID.randomUUID().toString();
+    }
 
     public String getId() {
         return id;
@@ -44,12 +42,12 @@ public class Token {
         this.id = id;
     }
 
-    public QuestionarioAplicado getQuestionarioAplicado() {
-        return questionarioAplicado;
+    public Long getIdQuestionarioAplicado() {
+        return idQuestionarioAplicado;
     }
 
-    public void setQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) {
-        this.questionarioAplicado = questionarioAplicado;
+    public void setIdQuestionarioAplicado(Long idQuestionarioAplicado) {
+        this.idQuestionarioAplicado = idQuestionarioAplicado;
     }
 
 	@Override
@@ -57,7 +55,7 @@ public class Token {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((questionarioAplicado == null) ? 0 : questionarioAplicado.hashCode());
+		result = prime * result + ((idQuestionarioAplicado == null) ? 0 : idQuestionarioAplicado.hashCode());
 		return result;
 	}
 
@@ -75,10 +73,10 @@ public class Token {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (questionarioAplicado == null) {
-			if (other.questionarioAplicado != null)
+		if (idQuestionarioAplicado == null) {
+			if (other.idQuestionarioAplicado != null)
 				return false;
-		} else if (!questionarioAplicado.equals(other.questionarioAplicado))
+		} else if (!idQuestionarioAplicado.equals(other.idQuestionarioAplicado))
 			return false;
 		return true;
 	}

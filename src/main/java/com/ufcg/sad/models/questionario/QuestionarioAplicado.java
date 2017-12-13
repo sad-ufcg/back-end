@@ -1,22 +1,19 @@
 package com.ufcg.sad.models.questionario;
 
-import com.ufcg.sad.models.disciplina.Disciplina;
-import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.token.Token;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -34,81 +31,81 @@ public class QuestionarioAplicado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn
-    private Questionario questionario;
+    @Column
+    private Long idQuestionario;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn
-    private Professor professor;
+    @Column
+    private Long idProfessor;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn
-    private Disciplina disciplina;
+    @Column
+    private Long idDisciplina;
 
     @OneToMany(fetch = FetchType.LAZY,
-               mappedBy = "questionarioAplicado",
                cascade=CascadeType.ALL)
     private Set<Resposta> respostas;
     
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Token token;
+    @OneToMany(fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL)
+    private Set<Token> tokens;
 
     /**
      *
      * Construtor vazio para o hibernate.
      *
      */
-    public QuestionarioAplicado() {this.respostas = new HashSet<Resposta>();}
+    public QuestionarioAplicado() {
+        this.respostas = new HashSet<>();
+        this.tokens = new HashSet<>();
+    }
 
     /**
      * Construtor de questionario aplicado.
      *
-     * @param questionario O questionario associado
-     * @param professor O professor para o qual o questionario foi aplicado
-     * @param disciplina A disciplina para a qual o questionario foi aplicada
+     * @param idQuestionario O questionario associado
+     * @param idProfessor O professor para o qual o questionario foi aplicado
+     * @param idDisciplina A disciplina para a qual o questionario foi aplicada
      * @param respostas As resposta do questionario que foi aplicado
      */
-    public QuestionarioAplicado(Long id, Questionario questionario, Professor professor, Disciplina disciplina, Set<Resposta> respostas) {
+    public QuestionarioAplicado(Long id, Long idQuestionario, Long idProfessor, Long idDisciplina, Set<Resposta> respostas, Set<Token> tokens) {
         this.id = id;
-    	this.questionario = questionario;
-        this.professor = professor;
-        this.disciplina = disciplina;
+        this.idQuestionario = idQuestionario;
+        this.idProfessor = idProfessor;
+        this.idDisciplina = idDisciplina;
         this.respostas = respostas;
+        this.tokens = tokens;
     }
-    
+
     public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-    public Questionario getQuestionario() {
-        return questionario;
+        return id;
     }
 
-    public void setQuestionario(Questionario questionario) {
-        this.questionario = questionario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Long getIdQuestionario() {
+        return idQuestionario;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setIdQuestionario(Long idQuestionario) {
+        this.idQuestionario = idQuestionario;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public Long getIdProfessor() {
+        return idProfessor;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+    public void setIdProfessor(Long idProfessor) {
+        this.idProfessor = idProfessor;
+    }
+
+    public Long getIdDisciplina() {
+        return idDisciplina;
+    }
+
+    public void setIdDisciplina(Long idDisciplina) {
+        this.idDisciplina = idDisciplina;
     }
 
     public Set<Resposta> getRespostas() {
@@ -118,39 +115,30 @@ public class QuestionarioAplicado implements Serializable {
     public void setRespostas(Set<Resposta> respostas) {
         this.respostas = respostas;
     }
-    
-    public Token getToken() {
-        return token;
+
+    public Set<Token> getTokens() {
+        return tokens;
     }
 
-    public void setToken(Token token) {
-        this.token = token;
+    public void setTokens(Set<Token> tokens) {
+        this.tokens = tokens;
     }
+
+    public void addToken(Token token) {this.tokens.add(token);}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof QuestionarioAplicado)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         QuestionarioAplicado that = (QuestionarioAplicado) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (getQuestionario() != null ? !getQuestionario().equals(that.getQuestionario()) : that.getQuestionario() != null)
-            return false;
-        if (getProfessor() != null ? !getProfessor().equals(that.getProfessor()) : that.getProfessor() != null)
-            return false;
-        if (getDisciplina() != null ? !getDisciplina().equals(that.getDisciplina()) : that.getDisciplina() != null)
-            return false;
-        return getRespostas() != null ? getRespostas().equals(that.getRespostas()) : that.getRespostas() == null;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(idQuestionario, that.idQuestionario) &&
+                Objects.equals(idProfessor, that.idProfessor) &&
+                Objects.equals(idDisciplina, that.idDisciplina);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (getQuestionario() != null ? getQuestionario().hashCode() : 0);
-        result = 31 * result + (getProfessor() != null ? getProfessor().hashCode() : 0);
-        result = 31 * result + (getDisciplina() != null ? getDisciplina().hashCode() : 0);
-        result = 31 * result + (getRespostas() != null ? getRespostas().hashCode() : 0);
-        return result;
+        return Objects.hash(id, idQuestionario, idProfessor, idDisciplina);
     }
 }
