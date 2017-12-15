@@ -30,23 +30,23 @@ public class QuestionarioTest extends SadApplicationTests {
 	 */
 	@Test
 	public void testQuestionario() {
-		
+
 		Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
 		Date dataCriacao = new Date();
 
-		Questionario questionario = new Questionario(new Long(1), "Questionário 1", "", new HashSet<Questao>(), autor, dataCriacao, dataCriacao, new HashSet<QuestionarioAplicado>());
+		Questionario questionario = new Questionario(new Long(1), "Questionário 1", "", new HashSet<Questao>(), autor, dataCriacao, dataCriacao);
 
 		assertEquals(questionario.getNome(), "Questionário 1");
 		assertEquals(questionario.getDescricao(), "");
 		assertEquals(questionario.getQuestoes(), new HashSet<Questao>());
 		assertEquals(questionario.getQuestoes().size(), 0);
-		
+
 		questionario.setQuestoes(getQuestoes());
-		
-		assertEquals(questionario.getQuestoes().size(), 2);		
-		
+
+		assertEquals(questionario.getQuestoes().size(), 2);
+
 		assertEquals(autor, questionario.getAutor());
-		
+
 		assertEquals(dataCriacao, questionario.getDataCriacao());
 		assertEquals(dataCriacao, questionario.getDataUltimaEdicao());
 	}
