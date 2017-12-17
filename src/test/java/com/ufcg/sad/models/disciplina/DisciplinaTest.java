@@ -20,17 +20,16 @@ public class DisciplinaTest extends SadApplicationTests {
         Long id = 1L;
         String nome = "Programação I";
         int turma = 2;
-        Professor professor = new Professor();
+        Long professorId = 2L;
         String semestre = "20172";
         Set<Matricula> alunos = new HashSet<>();
-        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado();
 
-        Disciplina disciplina = new Disciplina(id, nome, turma, professor, semestre, alunos, questionarioAplicado);
+        Disciplina disciplina = new Disciplina(id, nome, turma, professorId, semestre, alunos);
 
         Assert.assertEquals(id, disciplina.getId());
         Assert.assertEquals(nome, disciplina.getNome());
         Assert.assertEquals(turma, disciplina.getTurma());
-        Assert.assertEquals(professor, disciplina.getProfessor());
+        Assert.assertEquals(professorId, disciplina.getProfessorId());
         Assert.assertEquals(semestre, disciplina.getSemestre());
         Assert.assertEquals(alunos, disciplina.getMatriculas());
     }

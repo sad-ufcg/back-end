@@ -39,7 +39,7 @@ public class AlunoTest extends SadApplicationTests {
 
     private Disciplina geraDisciplina(String nome) {
         Professor professor = new Professor();
-        Disciplina matematica = new Disciplina(1L, nome, 1, professor, "20171", new HashSet<>(), new QuestionarioAplicado());
+        Disciplina matematica = new Disciplina(1L, nome, 1, 1L, "20171", new HashSet<>());
 
         return matematica;
     }

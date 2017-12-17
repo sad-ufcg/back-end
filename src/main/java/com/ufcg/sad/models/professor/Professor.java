@@ -47,8 +47,7 @@ public class Professor implements Serializable {
     private String nome;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "professor")
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Disciplina> disciplinas;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
