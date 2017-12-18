@@ -6,8 +6,9 @@ import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
-import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.ufcg.sad.models.token.Token;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,11 +33,7 @@ public class RespostaAbertaTest extends SadApplicationTests {
         List<Opcao> opcoes = new ArrayList<Opcao>();
 
         Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
-
-        Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
-        Questionario questionario = new Questionario(new Long(1), "Questionario", "Uma descrição", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
-
-        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, new Disciplina(), new HashSet<Resposta>());
+        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(null, new Long(1), new Long(1), new Long(1), new HashSet<Resposta>(), new HashSet<Token>());
 
         RespostaAberta resposta = new RespostaAberta(dataCriacao, questao, questionarioAplicado, "um comentario aqui");
 

@@ -1,5 +1,6 @@
 package com.ufcg.sad.controllers;
 
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
 import com.ufcg.sad.models.token.Token;
 import com.ufcg.sad.services.token.TokenService;
@@ -26,18 +27,18 @@ public class TokenController {
 
     /**
   	 * Método para checar se um token existe.
-  	 * @param token
+  	 * @param tokenId
   	 */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Token> checaSeTokenExiste(@RequestParam("tokenID") String tokenId) throws Exception {
+    public ResponseEntity<Object> checaSeTokenExiste(@RequestParam("tokenID") String tokenId) throws Exception {
 
-        Token encontrado = tokenService.verificaSeTokenExiste(tokenId);
+    	try {
+			Token encontrado = tokenService.verificaSeTokenExiste(tokenId);
+			return new ResponseEntity<>(encontrado, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getStackTrace(), HttpStatus.BAD_REQUEST);
 
-        if(encontrado != null){
-            return new ResponseEntity<Token>(encontrado, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<Token>(HttpStatus.NOT_FOUND);
-        }
+		}
 
     }
     
@@ -53,6 +54,8 @@ public class TokenController {
   	    	return new ResponseEntity<Token>(tokenCriado, HttpStatus.CREATED);	
   	    } catch (ParametroInvalidoException e) {
   			return new ResponseEntity<Token>(HttpStatus.BAD_REQUEST);
-  		}
+  		} catch (EntidadeNotFoundException e) {
+  	        return new ResponseEntity<Token>(HttpStatus.NOT_FOUND);
+        }
   	}
 }

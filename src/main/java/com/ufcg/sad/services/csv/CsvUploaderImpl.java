@@ -37,7 +37,7 @@ public class CsvUploaderImpl implements CsvUploader {
         Disciplina disciplina = criaDisciplina(dadosDaDisciplina);
         Professor professor = criaProfessor(dadosDoProfessor);
 
-        disciplina.setProfessor(professor);
+        disciplina.setProfessorId(professor.getId());
         professor.addDisciplina(disciplina);
 
         while (leitor.hasNext()) {
