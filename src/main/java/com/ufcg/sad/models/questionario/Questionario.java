@@ -43,7 +43,7 @@ public class Questionario implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Questao> questoes;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Professor autor;
 	
 	@Column
