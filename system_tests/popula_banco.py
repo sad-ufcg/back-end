@@ -1,8 +1,6 @@
 # coding: utf-8
 
 import requests
-
-
 def criaProfessor():
   r = requests.post('http://localhost:8080/professores', json = {
     'siape': '2291146',
@@ -12,8 +10,7 @@ def criaProfessor():
   print 'Professor criado:', r.json()
   return r.json()
 
-
-def criaQuestionario():
+def criaQuestionario(professor):
   r = requests.post('http://localhost:8080/questionarios', json = {
     'nome': 'Questionario Estrutural',
     'descricao': 'Um questionário para avaliar a estrutura da sala.',
@@ -31,36 +28,34 @@ def criaQuestionario():
         'tipoQuestao':'TEXTO'
       }
     ],
-    'autor': { 'siape': '2291146', 'nome': 'matheusgr' }
+    'autor': professor
   })
   assert r.status_code == 201
   print 'Questionário criado:', r.json()
   return r.json()
 
-
-def criaDisciplina():
+def criaDisciplina(professor):
     r = requests.post('http://localhost:8080/disciplinas', json = {
         'nome': 'Visão Computacional',
         'turma': '1',
         'semestre': '8',
-        'codigo': 'KJSJbkjbdadsbLJaba'
+        'codigo': 'KJSJbkjbdadsbLJaba',
+        'professorId': professor['id']
         })
     assert r.status_code == 201
     print 'Disciplina criada:', r.json()
     return r.json()
 
-
 def criaQuestionarioAplicado(disciplina, questionario):
   r = requests.post('http://localhost:8080/questionariosAplicados', json = {
          'idQuestionario': questionario['id'],
-         'IdProfessor': questionario['autor']['id'],
-         'IdDisciplina': disciplina['id'],
+         'idProfessor': questionario['autor']['id'],
+         'idDisciplina': disciplina['id'],
          'respostas': []
   })
   assert r.status_code == 201
   print 'Questionário Aplicado criado:', r.json()
   return r.json()
-
 
 def criaToken(questionarioAplicado):
     r = requests.post('http://localhost:8080/token', json = {
@@ -71,9 +66,9 @@ def criaToken(questionarioAplicado):
     return r.json()
 
 
-# professor = criaProfessor()
-disciplina = criaDisciplina()
-questionario = criaQuestionario()
+professor = criaProfessor()
+disciplina = criaDisciplina(professor)
+questionario = criaQuestionario(professor)
 questionarioAplicado = criaQuestionarioAplicado(disciplina, questionario)
 token = criaToken(questionarioAplicado)
 
