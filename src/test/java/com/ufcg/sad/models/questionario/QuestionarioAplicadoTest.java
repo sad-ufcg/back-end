@@ -8,6 +8,8 @@ import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.resposta.RespostaAberta;
+import com.ufcg.sad.models.token.Token;
+
 import org.junit.Test;
 
 
@@ -28,14 +30,10 @@ public class QuestionarioAplicadoTest extends SadApplicationTests {
 
     @Test
     public void testaConstrucao() {
+        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(null, new Long(1), new Long(1), new Long(1), new HashSet<Resposta>(), new HashSet<Token>());
 
-        Professor professor = new Professor("siape", "João", new HashSet<Disciplina>(), null);
-        Questionario questionario = new Questionario(new Long(1), "Questionario", "", new HashSet<Questao>(), professor, new Date(), new Date(), new HashSet<QuestionarioAplicado>());
-
-        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(new Long(1), questionario, professor, new Disciplina(), new HashSet<Resposta>());
-
-        assertEquals(questionarioAplicado.getProfessor(), professor);
-        assertEquals(questionarioAplicado.getQuestionario(), questionario);
+        assertEquals(questionarioAplicado.getIdProfessor(), new Long(1));
+        assertEquals(questionarioAplicado.getIdQuestionario(), new Long(1));
         assertEquals(questionarioAplicado.getRespostas().size(), 0);
 
         adicionaRespostas(questionarioAplicado);

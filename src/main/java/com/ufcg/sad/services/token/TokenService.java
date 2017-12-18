@@ -28,5 +28,5 @@ public interface TokenService {
      * @param token token a ser criado
      * @return token criado
      */
-    Token criaToken (Token token);
+    Token criaToken (Token token) throws EntidadeNotFoundException;
 }
