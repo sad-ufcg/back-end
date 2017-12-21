@@ -4,6 +4,7 @@ import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 /**
@@ -45,4 +46,15 @@ public interface QuestionarioAplicadoService {
      * @return Questionário aplicado atualizado.
      */
     QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException;
+
+
+    /**
+     * Aplicar um questionario à uma determinada disciplina
+     * @param questionarioID
+     * @param disciplinaId
+     * @return
+     * @throws EntidadeNotFoundException
+     */
+    QuestionarioAplicado aplicarQuestionario(Long questionarioID, Long disciplinaId) throws EntidadeNotFoundException;
+
 }

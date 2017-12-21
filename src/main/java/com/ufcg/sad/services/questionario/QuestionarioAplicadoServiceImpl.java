@@ -3,6 +3,9 @@ package com.ufcg.sad.services.questionario;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.services.disciplina.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,12 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
 
 	@Autowired
 	private QuestionarioAplicadoRepository questionarioAplicadoRepository;
+
+	@Autowired
+    private QuestionarioService questionarioService;
+
+	@Autowired
+    private DisciplinaService disciplinaService;
 
 	/**
 	 * Construtor para o tipo QuestionarioAplicadoService.
@@ -85,5 +94,25 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
 	 */
 	public QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException {
 		return questionarioAplicadoRepository.save(questionarioAplicado);
+	}
+
+	@Override
+	public QuestionarioAplicado aplicarQuestionario(Long questionarioID, Long disciplinaId) throws EntidadeNotFoundException {
+
+	    Questionario questionario = questionarioService.getQuestionario(questionarioID);
+        Disciplina disciplina = disciplinaService.getDisciplina(disciplinaId);
+
+        if(questionario != null || disciplina != null){
+	        throw new EntidadeNotFoundException("Erro ao aplicar cadastro");
+        }
+
+        //sdds factory
+        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado();
+        questionarioAplicado.setIdDisciplina(disciplina.getId());
+        questionarioAplicado.setIdProfessor(disciplina.getProfessorId());
+        questionarioAplicado.setIdQuestionario(questionario.getId());
+
+
+        return questionarioAplicadoRepository.save(questionarioAplicado);
 	}
 }

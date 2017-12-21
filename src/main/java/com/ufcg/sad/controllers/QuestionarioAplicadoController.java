@@ -83,4 +83,16 @@ public class QuestionarioAplicadoController {
 			return new ResponseEntity<QuestionarioAplicado>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@RequestMapping(value = "/aplicar/{questionarioId}", method = RequestMethod.POST)
+	public ResponseEntity<QuestionarioAplicado> aplicarQuestionario(@PathVariable("questionarioId") Long questionarioId, @RequestBody Long disciplinaId) {
+
+	    try {
+	        QuestionarioAplicado questionarioAplicado = questionarioAplicadoService.aplicarQuestionario(questionarioId, disciplinaId);
+            return new ResponseEntity<QuestionarioAplicado>(questionarioAplicado, HttpStatus.CREATED);
+        } catch (Exception e){
+	        return new ResponseEntity<QuestionarioAplicado>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
