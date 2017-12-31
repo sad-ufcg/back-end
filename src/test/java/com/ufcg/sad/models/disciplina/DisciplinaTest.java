@@ -2,8 +2,6 @@ package com.ufcg.sad.models.disciplina;
 
 import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.matricula.Matricula;
-import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import org.junit.Assert;
 import org.junit.Test;
 

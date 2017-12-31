@@ -1,21 +1,12 @@
 package com.ufcg.sad.models.resposta;
 
 import com.ufcg.sad.SadApplicationTests;
-import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.opcao.Opcao;
-import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questao.TipoQuestao;
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
-import com.ufcg.sad.models.token.Token;
 
 import org.junit.Test;
 
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -29,14 +20,9 @@ public class RespostaSelecaoTest extends SadApplicationTests {
 
     @Test
     public void testaConstrutor() {
-        Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
         Date dataCriacao = new Date();
-        List<Opcao> opcoes = new ArrayList<Opcao>();
-
-        Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
-        QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(null, new Long(1), new Long(1), new Long(1), new HashSet<Resposta>(), new HashSet<Token>());
-
-        RespostaSelecao respostaSelecao= new RespostaSelecao(dataCriacao, questao, questionarioAplicado, new HashSet<Opcao>());
+        
+        RespostaSelecao respostaSelecao= new RespostaSelecao(new Long(1), dataCriacao, new Long(1), new Long(1), new HashSet<Opcao>());
 
         assertEquals(respostaSelecao.getOpcoesSelecionadas().size(), 0);
 
@@ -46,14 +32,9 @@ public class RespostaSelecaoTest extends SadApplicationTests {
     }
 
     private void criaOpcoes(RespostaSelecao respostaSelecao) {
-        Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
-        Date dataCriacao = new Date();
-        List<Opcao> opcoes = new ArrayList<Opcao>();
-
-        Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
-
-        Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao", questao, null, respostaSelecao);
-        Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao", questao, null, respostaSelecao);
+        
+        Opcao opcao1 = new Opcao(new Long(1), "opcao 1", "primeira opcao");
+        Opcao opcao2 = new Opcao(new Long(2), "opcao 2", "segunda opcao");
 
         Set<Opcao> opcoesAdd = new HashSet<Opcao>();
 

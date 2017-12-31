@@ -1,6 +1,5 @@
 package com.ufcg.sad.models.token;
 
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import java.util.UUID;
 
@@ -8,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Entidade de que representa o token de autenticação de um questionário
@@ -23,6 +25,7 @@ public class Token {
     private String id;
 
     @Column
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long idQuestionarioAplicado;
 
     public Token(Long idQuestionarioAplicado) {

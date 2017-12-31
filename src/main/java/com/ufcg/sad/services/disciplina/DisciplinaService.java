@@ -20,7 +20,7 @@ public interface DisciplinaService {
      *
      * @return disciplina cadastrada.
      */
-    Disciplina cadastrarDisciplina(Disciplina disciplina);
+    Disciplina cadastrarDisciplina(Disciplina disciplina) throws EntidadeNotFoundException;
 
     /**
      * Recupera uma disciplina através do Id

@@ -54,4 +54,5 @@ public interface QuestaoService {
      * @return Questao atualizada.
      */
     Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, QuestaoInvalidaException;
+
 }

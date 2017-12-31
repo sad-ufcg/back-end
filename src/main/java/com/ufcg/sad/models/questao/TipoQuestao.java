@@ -6,5 +6,5 @@ package com.ufcg.sad.models.questao;
  * @author Lucas Silva
  */
 public enum TipoQuestao {
-	TEXTO, MULTIPLA_ESCOLHA, ESCOLHA_SIMPLES
+	ABERTA, ESCOLHA_SIMPLES, SELECAO, MULTIPLA_ESCOLHA
 }

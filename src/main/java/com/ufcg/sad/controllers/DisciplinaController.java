@@ -59,10 +59,15 @@ public class DisciplinaController {
      * @return disciplina cadastrada.
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Disciplina> cadastrarDisciplina(@RequestBody Disciplina disciplina) {
-        Disciplina disciplinaCadastrada = disciplinaService.cadastrarDisciplina(disciplina);
+    public ResponseEntity<Object> cadastrarDisciplina(@RequestBody Disciplina disciplina) {
+        Disciplina disciplinaCadastrada;
+		try {
+			disciplinaCadastrada = disciplinaService.cadastrarDisciplina(disciplina);
+		} catch (EntidadeNotFoundException e) {
+			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+		}
 
-        return new ResponseEntity<Disciplina>(disciplinaCadastrada, HttpStatus.CREATED);
+        return new ResponseEntity<Object>(disciplinaCadastrada, HttpStatus.CREATED);
     }
 
     /**
@@ -86,14 +91,14 @@ public class DisciplinaController {
      * @return Disciplina atualizada.
      */
     @RequestMapping(value = "/{id}/alunos", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity cadastrarAlunoEmDisciplina(@PathVariable("id") Long id,
+    public ResponseEntity<Object> cadastrarAlunoEmDisciplina(@PathVariable("id") Long id,
                                                                  @RequestBody Aluno aluno) {
         try {
             Aluno alunoCadastrado = disciplinaService.vincularAluno(id, aluno);
 
-            return new ResponseEntity<>(alunoCadastrado, HttpStatus.CREATED);
+            return new ResponseEntity<Object>(alunoCadastrado, HttpStatus.CREATED);
         } catch (EntidadeNotFoundException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
         }
     }
 

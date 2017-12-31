@@ -1,6 +1,8 @@
 package com.ufcg.sad.models.resposta;
 
+import com.ufcg.sad.models.questao.Questao;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -10,16 +12,15 @@ import java.util.Date;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
-/**
- * Classe que representa uma resposta aberta.
- *
- * @author Arthur Costa
- */
 @Entity
-@DiscriminatorValue(value = "ABERTA")
-public class RespostaAberta extends Resposta implements Serializable {
+@DiscriminatorValue(value = "ESCOLHA_SIMPLES")
+public class RespostaEscolhaSimples extends Resposta implements Serializable{
 
     private static final long serialVersionUID = 1L;
+
+    @Range(min=Questao.MIN_ESCOLHA_SIMPLES, max=Questao.MAX_ESCOLHA_SIMPLES)
+    @Column
+    private Integer escolhaSimples;
 
     @Length(max = TAMANHO_MAX_STRING)
     @Column
@@ -28,11 +29,20 @@ public class RespostaAberta extends Resposta implements Serializable {
     /**
      * Construtor vazio para o hibernate
      */
-    public RespostaAberta() {}
+    public RespostaEscolhaSimples() {}
 
-    public RespostaAberta(Long id, Date dataResposta, Long questao, Long questionarioAplicado, String comentario) {
+    public RespostaEscolhaSimples(Long id, Date dataResposta, Long questao, Long questionarioAplicado, Integer escolhaSimples, String comentario) {
         super(id, dataResposta, questao, questionarioAplicado);
+        this.escolhaSimples = escolhaSimples;
         this.comentario = comentario;
+    }
+
+    public Integer getEscolhaSimples() {
+        return escolhaSimples;
+    }
+
+    public void setEscolhaSimples(int escolhaSimples) {
+        this.escolhaSimples = escolhaSimples;
     }
 
     public String getComentario() {
@@ -46,17 +56,20 @@ public class RespostaAberta extends Resposta implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RespostaAberta)) return false;
+        if (!(o instanceof RespostaEscolhaSimples)) return false;
         if (!super.equals(o)) return false;
 
-        RespostaAberta that = (RespostaAberta) o;
+        RespostaEscolhaSimples that = (RespostaEscolhaSimples) o;
 
+        if (getEscolhaSimples() != null ? !getEscolhaSimples().equals(that.getEscolhaSimples()) : that.getEscolhaSimples() != null)
+            return false;
         return getComentario() != null ? getComentario().equals(that.getComentario()) : that.getComentario() == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
+        result = 31 * result + (getEscolhaSimples() != null ? getEscolhaSimples().hashCode() : 0);
         result = 31 * result + (getComentario() != null ? getComentario().hashCode() : 0);
         return result;
     }

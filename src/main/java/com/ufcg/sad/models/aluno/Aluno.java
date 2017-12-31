@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
 import org.hibernate.validator.constraints.Length;

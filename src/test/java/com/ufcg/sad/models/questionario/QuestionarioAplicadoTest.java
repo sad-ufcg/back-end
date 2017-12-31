@@ -1,11 +1,6 @@
 package com.ufcg.sad.models.questionario;
 
 import com.ufcg.sad.SadApplicationTests;
-import com.ufcg.sad.models.disciplina.Disciplina;
-import com.ufcg.sad.models.opcao.Opcao;
-import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.resposta.RespostaAberta;
 import com.ufcg.sad.models.token.Token;
@@ -13,10 +8,8 @@ import com.ufcg.sad.models.token.Token;
 import org.junit.Test;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -43,14 +36,10 @@ public class QuestionarioAplicadoTest extends SadApplicationTests {
 
     private void adicionaRespostas(QuestionarioAplicado questionarioAplicado) {
 
-        Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
         Date dataCriacao = new Date();
-        List<Opcao> opcoes = new ArrayList<Opcao>();
-
-        Questao questao = new Questao(new Long(1), "A ementa da disciplina foi seguida adequadamente?", autor, dataCriacao, dataCriacao, "", opcoes, TipoQuestao.ESCOLHA_SIMPLES, new Resposta());
-
-        Resposta resposta1 = new RespostaAberta(dataCriacao, questao, questionarioAplicado, "aqui vai um comentario");
-        Resposta resposta2 = new RespostaAberta(dataCriacao, questao, questionarioAplicado, "aqui vai um outro comentario");
+        
+        Resposta resposta1 = new RespostaAberta(new Long(1), dataCriacao, new Long(1), new Long(1), "aqui vai um comentario");
+        Resposta resposta2 = new RespostaAberta(new Long(2), dataCriacao, new Long(1), new Long(1), "aqui vai um outro comentario");
 
         Set<Resposta> respostas = new HashSet<Resposta>();
 
