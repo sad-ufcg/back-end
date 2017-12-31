@@ -11,7 +11,7 @@ def print_criacao(entidade, resposta):
 def criaProfessor():
   r = requests.post('http://localhost:8080/professores', json = {
     'siape': '2291146',
-    'nome': 'matheusgr'  # TODO: professor nao precisa ter questionarioAplicado
+    'nome': 'matheusgr'
   })
   assert r.status_code == 201
   print_criacao('Professor', r.json())
@@ -62,6 +62,7 @@ def criaQuestionarioAplicado(disciplina, questionario):
          'idQuestionario': questionario['id'],
          'idProfessor': questionario['autor']['id'],
          'idDisciplina': disciplina['id'],
+         'respostas': []
   })
   assert r.status_code == 201
   print_criacao('Questionário Aplicado', r.json())
