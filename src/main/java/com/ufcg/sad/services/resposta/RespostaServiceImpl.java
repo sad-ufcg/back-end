@@ -59,11 +59,11 @@ public class RespostaServiceImpl implements RespostaService {
     	if(isTipoRespostaNull && isIdQuestaoNull)
     		return respostaRepository.findAll();
     	else if(isTipoRespostaNull)
-    		return respostaRepository.findAllOfQuestaoId(idQuestao);
+    		return respostaRepository.buscarRespostasComQuestaoId(idQuestao);
     	else if(isIdQuestaoNull)
-    		return respostaRepository.findAllOfType(tipoResposta);
+    		return respostaRepository.buscarRespostasDeTipo(tipoResposta);
     	else
-    		return respostaRepository.findAllOfTypeAndQuestaoId(tipoResposta, idQuestao);
+    		return respostaRepository.buscarRespostasDeTipoComQuestaoId(tipoResposta, idQuestao);
     }
     
     @Override

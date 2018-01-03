@@ -15,12 +15,12 @@ import com.ufcg.sad.models.resposta.Resposta;
 public interface RespostaRepository extends JpaRepository<Resposta, Long> {
 
 	@Query("SELECT r FROM Resposta r WHERE type = :tipoResposta") 
-    List<Resposta> findAllOfType(@Param("tipoResposta") String tipoResposta);
+    List<Resposta> buscarRespostasDeTipo(@Param("tipoResposta") String tipoResposta);
 
 	@Query("SELECT r FROM Resposta r WHERE r.idQuestao = :idQuestao") 
-    List<Resposta> findAllOfQuestaoId(@Param("idQuestao") Long idQuestao);
+    List<Resposta> buscarRespostasComQuestaoId(@Param("idQuestao") Long idQuestao);
 
 	@Query("SELECT r FROM Resposta r WHERE r.idQuestao = :idQuestao and type = :tipoResposta") 
-    List<Resposta> findAllOfTypeAndQuestaoId(@Param("tipoResposta") String tipoResposta,
-    		                          @Param("idQuestao") Long idQuestao);
+    List<Resposta> buscarRespostasDeTipoComQuestaoId(@Param("tipoResposta") String tipoResposta,
+    		                                         @Param("idQuestao") Long idQuestao);
 }
