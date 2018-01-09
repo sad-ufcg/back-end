@@ -1,9 +1,9 @@
 package com.ufcg.sad.models.resposta;
 
 import com.ufcg.sad.models.opcao.Opcao;
-import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -14,11 +14,13 @@ import java.util.Set;
 
 
 @Entity
+@DiscriminatorValue(value = "SELECAO")
 public class RespostaSelecao extends Resposta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(mappedBy = "respostaSelecao", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Opcao> opcoesSelecionadas;
 
     /**
@@ -26,8 +28,8 @@ public class RespostaSelecao extends Resposta implements Serializable {
      */
     public RespostaSelecao() { this.opcoesSelecionadas = new HashSet<Opcao>();}
 
-    public RespostaSelecao(Date dataResposta, Questao questao, QuestionarioAplicado questionarioAplicado, Set<Opcao> opcoesSelecionadas) {
-        super(dataResposta, questao, questionarioAplicado);
+    public RespostaSelecao(Long id, Date dataResposta, Long questao, Long questionarioAplicado, Set<Opcao> opcoesSelecionadas) {
+        super(id, dataResposta, questao, questionarioAplicado);
         this.opcoesSelecionadas = opcoesSelecionadas;
     }
 

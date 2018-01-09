@@ -71,7 +71,8 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	 * @param questionario
 	 * @throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException 
 	 */
-	public Questionario criaQuestionario(Questionario questionario) throws QuestionarioSemNomeException, QuestaoInvalidaException, QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException {
+	public Questionario criaQuestionario(Questionario questionario) throws QuestionarioSemNomeException, QuestaoInvalidaException, QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException
+	{
 		
 		if(questionario.getId() != null) {
 			throw new ParametroInvalidoException();
@@ -82,12 +83,6 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 		}
 		else if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
 			throw new QuestionarioVazioException();
-		}
-		
-		for(Questao questao : questionario.getQuestoes()) {
-			if(!questaoService.validaQuestao(questao)) {
-				throw new QuestaoInvalidaException();
-			}
 		}
 
 		return questionarioRepository.save(questionario);

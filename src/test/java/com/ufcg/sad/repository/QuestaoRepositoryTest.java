@@ -6,7 +6,6 @@ import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.util.Utils;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
 import org.junit.Before;
@@ -33,13 +32,15 @@ public class QuestaoRepositoryTest extends SadApplicationTests {
     private QuestaoRepository questaoRepository;
 
     private Questao questao;
+    private Professor autor;
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Before
     public void setUp() {
-    	Professor autor = new Professor("siape", "Pedro", new HashSet<Disciplina>(), new QuestionarioAplicado());
+    	
+    	autor = new Professor("siape", "Pedro", new HashSet<Disciplina>());
 		Date dataCriacao = new Date();
 		List<Opcao> opcoes = new ArrayList<Opcao>();
 
@@ -49,6 +50,9 @@ public class QuestaoRepositoryTest extends SadApplicationTests {
     @Test
     public void retornaQuestaoPeloID () {
 
+    	entityManager.persist(autor);
+    	entityManager.flush();
+		
         entityManager.persist(questao);
         entityManager.flush();
 

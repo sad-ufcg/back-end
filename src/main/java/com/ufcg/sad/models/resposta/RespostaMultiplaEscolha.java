@@ -1,12 +1,13 @@
 package com.ufcg.sad.models.resposta;
 
 import com.ufcg.sad.models.opcao.Opcao;
-import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,14 +15,17 @@ import java.util.Date;
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
 @Entity
+@DiscriminatorValue(value = "MULTIPLA_ESCOLHA")
 public class RespostaMultiplaEscolha extends Resposta implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(mappedBy = "respostaMultiplaEscolha", cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn
     private Opcao opcaoEscolhida;
 
     @Length(max = TAMANHO_MAX_STRING)
+    @Column
     private String comentario;
 
     /**
@@ -29,8 +33,8 @@ public class RespostaMultiplaEscolha extends Resposta implements Serializable{
      */
     public RespostaMultiplaEscolha() {}
 
-    public RespostaMultiplaEscolha(Date dataResposta, Questao questao, QuestionarioAplicado questionarioAplicado, Opcao opcaoEscolhida, String comentario) {
-        super(dataResposta, questao, questionarioAplicado);
+    public RespostaMultiplaEscolha(Long id, Date dataResposta, Long questao, Long questionarioAplicado, Opcao opcaoEscolhida, String comentario) {
+        super(id, dataResposta, questao, questionarioAplicado);
         this.opcaoEscolhida = opcaoEscolhida;
         this.comentario = comentario;
     }

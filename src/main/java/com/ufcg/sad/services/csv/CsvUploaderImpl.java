@@ -59,8 +59,9 @@ public class CsvUploaderImpl implements CsvUploader {
      * @param entrada String contendo a linha com os dados do CSV.
      *
      * @return Um objeto Disciplina.
+     * @throws EntidadeNotFoundException.
      */
-    private Disciplina criaDisciplina(String entrada) {
+    private Disciplina criaDisciplina(String entrada) throws EntidadeNotFoundException {
         String[] dadosDisciplina = entrada.split(LINE_SEPARATOR);
         Disciplina disciplina = new Disciplina();
         disciplina.setNome(dadosDisciplina[0]);
@@ -110,7 +111,6 @@ public class CsvUploaderImpl implements CsvUploader {
             aluno.setSobrenome(dadosAluno[1]);
             aluno.setEmail(dadosAluno[2]);
             aluno = alunoService.criarAluno(aluno);
-
         }
 
         return aluno;

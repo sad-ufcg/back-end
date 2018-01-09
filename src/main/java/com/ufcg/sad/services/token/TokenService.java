@@ -1,6 +1,9 @@
 package com.ufcg.sad.services.token;
 
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.token.Token;
 import java.util.List;
 
@@ -29,4 +32,12 @@ public interface TokenService {
      * @return token criado
      */
     Token criaToken (Token token) throws EntidadeNotFoundException;
+
+	Questionario buscarQuestionario(String tokenID) throws EntidadeNotFoundException;
+
+	QuestionarioAplicado buscarQuestionarioAplicado(String tokenId) throws EntidadeNotFoundException;
+
+	void deletaToken(String token) throws EntidadeNotFoundException;
+
+	Disciplina buscarDisciplina(String tokenId) throws EntidadeNotFoundException;
 }

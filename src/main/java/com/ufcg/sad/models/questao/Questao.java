@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 
 import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
-import com.ufcg.sad.models.resposta.Resposta;
 
 /**
  * Entidade que representa uma questão genérica.
@@ -30,8 +29,11 @@ import com.ufcg.sad.models.resposta.Resposta;
 @Entity
 @Table
 public class Questao implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
+
+	public static final int MIN_ESCOLHA_SIMPLES = 1;
+	public static final int MAX_ESCOLHA_SIMPLES = 5;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +46,7 @@ public class Questao implements Serializable {
 	@Column
 	private String comentario;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	private Professor autor;
 	
 	@Column
@@ -58,13 +60,8 @@ public class Questao implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoQuestao tipoQuestao;
 	
-	@OneToMany(fetch = FetchType.LAZY,
-               mappedBy = "questao")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Opcao> opcoes;
-
-	@OneToOne(mappedBy = "questao", fetch = FetchType.LAZY)
-	private Resposta resposta;
-	
 
 	/**
 	 * Método para construir uma instância do tipo questão
@@ -75,7 +72,7 @@ public class Questao implements Serializable {
 	 * @param comentario
 	 * @param resposta
 	 */
-	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, Date dataUltimaEdicao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao, Resposta resposta) {
+	public Questao(Long id, String enunciado, Professor autor, Date dataCriacao, Date dataUltimaEdicao, String comentario, List<Opcao> opcoes, TipoQuestao tipoQuestao) {
 		this.id = id;
 		this.enunciado = enunciado;
 		this.autor = autor;
@@ -84,9 +81,7 @@ public class Questao implements Serializable {
 		this.comentario = comentario;
 		this.opcoes = opcoes;
 		this.tipoQuestao = tipoQuestao;
-		this.resposta = resposta;
 	}
-
 	/**
      * Construtor padrão para o Hibernate.
      */
@@ -156,14 +151,6 @@ public class Questao implements Serializable {
 		this.opcoes = opcoes;
 	}
 
-	public Resposta getResposta() {
-		return resposta;
-	}
-
-	public void setResposta(Resposta resposta) {
-		this.resposta = resposta;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -176,7 +163,6 @@ public class Questao implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((opcoes == null) ? 0 : opcoes.hashCode());
 		result = prime * result + ((tipoQuestao == null) ? 0 : tipoQuestao.hashCode());
-		result = prime * result + ((resposta == null) ? 0 : resposta.hashCode());
 		return result;
 	}
 
@@ -223,11 +209,6 @@ public class Questao implements Serializable {
 			if (other.opcoes != null)
 				return false;
 		} else if (!opcoes.equals(other.opcoes))
-			return false;
-		if (resposta == null) {
-			if (other.resposta != null)
-				return false;
-		} else if (!resposta.equals(other.resposta))
 			return false;
 		if (tipoQuestao != other.tipoQuestao)
 			return false;

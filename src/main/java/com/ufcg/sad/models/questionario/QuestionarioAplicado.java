@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -116,6 +118,10 @@ public class QuestionarioAplicado implements Serializable {
         this.respostas = respostas;
     }
 
+    public void addResposta(Resposta resposta) {
+    	this.respostas.add(resposta);
+    }
+
     public Set<Token> getTokens() {
         return tokens;
     }
@@ -124,7 +130,13 @@ public class QuestionarioAplicado implements Serializable {
         this.tokens = tokens;
     }
 
-    public void addToken(Token token) {this.tokens.add(token);}
+    public void addToken(Token token) {
+    	this.tokens.add(token);
+    }
+    
+    public void removeToken(Token token) {
+    	this.tokens.remove(token);
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,13 +1,20 @@
 # coding: utf-8
 
+import json
 import requests
+
+def print_criacao(entidade, resposta):
+  print '%s criado(a):' % entidade
+  print json.dumps(resposta, sort_keys=True, indent=4, separators=(',', ': '))
+  print
+
 def criaProfessor():
   r = requests.post('http://localhost:8080/professores', json = {
     'siape': '2291146',
-    'nome': 'matheusgr'  # TODO: professor nao precisa ter questionarioAplicado
+    'nome': 'matheusgr'
   })
   assert r.status_code == 201
-  print 'Professor criado:', r.json()
+  print_criacao('Professor', r.json())
   return r.json()
 
 def criaQuestionario(professor):
@@ -17,33 +24,37 @@ def criaQuestionario(professor):
     'questoes': [
       {
         'enunciado': 'A estrutura da sala demonstra seguir os padrões de segurança?',
-        'tipoQuestao':'TEXTO'
+        'tipoQuestao': 'ABERTA',
+        'autor': professor
       },
       {
         'enunciado': 'De 1-5 qual nota você daria a estrutura da sala?',
-        'tipoQuestao':'ESCOLHA_SIMPLES'
+        'tipoQuestao': 'ESCOLHA_SIMPLES',
+        'autor': professor
       },
       {
         'enunciado': 'Se você pudesse, o que mudaria na sala?',
-        'tipoQuestao':'TEXTO'
+        'tipoQuestao': 'ABERTA',
+        'autor': professor
       }
     ],
     'autor': professor
   })
   assert r.status_code == 201
-  print 'Questionário criado:', r.json()
+  
+  print_criacao('Questionário', r.json())
   return r.json()
 
 def criaDisciplina(professor):
     r = requests.post('http://localhost:8080/disciplinas', json = {
         'nome': 'Visão Computacional',
         'turma': '1',
-        'semestre': '8',
+        'semestre': '2017.2',
         'codigo': 'KJSJbkjbdadsbLJaba',
         'professorId': professor['id']
-        })
+    })
     assert r.status_code == 201
-    print 'Disciplina criada:', r.json()
+    print_criacao('Disciplina', r.json())
     return r.json()
 
 def criaQuestionarioAplicado(disciplina, questionario):
@@ -54,7 +65,7 @@ def criaQuestionarioAplicado(disciplina, questionario):
          'respostas': []
   })
   assert r.status_code == 201
-  print 'Questionário Aplicado criado:', r.json()
+  print_criacao('Questionário Aplicado', r.json())
   return r.json()
 
 def criaToken(questionarioAplicado):
@@ -62,7 +73,7 @@ def criaToken(questionarioAplicado):
         'idQuestionarioAplicado': questionarioAplicado['id']
     })
     assert r.status_code == 201
-    print 'Token criado:', r.json()
+    print_criacao('Token', r.json())
     return r.json()
 
 

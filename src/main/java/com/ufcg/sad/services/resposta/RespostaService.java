@@ -14,11 +14,12 @@ public interface RespostaService {
 	/**
      * Cadastra uma nova Resposta.
      *
-     * @param resposta Resposta a ser cadastrada
+     * @param token, resposta Resposta a ser cadastrada
      *
      * @return Resposta cadastrada.
+	 * @throws EntidadeNotFoundException.
      */
-    Resposta criarResposta(Resposta resposta);
+    Resposta criarResposta(Resposta resposta) throws EntidadeNotFoundException;
 
     /**
      * Recupera uma resposta através do Id
@@ -30,16 +31,20 @@ public interface RespostaService {
     Resposta getResposta(Long id) throws EntidadeNotFoundException;
 
     /**
-     * Recupera todas as Respostas cadastradas.
+     * Recupera todas as Respostas cadastradas de um certo tipo e de um certo idQuestao.
+     * @param tipoResposta, idQuestao.
      *
      * @return Lista com as Respostas.
      */
-    List<Resposta> getTodasAsRespostas();
-    
+    List<Resposta> getTodasAsRespostas(String tipoResposta, Long idQuestao);
+ 
     /**
      * Adiciona uma lista de Respostas.
+     * @param token, respostas
      * 
      * @return Lista de respostas adicionadas.
+     * @throws Exception.
      */
-    List<Resposta> addRespostas(List<Resposta> respostas);
+    List<Resposta> addRespostas(String token, List<Resposta> respostas) throws EntidadeNotFoundException, Exception;
+
 }

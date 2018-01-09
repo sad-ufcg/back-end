@@ -1,18 +1,19 @@
 package com.ufcg.sad.models.resposta;
 
-import com.ufcg.sad.models.questao.Questao;
-import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
@@ -25,25 +26,32 @@ import java.util.Date;
  */
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Resposta implements Serializable {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@JsonTypeInfo(use = Id.NAME, include = As.PROPERTY, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = RespostaAberta.class, name = "ABERTA"),
+    @JsonSubTypes.Type(value = RespostaEscolhaSimples.class, name = "ESCOLHA_SIMPLES"),
+    @JsonSubTypes.Type(value = RespostaMultiplaEscolha.class, name = "MULTIPLA_ESCOLHA"),
+    @JsonSubTypes.Type(value = RespostaSelecao.class, name = "SELECAO")
+    }
+)
+public abstract class Resposta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Temporal(TemporalType.DATE)
     private Date  dataResposta;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Questao questao;
+    @Column
+    private Long idQuestao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private QuestionarioAplicado questionarioAplicado;
+    @Column
+    private Long idQuestionarioAplicado;
 
     /**
      * Construtor vazio para o hibernate
@@ -54,13 +62,22 @@ public class Resposta implements Serializable {
      * Construtor de uma resposta generica
      *
      * @param dataResposta Data que a resposta foi feita
-     * @param questao Questao a qual a resposta esta associada
-     * @param questionarioAplicado Questionario aplicado o qual a resposta esta associada
+     * @param IdQuestao IdQuestao a qual a resposta esta associada
+     * @param idQuestionarioAplicado Questionario aplicado o qual a resposta esta associada
      */
-    public Resposta(Date dataResposta, Questao questao, QuestionarioAplicado questionarioAplicado) {
+    public Resposta(Long id, Date dataResposta, Long idQuestao, Long idQuestionarioAplicado) {
+        this.id = id;
         this.dataResposta = dataResposta;
-        this.questao = questao;
-        this.questionarioAplicado = questionarioAplicado;
+        this.idQuestao = idQuestao;
+        this.idQuestionarioAplicado = idQuestionarioAplicado;
+    }
+    
+    public Long getId() {
+    	return this.id;
+    }
+    
+    public void setId(Long id) {
+    	this.id = id;
     }
 
     public Date getDataResposta() {
@@ -71,20 +88,20 @@ public class Resposta implements Serializable {
         this.dataResposta = dataResposta;
     }
 
-    public Questao getQuestao() {
-        return questao;
+    public Long getIdQuestao() {
+        return idQuestao;
     }
 
-    public void setQuestao(Questao questao) {
-        this.questao = questao;
+    public void setIdQuestao(Long idIdQuestao) {
+        this.idQuestao = idIdQuestao;
     }
 
-    public QuestionarioAplicado getQuestionarioAplicado() {
-        return questionarioAplicado;
+    public Long getIdQuestionarioAplicado() {
+        return idQuestionarioAplicado;
     }
 
-    public void setQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) {
-        this.questionarioAplicado = questionarioAplicado;
+    public void setIdQuestionarioAplicado(Long idQuestionarioAplicado) {
+        this.idQuestionarioAplicado = idQuestionarioAplicado;
     }
 
     @Override
@@ -97,17 +114,17 @@ public class Resposta implements Serializable {
         if (id != null ? !id.equals(resposta.id) : resposta.id != null) return false;
         if (getDataResposta() != null ? !getDataResposta().equals(resposta.getDataResposta()) : resposta.getDataResposta() != null)
             return false;
-        if (getQuestao() != null ? !getQuestao().equals(resposta.getQuestao()) : resposta.getQuestao() != null)
+        if (getIdQuestao() != null ? !getIdQuestao().equals(resposta.getIdQuestao()) : resposta.getIdQuestao() != null)
             return false;
-        return getQuestionarioAplicado() != null ? getQuestionarioAplicado().equals(resposta.getQuestionarioAplicado()) : resposta.getQuestionarioAplicado() == null;
+        return getIdQuestionarioAplicado() != null ? getIdQuestionarioAplicado().equals(resposta.getIdQuestionarioAplicado()) : resposta.getIdQuestionarioAplicado() == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (getDataResposta() != null ? getDataResposta().hashCode() : 0);
-        result = 31 * result + (getQuestao() != null ? getQuestao().hashCode() : 0);
-        result = 31 * result + (getQuestionarioAplicado() != null ? getQuestionarioAplicado().hashCode() : 0);
+        result = 31 * result + (getIdQuestao() != null ? getIdQuestao().hashCode() : 0);
+        result = 31 * result + (getIdQuestionarioAplicado() != null ? getIdQuestionarioAplicado().hashCode() : 0);
         return result;
     }
 }

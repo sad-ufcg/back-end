@@ -62,7 +62,7 @@ public class TokenControllerTeste extends SadApplicationTests {
 
         Token token = createTokenTest("Pedro", "Fisica IV");
         Assert.assertEquals(tokenRepository.findAll().size(), 1);
-        mvc.perform(get("/token")
+        mvc.perform(get("/token/questionarioAplicado")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("tokenID", token.getId()))
                 .andDo(print())
@@ -73,7 +73,7 @@ public class TokenControllerTeste extends SadApplicationTests {
     public void naoRetornaTokenSeIDInvalido() throws Exception {
 
         String tokenID = "AlgumToken%20";
-        mvc.perform(get("/token")
+        mvc.perform(get("/token/questionarioAplicado")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("tokenID", tokenID))
                 .andDo(print())
@@ -85,8 +85,7 @@ public class TokenControllerTeste extends SadApplicationTests {
     	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(null, new Long(1), new Long(1), new Long(1), new HashSet<Resposta>(), new HashSet<Token>());
 
     	Token token = new Token(new Long(1));
-        // TODO: verificar como fazer saveAndFlush para caso de coleções.
-        //respostaRepository.saveAndFlush(questionarioAplicado.getRespostas());
+
         questionarioAplicadoRepository.saveAndFlush(questionarioAplicado);
         tokenRepository.saveAndFlush(token);
 

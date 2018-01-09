@@ -1,6 +1,5 @@
 package com.ufcg.sad.controllers;
 
-import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.services.csv.CsvUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,12 +32,12 @@ public class CsvUploaderController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseEntity enviarCSV(@RequestParam("csv")MultipartFile csv) {
+    public ResponseEntity<Object> enviarCSV(@RequestParam("csv")MultipartFile csv) {
         try {
             csvUploader.cadastrarDisciplina(csv);
-            return new ResponseEntity(HttpStatus.CREATED);
+            return new ResponseEntity<Object>(HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
         }
     }
 }
