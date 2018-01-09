@@ -2,6 +2,7 @@ package com.ufcg.sad.controllers;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.token.Token;
@@ -35,14 +36,12 @@ public class TokenController {
   	 */
     @RequestMapping(value = "/questionario", method = RequestMethod.GET)
     public ResponseEntity<Object> buscaQuestionario(@RequestParam("tokenID") String tokenId) throws Exception {
-
     	try {
 			Questionario questionario = tokenService.buscarQuestionario(tokenId);
 			return new ResponseEntity<>(questionario, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
 		}
-
     }
     
     /**
@@ -51,16 +50,28 @@ public class TokenController {
   	 */
     @RequestMapping(value = "/questionarioAplicado", method = RequestMethod.GET)
     public ResponseEntity<Object> buscaQuestionarioAplicado(@RequestParam("tokenID") String tokenId) throws Exception {
-
     	try {
 			QuestionarioAplicado questionarioAplicado = tokenService.buscarQuestionarioAplicado(tokenId);
 			return new ResponseEntity<>(questionarioAplicado, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
 		}
-
     }
     
+    /**
+  	 * Método que retorna uma disciplina associada ao questionario aplicado do token.
+  	 * @param tokenId
+  	 */
+    @RequestMapping(value = "/disciplina", method = RequestMethod.GET)
+    public ResponseEntity<Object> buscaDisciplina(@RequestParam("tokenID") String tokenId) throws Exception {
+    	try {
+			Disciplina disciplina = tokenService.buscarDisciplina(tokenId);
+			return new ResponseEntity<>(disciplina, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+		}
+    }
+
     /**
   	 * Método para criar um token.
   	 * @param token

@@ -38,6 +38,8 @@ public class RespostaServiceImpl implements RespostaService {
 
         	// Atualiza Questionario Aplicado
         	questionarioAplicadoService.atualizaQuestionarioAplicado(questionarioAplicado);
+        } else {
+        	throw new EntidadeNotFoundException();
         }
         return respostaSalva;
     }
@@ -72,7 +74,10 @@ public class RespostaServiceImpl implements RespostaService {
     	List<Resposta> ret = new ArrayList<Resposta>();
     	for (Resposta resp : respostas) {
             ret.add(criarResposta(resp));
-    	}    	
+    	}
+    	
+    	tokenService.deletaToken(token);
+    	
     	return ret;
     }
 }

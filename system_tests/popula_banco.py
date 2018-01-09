@@ -49,7 +49,7 @@ def criaDisciplina(professor):
     r = requests.post('http://localhost:8080/disciplinas', json = {
         'nome': 'Visão Computacional',
         'turma': '1',
-        'semestre': '8',
+        'semestre': '2017.2',
         'codigo': 'KJSJbkjbdadsbLJaba',
         'professorId': professor['id']
     })

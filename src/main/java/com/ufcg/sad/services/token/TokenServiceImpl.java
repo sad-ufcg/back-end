@@ -2,10 +2,12 @@ package com.ufcg.sad.services.token;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.token.Token;
 import com.ufcg.sad.repositories.token.TokenRepository;
+import com.ufcg.sad.services.disciplina.DisciplinaService;
 import com.ufcg.sad.services.questionario.QuestionarioAplicadoService;
 import com.ufcg.sad.services.questionario.QuestionarioService;
 
@@ -28,6 +30,9 @@ public class TokenServiceImpl implements TokenService {
 
     @Autowired
     QuestionarioService questionarioService;
+
+    @Autowired
+    DisciplinaService disciplinaService;
 
     @Override
     public Questionario buscarQuestionario(String tokenID) throws EntidadeNotFoundException {
@@ -86,5 +91,11 @@ public class TokenServiceImpl implements TokenService {
 
 		// Remove token
 		tokenRepository.delete(token);
+	}
+
+	@Override
+	public Disciplina buscarDisciplina(String tokenId) throws EntidadeNotFoundException {
+		Long idDisciplina = buscarQuestionarioAplicado(tokenId).getIdDisciplina();
+		return disciplinaService.getDisciplina(idDisciplina);
 	}
 }
