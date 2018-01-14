@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.repositories.questionario.QuestaoRepository;
@@ -31,18 +31,18 @@ public class QuestaoServiceImpl implements QuestaoService {
 	 */
 	public QuestaoServiceImpl() {}
 
-	public boolean validaQuestao(Questao questao) {
+	public void validaQuestao(Questao questao) throws EntidadeInvalidaException {
 		
 		if(questao.getId() != null) {
-			return false;
+			throw new EntidadeInvalidaException("Questão não se deve conter ID.");
 		}
 		
 		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
-			return false;
+			throw new EntidadeInvalidaException("Questão deve conter enunciado.");
 		}
 
 		if(questao.getTipoQuestao() == null) {
-			return false;
+			throw new EntidadeInvalidaException("Questão deve conter tipo.");
 		}
 		
 		boolean tipoValido = false;
@@ -52,7 +52,10 @@ public class QuestaoServiceImpl implements QuestaoService {
 		       break;
 		   }
 		}
-		return tipoValido;
+		
+		if(!tipoValido) {
+			throw new EntidadeInvalidaException("Questão contém tipo inválido: " + questao.getTipoQuestao());
+		}
 	}
 	
 	/**
@@ -90,14 +93,12 @@ public class QuestaoServiceImpl implements QuestaoService {
 	 * Método para criar uma questão.
 	 * @param questao
 	 */
-	public Questao criaQuestao(Questao questao) throws QuestaoInvalidaException {
-		if(!validaQuestao(questao)) {
-			throw new QuestaoInvalidaException();
-		}
+	public Questao criaQuestao(Questao questao) throws EntidadeInvalidaException {
+		validaQuestao(questao);
 		return questaoRepository.save(questao);
 	}
 
-	public Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, QuestaoInvalidaException {
+	public Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException {
 		return questaoRepository.save(questao);
 	}
 }

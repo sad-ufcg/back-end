@@ -13,7 +13,9 @@ public class EntidadeNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public EntidadeNotFoundException() { super(); }
+	public EntidadeNotFoundException() {
+		super();
+	}
 
     public EntidadeNotFoundException(String mensagem) {
         super(mensagem);

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.services.questao.QuestaoService;
 
@@ -47,14 +47,12 @@ public class QuestaoController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<Questao> atualizaQuestao(@RequestBody Questao questao) {
+	public ResponseEntity<Object> atualizaQuestao(@RequestBody Questao questao) {
 		try {
 			Questao questaoAtualizada = questaoService.atualizaQuestao(questao);
-			return new ResponseEntity<Questao>(questaoAtualizada, HttpStatus.OK);
+			return new ResponseEntity<Object>(questaoAtualizada, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Questao>(HttpStatus.NOT_FOUND);
-		} catch (QuestaoInvalidaException e) {
-			return new ResponseEntity<Questao>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -73,12 +71,12 @@ public class QuestaoController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Questao> criaQuestao(@RequestBody Questao questao) {
+	public ResponseEntity<Object> criaQuestao(@RequestBody Questao questao) {
 	    try {
 	    	Questao questaoCriada = questaoService.criaQuestao(questao);
-	    	return new ResponseEntity<Questao>(questaoCriada, HttpStatus.CREATED);	
-	    } catch (QuestaoInvalidaException e) {
-	    	return new ResponseEntity<Questao>(HttpStatus.BAD_REQUEST);
+	    	return new ResponseEntity<Object>(questaoCriada, HttpStatus.CREATED);	
+	    } catch (EntidadeInvalidaException e) {
+	    	return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
 	    }
 	}
 }
