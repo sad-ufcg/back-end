@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
-
+import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.repositories.questionario.QuestionarioAplicadoRepository;
 

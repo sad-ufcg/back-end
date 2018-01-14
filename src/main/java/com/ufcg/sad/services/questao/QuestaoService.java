@@ -1,7 +1,7 @@
 package com.ufcg.sad.services.questao;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
 import com.ufcg.sad.models.questao.Questao;
 
 import java.util.List;
@@ -19,8 +19,9 @@ public interface QuestaoService {
      * @param questao Questao a ser criada
      *
      * @return Questao
+     * @throws EntidadeInvalidaException 
      */
-    Questao criaQuestao(Questao questao) throws QuestaoInvalidaException;
+    Questao criaQuestao(Questao questao) throws EntidadeInvalidaException;
 
     /**
      * Recupera um questão através do Id
@@ -42,9 +43,9 @@ public interface QuestaoService {
 	/**
 	 * Método auxiliar para validar uma questão.
 	 * @param questao
-	 * @return boolean
+	 * @throws EntidadeInvalidaException 
 	 */
-    boolean validaQuestao(Questao questao);
+    void validaQuestao(Questao questao) throws EntidadeInvalidaException;
 
     /**
      * Atualiza uma Questão no sistema
@@ -52,7 +53,8 @@ public interface QuestaoService {
      * @param aluno Questao a ser atualizada.
      *
      * @return Questao atualizada.
+     * @throws EntidadeNotFoundException
      */
-    Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, QuestaoInvalidaException;
+    Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException;
 
 }

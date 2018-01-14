@@ -6,11 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
-import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.repositories.questionario.QuestionarioRepository;
@@ -71,18 +69,23 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	 * @param questionario
 	 * @throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException 
 	 */
-	public Questionario criaQuestionario(Questionario questionario) throws QuestionarioSemNomeException, QuestaoInvalidaException, QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException
-	{
+	public Questionario criaQuestionario(Questionario questionario) throws EntidadeInvalidaException, ParametroInvalidoException {
 		
 		if(questionario.getId() != null) {
 			throw new ParametroInvalidoException();
 		}
 		
 		if(questionario.getNome() == null || questionario.getNome().isEmpty()) {
-			throw new QuestionarioSemNomeException();
+			throw new EntidadeInvalidaException("Questionário sem nome.");
 		}
-		else if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
-			throw new QuestionarioVazioException();
+		
+		if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
+			throw new EntidadeInvalidaException("Questionário vazio.");
+		}
+		else {
+			for(Questao questao : questionario.getQuestoes()) {
+				questaoService.validaQuestao(questao);
+			}
 		}
 
 		return questionarioRepository.save(questionario);
@@ -92,15 +95,13 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	 * Método que atualiza um questionário.
 	 * @param questionario
 	 * @return questionario atualizado
+	 * @throws EntidadeInvalidaException 
 	 */
-	public Questionario atualizaQuestionario(Questionario questionario) throws EntidadeNotFoundException, QuestaoInvalidaException {
+	public Questionario atualizaQuestionario(Questionario questionario) throws EntidadeNotFoundException, EntidadeInvalidaException {
 		
-		if(questionario.getQuestoes() != null && !questionario.getQuestoes().isEmpty()) {
-			
+		if(questionario.getQuestoes() != null && !questionario.getQuestoes().isEmpty()) {	
 			for(Questao questao : questionario.getQuestoes()) {
-				if(!questaoService.validaQuestao(questao)) {
-					throw new QuestaoInvalidaException();
-				}
+				questaoService.validaQuestao(questao);
 			}
 		}
 		
