@@ -1,4 +1,4 @@
-package com.ufcg.sad.controller;
+package com.ufcg.sad.controllers;
 
 import com.ufcg.sad.SadApplication;
 import com.ufcg.sad.SadApplicationTests;
