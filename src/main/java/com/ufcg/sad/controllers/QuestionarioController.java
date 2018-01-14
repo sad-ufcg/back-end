@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.questionario.QuestaoInvalidaException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioSemNomeException;
-import com.ufcg.sad.exceptions.questionario.QuestionarioVazioException;
-import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.services.questionario.QuestionarioService;
 
@@ -53,14 +50,14 @@ public class QuestionarioController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<Questionario> atualizaQuestionario(@RequestBody Questionario questionario) {
+	public ResponseEntity<Object> atualizaQuestionario(@RequestBody Questionario questionario) {
 		try {
 			Questionario questionarioAtualizado = questionarioService.atualizaQuestionario(questionario);
-			return new ResponseEntity<Questionario>(questionarioAtualizado, HttpStatus.OK);
+			return new ResponseEntity<Object>(questionarioAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
-		} catch (QuestaoInvalidaException e) {
-			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
+		} catch (EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -79,18 +76,12 @@ public class QuestionarioController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Questionario> criaQuestionario(@RequestBody Questionario questionario) {
+	public ResponseEntity<Object> criaQuestionario(@RequestBody Questionario questionario) {
 	    try {
 	    	Questionario questionarioCriado = questionarioService.criaQuestionario(questionario);
-	    	return new ResponseEntity<Questionario>(questionarioCriado, HttpStatus.CREATED);	
-	    } catch (QuestionarioVazioException e) {
-	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
-	    } catch (QuestionarioSemNomeException e) {
-	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
-	    } catch (QuestaoInvalidaException e) {
-	    	return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
-		} catch (ParametroInvalidoException e) {
-			return new ResponseEntity<Questionario>(HttpStatus.BAD_REQUEST);
-		}
+	    	return new ResponseEntity<Object>(questionarioCriado, HttpStatus.CREATED);	
+	    } catch (EntidadeInvalidaException e) {
+	    	return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+	    }
 	}
 }

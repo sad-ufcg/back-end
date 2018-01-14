@@ -1,7 +1,7 @@
 package com.ufcg.sad.controllers;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;

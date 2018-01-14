@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
-import com.ufcg.sad.exceptions.utils.ParametroInvalidoException;
+import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.services.questionario.QuestionarioAplicadoService;
 
