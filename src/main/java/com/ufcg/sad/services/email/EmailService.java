@@ -1,5 +1,7 @@
 package com.ufcg.sad.services.email;
 
+import javax.mail.MessagingException;
+
 /**
  * Serviços de envio de email
  */
@@ -12,5 +14,5 @@ public interface EmailService {
      * @param corpo
      *          Corpo do email
      */
-    public void enviarEmail(String destinatario, String corpo);
+    public void enviarEmail(String destinatario, String corpo) throws MessagingException;
 }
