@@ -21,8 +21,8 @@ public class RespostaAberta extends Resposta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Length(max = TAMANHO_MAX_STRING)
     @Column
+    @Length(max = TAMANHO_MAX_STRING)
     private String comentario;
 
     /**

@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,10 +24,11 @@ public class RespostaMultiplaEscolha extends Resposta implements Serializable{
 
     @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn
+	@NotNull
     private Opcao opcaoEscolhida;
 
-    @Length(max = TAMANHO_MAX_STRING)
     @Column
+    @Length(max = TAMANHO_MAX_STRING)
     private String comentario;
 
     /**

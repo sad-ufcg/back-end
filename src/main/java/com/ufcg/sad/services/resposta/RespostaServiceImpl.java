@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,7 +28,11 @@ public class RespostaServiceImpl implements RespostaService {
 
     @Override
     public Resposta criarResposta(Resposta resposta) throws EntidadeNotFoundException {
-        Resposta respostaSalva = respostaRepository.saveAndFlush(resposta);
+    	if(resposta.getDataResposta()== null) {
+    		resposta.setDataResposta(new Date());
+		}
+		
+    	Resposta respostaSalva = respostaRepository.saveAndFlush(resposta);        
         if(respostaSalva.getIdQuestionarioAplicado() != null) {
         	// Recupera Questionario Aplicado
         	Long id = respostaSalva.getIdQuestionarioAplicado();

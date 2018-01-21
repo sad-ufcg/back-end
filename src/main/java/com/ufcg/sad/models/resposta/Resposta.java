@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.resposta;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
@@ -16,6 +17,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -44,13 +47,17 @@ public abstract class Resposta implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @Column
     @Temporal(TemporalType.DATE)
-    private Date  dataResposta;
+	@JsonFormat(pattern="dd/MM/yyyy")
+    private Date dataResposta;
 
     @Column
+    @NotNull
     private Long idQuestao;
 
     @Column
+    @NotNull
     private Long idQuestionarioAplicado;
 
     /**
