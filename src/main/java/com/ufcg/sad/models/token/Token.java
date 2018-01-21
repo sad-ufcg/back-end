@@ -30,6 +30,15 @@ public class Token {
     @NotNull
     private Long idQuestionarioAplicado;
 
+    @Column
+	private Long  idAluno;
+
+    public Token(Long idQuestionarioAplicado, Long idAluno) {
+        this.id = UUID.randomUUID().toString();
+        this.idQuestionarioAplicado = idQuestionarioAplicado;
+        this.idAluno = idAluno;
+    }
+
     public Token(Long idQuestionarioAplicado) {
         this.id = UUID.randomUUID().toString();
         this.idQuestionarioAplicado = idQuestionarioAplicado;
@@ -54,6 +63,14 @@ public class Token {
     public void setIdQuestionarioAplicado(Long idQuestionarioAplicado) {
         this.idQuestionarioAplicado = idQuestionarioAplicado;
     }
+
+	public Long getIdAluno() {
+		return idAluno;
+	}
+
+	public void setIdAluno(Long idAluno) {
+		this.idAluno = idAluno;
+	}
 
 	@Override
 	public int hashCode() {

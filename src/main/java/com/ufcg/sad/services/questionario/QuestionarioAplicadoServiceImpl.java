@@ -85,4 +85,9 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
 	public QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException {
 		return questionarioAplicadoRepository.save(questionarioAplicado);
 	}
+
+    @Override
+    public List<QuestionarioAplicado> getListaDeQuestionariosAplicados(List<Long> ids) {
+        return questionarioAplicadoRepository.findByIdIn(ids);
+    }
 }
