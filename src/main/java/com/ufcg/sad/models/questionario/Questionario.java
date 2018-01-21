@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questao.Questao;
 
@@ -57,10 +58,12 @@ public class Questionario implements Serializable {
 	
 	@Column
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataCriacao;
 	
 	@Column
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataUltimaEdicao;
 
 	/**

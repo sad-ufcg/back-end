@@ -1,5 +1,6 @@
 package com.ufcg.sad.models.resposta;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
@@ -46,8 +47,10 @@ public abstract class Resposta implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @Column
     @Temporal(TemporalType.DATE)
-    private Date  dataResposta;
+	@JsonFormat(pattern="dd/MM/yyyy")
+    private Date dataResposta;
 
     @Column
     @NotNull

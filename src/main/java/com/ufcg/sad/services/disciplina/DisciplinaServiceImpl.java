@@ -29,7 +29,7 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 
     @Override
     public Disciplina cadastrarDisciplina(Disciplina disciplina) throws EntidadeNotFoundException {
-        // Salva disciplina
+    	// Salva disciplina
     	Disciplina disciplinaSalva = disciplinaRepository.save(disciplina);
  	
     	// Adiciona disciplina a professor
