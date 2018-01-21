@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.disciplina;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -63,6 +64,7 @@ public interface DisciplinaService {
      * @return Disciplina atualizada.
      *
      * @throws EntidadeNotFoundException Lança exceção se a turma passada não existir
+     * @throws EntidadeInvalidaException Lança exceção se o aluno não for criado corretamente
      */
-    Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException;
+    Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException, EntidadeInvalidaException;
 }

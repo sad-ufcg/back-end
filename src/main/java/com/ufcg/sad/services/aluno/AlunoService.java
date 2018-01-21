@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.aluno;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 
@@ -17,15 +18,17 @@ public interface AlunoService {
      *
      * @param aluno Aluno a ser cadastrado
      *
+     * @throws EntidadeInvalidaException se aluno tiver dados inválidos.
      * @return Aluno cadastrado.
      */
-    Aluno criarAluno(Aluno aluno);
+    Aluno criarAluno(Aluno aluno) throws EntidadeInvalidaException;
 
     /**
      * Recupera um aluno através do Id
      *
      * @param id Id do aluno.
      *
+     * @throws EntidadeNotFoundException se não achar o aluno lança essa exceção.
      * @return Aluno.
      */
     Aluno getAluno(Long id) throws EntidadeNotFoundException;
@@ -42,6 +45,7 @@ public interface AlunoService {
      *
      * @param aluno Aluno a ser atualizado.
      *
+     * @throws EntidadeNotFoundException se não achar o aluno lança essa exceção.
      * @return Aluno atualizado.
      */
     Aluno atualizarAluno(Aluno aluno) throws EntidadeNotFoundException;
@@ -50,8 +54,17 @@ public interface AlunoService {
      * Remove um Aluno do sistema.
      *
      * @param aluno Aluno a ser removido.
+     * 
+     * @throws EntidadeNotFoundException se não achar o aluno lança essa exceção.
      */
     void removerAluno(Aluno aluno) throws EntidadeNotFoundException;
 
-    Aluno procurarPorEmail(String email);
+    /**
+     * Procura por um Aluno utilizando um email.
+     * @param email Email a ser procurado.
+     * 
+     * @throws EntidadeNotFoundException se não achar o aluno lança essa exceção.
+     * @return Aluno.
+     */
+    Aluno procurarPorEmail(String email) throws EntidadeNotFoundException;
 }

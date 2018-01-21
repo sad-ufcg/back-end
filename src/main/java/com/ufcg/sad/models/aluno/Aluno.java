@@ -20,6 +20,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.matricula.Matricula;
+
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
@@ -53,6 +55,7 @@ public class Aluno implements Serializable {
     @Column
     @NotNull
     @Length(max = TAMANHO_MAX_STRING)
+    @Email(message = "Email inválido.")
     private String email;
 
     @OneToMany(mappedBy = "aluno",
