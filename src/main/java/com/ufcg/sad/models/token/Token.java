@@ -37,6 +37,11 @@ public class Token {
         this.idAluno = idAluno;
     }
 
+    public Token(Long idQuestionarioAplicado) {
+        this.id = UUID.randomUUID().toString();
+        this.idQuestionarioAplicado = idQuestionarioAplicado;
+    }
+
     public Token(){
         this.id = UUID.randomUUID().toString();
     }
