@@ -1,4 +1,4 @@
-package com.ufcg.sad.repositories.token;
+package com.ufcg.sad.repositories;
 
 import com.ufcg.sad.models.token.Token;
 import org.springframework.data.jpa.repository.JpaRepository;

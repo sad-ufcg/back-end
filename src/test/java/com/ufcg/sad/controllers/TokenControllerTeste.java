@@ -5,8 +5,9 @@ import com.ufcg.sad.SadApplicationTests;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.token.Token;
-import com.ufcg.sad.repositories.questionario.QuestionarioAplicadoRepository;
-import com.ufcg.sad.repositories.token.TokenRepository;
+import com.ufcg.sad.repositories.QuestionarioAplicadoRepository;
+import com.ufcg.sad.repositories.TokenRepository;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

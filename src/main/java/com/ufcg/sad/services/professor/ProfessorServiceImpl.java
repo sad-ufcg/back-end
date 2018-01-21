@@ -53,8 +53,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Override
     public Professor procurarProfessorPeloSiape(String siape) throws EntidadeNotFoundException {
-        Professor professor = professorRepository.findBySiape(siape);
-
+    	Professor professor = professorRepository.findBySiape(siape);
         if(professor != null) {
             return professor;
         } else {
