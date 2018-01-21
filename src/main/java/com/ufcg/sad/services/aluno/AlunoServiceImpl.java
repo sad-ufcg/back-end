@@ -17,7 +17,7 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public Aluno atualizarAluno(Aluno aluno) throws EntidadeNotFoundException{
-        if(alunoRepository.exists(aluno.getId())) {
+        if(aluno != null && alunoRepository.exists(aluno.getId())) {
             return alunoRepository.save(aluno);
         } else {
             throw new EntidadeNotFoundException();
@@ -36,7 +36,7 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public Aluno getAluno(Long id) throws EntidadeNotFoundException {
-        if(alunoRepository.exists(id)) {
+        if(id != null && alunoRepository.exists(id)) {
             return alunoRepository.findOne(id);
         } else {
             throw new EntidadeNotFoundException();
@@ -50,7 +50,7 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public void removerAluno(Aluno aluno) throws EntidadeNotFoundException {
-        if(alunoRepository.exists(aluno.getId())) {
+        if(aluno != null && alunoRepository.exists(aluno.getId())) {
             alunoRepository.delete(aluno);
         } else {
             throw new EntidadeNotFoundException();

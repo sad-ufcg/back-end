@@ -14,6 +14,11 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Autowired
     ProfessorRepository professorRepository;
 
+    
+    private String getNotFoundString(String parametroProcura, String itemProcurado) {
+    	return "Professor com " + parametroProcura + " " + itemProcurado + "não existe.";
+    }
+    
     @Override
     public List<Professor> getTodosOsProfessores() {
         return professorRepository.findAll();
@@ -24,7 +29,8 @@ public class ProfessorServiceImpl implements ProfessorService {
         if(professorRepository.exists(professor.getId())) {
             return professorRepository.save(professor);
         } else {
-            throw new EntidadeNotFoundException();
+            throw new EntidadeNotFoundException(
+            		this.getNotFoundString("id", String.valueOf(professor.getId())));
         }
     }
 
@@ -35,19 +41,21 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Override
     public Professor getProfessor(Long id) throws EntidadeNotFoundException {
-        if(professorRepository.exists(id)) {
+        if(id != null && professorRepository.exists(id)) {
             return professorRepository.findOne(id);
         } else {
-            throw new EntidadeNotFoundException();
+        	throw new EntidadeNotFoundException(
+            		this.getNotFoundString("id", String.valueOf(id)));
         }
     }
 
     @Override
     public void removerProfessor(Professor professor) throws EntidadeNotFoundException {
-        if(professorRepository.exists(professor.getId())) {
+        if(professor != null && professorRepository.exists(professor.getId())) {
             professorRepository.delete(professor.getId());
         } else {
-            throw new EntidadeNotFoundException();
+        	throw new EntidadeNotFoundException(
+            		this.getNotFoundString("id", String.valueOf(professor.getId())));
         }
     }
 
@@ -57,7 +65,7 @@ public class ProfessorServiceImpl implements ProfessorService {
         if(professor != null) {
             return professor;
         } else {
-            throw new EntidadeNotFoundException();
+        	throw new EntidadeNotFoundException(this.getNotFoundString("siape", siape));
         }
     }
 }

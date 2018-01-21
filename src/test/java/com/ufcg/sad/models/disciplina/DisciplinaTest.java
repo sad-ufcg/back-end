@@ -17,7 +17,7 @@ public class DisciplinaTest extends SadApplicationTests {
     public void testGetterESetter() {
         Long id = 1L;
         String nome = "Programação I";
-        int turma = 2;
+        Integer turma = 2;
         Long professorId = 2L;
         String semestre = "20172";
         Set<Matricula> alunos = new HashSet<>();

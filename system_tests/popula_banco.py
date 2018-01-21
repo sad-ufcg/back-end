@@ -50,7 +50,7 @@ def criaDisciplina(professor):
         'nome': 'Visão Computacional',
         'turma': '1',
         'semestre': '2017.2',
-        'codigo': 'KJSJbkjbdadsbLJaba',
+        'codigo': '1234567',
         'professorId': professor['id']
     })
     assert r.status_code == 201
