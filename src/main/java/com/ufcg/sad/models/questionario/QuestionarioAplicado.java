@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -44,6 +46,9 @@ public class QuestionarioAplicado implements Serializable {
     @NotNull
     private Long idDisciplina;
 
+    @Transient
+    private String disciplina;
+
     @OneToMany(fetch = FetchType.LAZY,
                cascade=CascadeType.ALL)
     private Set<Resposta> respostas;
@@ -63,6 +68,13 @@ public class QuestionarioAplicado implements Serializable {
         this.tokens = new HashSet<>();
     }
 
+    public QuestionarioAplicado(Long id, Long idDisciplina, Long idProfessor, String disciplina) {
+        this.id = id;
+        this.idDisciplina = idDisciplina;
+        this.idProfessor = idProfessor;
+        this.disciplina = disciplina;
+    }
+
     /**
      * Construtor de questionario aplicado.
      *
@@ -78,6 +90,14 @@ public class QuestionarioAplicado implements Serializable {
         this.idDisciplina = idDisciplina;
         this.respostas = respostas;
         this.tokens = tokens;
+    }
+
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
 
     public Long getId() {

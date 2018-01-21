@@ -65,6 +65,11 @@ public class Disciplina implements Serializable {
         this.matriculas = new HashSet<>();
     }
 
+    public Disciplina(String nome) {
+        this.matriculas = new HashSet<>();
+        this.nome = nome;
+    }
+
     /**
      * Construtor para a classe disciplina
      * @param id Id da disciplina.

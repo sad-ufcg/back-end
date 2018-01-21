@@ -56,13 +56,16 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
         Set<Matricula> matriculas = disciplina.getMatriculas();
 
         for (Matricula matricula : matriculas) {
-            enviarEmail(matricula.getAluno(), questionarioAplicado.getId(), disciplina);
+            enviarEmail(matricula.getAluno(), questionarioAplicado, disciplina);
         }
+
+        questionarioAplicadoService.atualizaQuestionarioAplicado(questionarioAplicado);
     }
 
-    private void enviarEmail(Aluno aluno, Long idQuestionarioAplicado, Disciplina disciplina) throws EntidadeNotFoundException {
-        Token token = new Token(idQuestionarioAplicado, aluno.getId());
+    private void enviarEmail(Aluno aluno, QuestionarioAplicado questionarioAplicado, Disciplina disciplina) throws EntidadeNotFoundException {
+        Token token = new Token(questionarioAplicado.getId(), aluno.getId());
         token = tokenService.criaToken(token);
+        questionarioAplicado.addToken(token);
 
         try {
             emailService.enviarEmail(aluno.getEmail(), geraCorpoDoEmail(token, disciplina));
@@ -70,7 +73,7 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
             StringBuilder stringBuilder = new StringBuilder();
 
             String erro = stringBuilder.append("Erro ao enviar email. ")
-                    .append(idQuestionarioAplicado)
+                    .append(questionarioAplicado.getId())
                     .append(",")
                     .append(disciplina.getId())
                     .append(",")
