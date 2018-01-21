@@ -45,4 +45,15 @@ public interface QuestionarioAplicadoService {
      * @return Questionário aplicado atualizado.
      */
     QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException;
+
+    /**
+     * Recupera uma lista de Questionários Aplicados.
+     *
+     * @param ids
+     *          Lista com os ids dos Questionários Aplicados desejados.
+     *
+     * @return
+     *          Lista com os Questionários Aplicados.
+     */
+    List<QuestionarioAplicado> getListaDeQuestionariosAplicados(List<Long> ids);
 }

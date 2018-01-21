@@ -1,0 +1,102 @@
+package com.ufcg.sad.services.questionario;
+
+import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.models.aluno.Aluno;
+import com.ufcg.sad.models.disciplina.Disciplina;
+import com.ufcg.sad.models.matricula.Matricula;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.ufcg.sad.models.token.Token;
+import com.ufcg.sad.services.disciplina.DisciplinaService;
+import com.ufcg.sad.services.email.EmailService;
+import com.ufcg.sad.services.token.TokenService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService {
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private DisciplinaService disciplinaService;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private QuestionarioAplicadoService questionarioAplicadoService;
+
+    private static final Logger logger =
+            Logger.getLogger(EnviarQuestionarioService.class);
+
+    @Override
+    public void enviarEmail(List<Long> questionariosAplicados) throws EntidadeNotFoundException {
+        List<QuestionarioAplicado> questionarios = questionarioAplicadoService.getListaDeQuestionariosAplicados(questionariosAplicados);
+        for (QuestionarioAplicado questionarioAplicado : questionarios) {
+            enviarEmail(questionarioAplicado);
+        }
+    }
+
+    @Override
+    public void enviarEmail(Long idQuestionarioAplicado) throws EntidadeNotFoundException {
+        QuestionarioAplicado questionarioAplicado = questionarioAplicadoService.getQuestionarioAplicado(idQuestionarioAplicado);
+        enviarEmail(questionarioAplicado);
+    }
+
+    private void enviarEmail(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException {
+        Long idDisciplina = questionarioAplicado.getIdDisciplina();
+        Disciplina disciplina = disciplinaService.getDisciplina(idDisciplina);
+
+        Set<Matricula> matriculas = disciplina.getMatriculas();
+
+        for (Matricula matricula : matriculas) {
+            enviarEmail(matricula.getAluno(), questionarioAplicado.getId(), disciplina);
+        }
+    }
+
+    private void enviarEmail(Aluno aluno, Long idQuestionarioAplicado, Disciplina disciplina) throws EntidadeNotFoundException {
+        Token token = new Token(idQuestionarioAplicado, aluno.getId());
+        token = tokenService.criaToken(token);
+
+        try {
+            emailService.enviarEmail(aluno.getEmail(), geraCorpoDoEmail(token, disciplina));
+        } catch (MessagingException e) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String erro = stringBuilder.append("Erro ao enviar email. ")
+                    .append(idQuestionarioAplicado)
+                    .append(",")
+                    .append(disciplina.getId())
+                    .append(",")
+                    .append(aluno.getId())
+                    .append(",")
+                    .append(aluno.getEmail())
+                    .toString();
+
+            logger.warn(erro);
+        }
+    }
+
+    private String geraCorpoDoEmail(Token token, Disciplina disciplina) {
+        StringBuilder sb = new StringBuilder();
+        String nl = System.lineSeparator();
+        sb.append("Olá! A cada semestre realizamos o processo de avaliação docente." + nl + nl);
+        sb.append("Sua participação é importante. Cada professor receberá um resumo"
+                + " de como os alunos votaram na sua turma bem como comentários que"
+                + " forem registrados por você. IMPORTANTE, VOCÊ NÃO SERÁ IDENTIFICADO" + " NESTE PROCESSO!" + nl + nl);
+        sb.append("Os resultados da avaliação docente ajudam o departamento a definir alterações nas alocações das"
+                + " disciplinas, a identificar as principais áreas a serem trabalhadas e para poder cobrar por"
+                + " melhorias perante a universidade." + nl + nl);
+        sb.append("Pedimos que você avalie a disciplina: " + disciplina.getNome() + nl + nl);
+        sb.append("Para isto, basta acessar o link: https://sad.splab.ufcg.edu.br/app/#/form/"
+                + token.getId() + nl);
+        sb.append("Importante: você só poderá votar uma única vez e o voto não poderá ser alterado após ser registrado.");
+        return sb.toString();
+    }
+}
