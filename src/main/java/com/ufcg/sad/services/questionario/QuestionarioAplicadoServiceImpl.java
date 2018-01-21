@@ -1,6 +1,5 @@
 package com.ufcg.sad.services.questionario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +65,7 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
 	 * @return lista contendo questionários aplicados
 	 */
 	public List<QuestionarioAplicado> getTodosQuestionariosAplicados() {
-		List<QuestionarioAplicado> questionariosAplicados = new ArrayList<>();
-
-		for (QuestionarioAplicado questionarioAplicado : questionarioAplicadoRepository.findAll()) {
-			questionariosAplicados.add(questionarioAplicado);
-		}
-
-		return questionariosAplicados;
+		return questionarioAplicadoRepository.findAll();
 	}
 
 	/**

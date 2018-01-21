@@ -5,6 +5,7 @@ import com.ufcg.sad.services.questionario.EnviarQuestionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,12 +31,12 @@ public class EnviarQuestionarioController {
      *          Código HTTP informando resultado da operação.
      */
     @RequestMapping(value = "{/id}", method = RequestMethod.POST)
-    public HttpStatus enviarEmailParaUmQuestionario(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> enviarEmailParaUmQuestionario(@PathVariable("id") Long id) {
         try {
             enviarQuestionarioService.enviarEmail(id);
-            return HttpStatus.OK;
+            return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
-            return HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -47,12 +48,12 @@ public class EnviarQuestionarioController {
      *          Código HTTP informando o resultado da operação.
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpStatus enviarEmailParaVariosQuestionarios(@RequestBody List<Long> ids) {
+    public ResponseEntity<Object> enviarEmailParaVariosQuestionarios(@RequestBody List<Long> ids) {
         try {
             enviarQuestionarioService.enviarEmail(ids);
-            return HttpStatus.OK;
+            return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
-            return HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
