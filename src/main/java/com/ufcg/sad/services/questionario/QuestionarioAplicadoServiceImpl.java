@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
-import com.ufcg.sad.repositories.questionario.QuestionarioAplicadoRepository;
+import com.ufcg.sad.repositories.QuestionarioAplicadoRepository;
 
 /**
  * Serviço para um Questionário Aplicado.

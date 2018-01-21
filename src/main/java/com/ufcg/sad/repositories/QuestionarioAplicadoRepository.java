@@ -1,4 +1,4 @@
-package com.ufcg.sad.repositories.questionario;
+package com.ufcg.sad.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;

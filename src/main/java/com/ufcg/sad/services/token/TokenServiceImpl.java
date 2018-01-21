@@ -6,7 +6,7 @@ import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.token.Token;
-import com.ufcg.sad.repositories.token.TokenRepository;
+import com.ufcg.sad.repositories.TokenRepository;
 import com.ufcg.sad.services.disciplina.DisciplinaService;
 import com.ufcg.sad.services.questionario.QuestionarioAplicadoService;
 import com.ufcg.sad.services.questionario.QuestionarioService;

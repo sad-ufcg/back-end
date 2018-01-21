@@ -1,4 +1,4 @@
-package com.ufcg.sad.repositories.resposta;
+package com.ufcg.sad.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
