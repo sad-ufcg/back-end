@@ -1,6 +1,7 @@
 package com.ufcg.sad.services.questao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,15 @@ public class QuestaoServiceImpl implements QuestaoService {
 	 */
 	public Questao criaQuestao(Questao questao) throws EntidadeInvalidaException {
 		validaQuestao(questao);
+		
+		if(questao.getDataCriacao() == null) {
+			questao.setDataCriacao(new Date());
+		}
+		
+		if(questao.getDataUltimaEdicao() == null) {
+			questao.setDataUltimaEdicao(new Date());
+		}
+		
 		return questaoRepository.save(questao);
 	}
 

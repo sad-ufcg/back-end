@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -20,6 +21,7 @@ public class Opcao {
     private Long id;
 
     @Column
+    @NotNull
     @Length(max = TAMANHO_MAX_STRING)
     private String nome;
 

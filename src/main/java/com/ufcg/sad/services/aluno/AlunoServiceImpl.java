@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.aluno;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.repositories.AlunoRepository;
@@ -24,8 +25,13 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public Aluno criarAluno(Aluno aluno) {
-        return alunoRepository.saveAndFlush(aluno);
+    public Aluno criarAluno(Aluno aluno) throws EntidadeInvalidaException {
+        try {
+        	aluno = alunoRepository.saveAndFlush(aluno);
+        } catch(Exception e) {
+        	throw new EntidadeInvalidaException("Aluno apresenta dados inválidos");
+        }
+		return aluno;
     }
 
     @Override
@@ -52,8 +58,12 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public Aluno procurarPorEmail(String email) {
+    public Aluno procurarPorEmail(String email) throws EntidadeNotFoundException {
         Aluno aluno = alunoRepository.findByEmail(email);
-        return aluno;
+        if(aluno != null) {
+        	return aluno;
+	    } else {
+	        throw new EntidadeNotFoundException("Não existe aluno com email: " + email);
+	    }
     }
 }

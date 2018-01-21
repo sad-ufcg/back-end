@@ -1,6 +1,5 @@
 package com.ufcg.sad.models.questionario;
 
-import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.token.Token;
 
@@ -14,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -36,12 +36,14 @@ public class QuestionarioAplicado implements Serializable {
     private Long id;
 
     @Column
+    @NotNull
     private Long idQuestionario;
 
     @Column
     private Long idProfessor;
 
     @Column
+    @NotNull
     private Long idDisciplina;
 
     @Transient

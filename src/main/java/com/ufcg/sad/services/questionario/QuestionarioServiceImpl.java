@@ -1,6 +1,7 @@
 package com.ufcg.sad.services.questionario;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +80,20 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 			throw new EntidadeInvalidaException("Questionário sem nome.");
 		}
 		
+		if(questionario.getDataCriacao() == null) {
+			questionario.setDataCriacao(new Date());
+		}
+		
+		if(questionario.getDataUltimaEdicao() == null) {
+			questionario.setDataUltimaEdicao(new Date());
+		}
+		
 		if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
 			throw new EntidadeInvalidaException("Questionário vazio.");
 		}
 		else {
 			for(Questao questao : questionario.getQuestoes()) {
-				questaoService.validaQuestao(questao);
+				questaoService.criaQuestao(questao);
 			}
 		}
 

@@ -36,6 +36,7 @@ public class Professor implements Serializable {
     private Long id;
 
     @Column(unique=true)
+    @NotNull
     private String siape;
 
     @Column

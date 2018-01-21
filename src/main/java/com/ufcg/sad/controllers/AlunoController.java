@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.services.aluno.AlunoService;
@@ -33,12 +34,12 @@ public class AlunoController {
 	 * @param aluno
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<Aluno> atualizarAluno(@RequestBody Aluno aluno) {
+	public ResponseEntity<Object> atualizarAluno(@RequestBody Aluno aluno) {
 		try {
 			Aluno alunoAtualizado = alunoService.atualizarAluno(aluno);
-			return new ResponseEntity<Aluno>(alunoAtualizado, HttpStatus.OK);
+			return new ResponseEntity<Object>(alunoAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Aluno>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -48,9 +49,14 @@ public class AlunoController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Aluno> criarAluno(@RequestBody Aluno aluno) {
-	    Aluno alunoCriado = alunoService.criarAluno(aluno);
-	    return new ResponseEntity<Aluno>(alunoCriado, HttpStatus.CREATED);
+	public ResponseEntity<Object> criarAluno(@RequestBody Aluno aluno) {
+	    Aluno alunoCriado;
+		try {
+			alunoCriado = alunoService.criarAluno(aluno);
+		    return new ResponseEntity<Object>(alunoCriado, HttpStatus.CREATED);
+		} catch (EntidadeInvalidaException e) {
+		    return new ResponseEntity<Object>(e, HttpStatus.CREATED);
+		}
 	}
 	
 	/**
@@ -58,12 +64,12 @@ public class AlunoController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Aluno> getAluno(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getAluno(@PathVariable("id") Long id) {
 		try {
 			Aluno aluno = alunoService.getAluno(id);
-			return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
+			return new ResponseEntity<Object>(aluno, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Aluno>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -81,12 +87,12 @@ public class AlunoController {
 	 * @param email
 	 */
 	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
-	public ResponseEntity<Aluno> procurarPorEmail(@PathVariable("email") String email) {
-		Aluno aluno = alunoService.procurarPorEmail(email);
-		if (aluno != null) {
-			return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Aluno>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<Object> procurarPorEmail(@PathVariable("email") String email) {
+		try {
+			Aluno aluno = alunoService.procurarPorEmail(email);
+			return new ResponseEntity<Object>(aluno, HttpStatus.OK);
+		} catch(EntidadeNotFoundException e) {
+			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
 		}
 	}
 }

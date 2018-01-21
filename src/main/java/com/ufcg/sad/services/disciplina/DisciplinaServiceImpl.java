@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.disciplina;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -29,7 +30,7 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 
     @Override
     public Disciplina cadastrarDisciplina(Disciplina disciplina) throws EntidadeNotFoundException {
-        // Salva disciplina
+    	// Salva disciplina
     	Disciplina disciplinaSalva = disciplinaRepository.save(disciplina);
  	
     	// Adiciona disciplina a professor
@@ -72,13 +73,16 @@ public class DisciplinaServiceImpl implements DisciplinaService {
     }
 
     @Override
-    public Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException {
+    public Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException, EntidadeInvalidaException {
         Disciplina disciplina = disciplinaRepository.findOne(idDisciplina);
 
-        Aluno novoAluno = alunoService.procurarPorEmail(aluno.getEmail());
-        if(novoAluno == null) {
-            novoAluno = alunoService.criarAluno(aluno);
+        Aluno novoAluno;
+        try {
+        	novoAluno = alunoService.procurarPorEmail(aluno.getEmail());
+        } catch(EntidadeNotFoundException e) {
+        	novoAluno = alunoService.criarAluno(aluno);
         }
+
         novoAluno.adicionarDisciplina(disciplina);
         alunoService.atualizarAluno(novoAluno);
 
