@@ -39,7 +39,7 @@ public class AlunoController {
 			Aluno alunoAtualizado = alunoService.atualizarAluno(aluno);
 			return new ResponseEntity<Object>(alunoAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class AlunoController {
 			alunoCriado = alunoService.criarAluno(aluno);
 		    return new ResponseEntity<Object>(alunoCriado, HttpStatus.CREATED);
 		} catch (EntidadeInvalidaException e) {
-		    return new ResponseEntity<Object>(e, HttpStatus.CREATED);
+		    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.CREATED);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class AlunoController {
 			Aluno aluno = alunoService.getAluno(id);
 			return new ResponseEntity<Object>(aluno, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class AlunoController {
 			Aluno aluno = alunoService.procurarPorEmail(email);
 			return new ResponseEntity<Object>(aluno, HttpStatus.OK);
 		} catch(EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 }

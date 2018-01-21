@@ -35,7 +35,6 @@ public class CsvUploaderImpl implements CsvUploader {
     public void cadastrarDisciplina(MultipartFile csv) throws EntidadeInvalidaException, Exception {
         Scanner leitor = new Scanner(new ByteArrayInputStream(csv.getBytes()));
 
-        
         String dadosDaDisciplina = leitor.nextLine();
         String dadosDoProfessor = leitor.nextLine();
 
@@ -67,15 +66,15 @@ public class CsvUploaderImpl implements CsvUploader {
      * @param entrada String contendo a linha com os dados do CSV.
      *
      * @return Um objeto Disciplina.
+     * @throws EntidadeInvalidaException 
      * @throws EntidadeNotFoundException.
      */
-    private Disciplina criaDisciplina(String entrada) throws EntidadeNotFoundException {
+    private Disciplina criaDisciplina(String entrada) throws EntidadeNotFoundException, EntidadeInvalidaException {
         String[] dadosDisciplina = entrada.split(LINE_SEPARATOR);
         Disciplina disciplina = new Disciplina();
         disciplina.setNome(dadosDisciplina[0]);
         disciplina.setTurma(Integer.parseInt(dadosDisciplina[1]));
         disciplina.setSemestre(dadosDisciplina[2]);
-
         disciplina = disciplinaService.cadastrarDisciplina(disciplina);
         return disciplina;
     }

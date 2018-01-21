@@ -40,7 +40,7 @@ public class Disciplina implements Serializable {
 
     @Column
     @NotNull
-    private int turma;
+    private Integer turma;
 
     @Column
     private Long professorId;
@@ -73,7 +73,7 @@ public class Disciplina implements Serializable {
      * @param semestre Semestre a qual a disciplina foi ministrada.
      * @param matriculas Conjunto de matriculas que cursaram a disciplina.
      */
-    public Disciplina(Long id, String nome, int turma, Long professorId, String semestre, Set<Matricula> matriculas) {
+    public Disciplina(Long id, String nome, Integer turma, Long professorId, String semestre, Set<Matricula> matriculas) {
         this.id = id;
         this.nome = nome;
         this.turma = turma;
@@ -106,11 +106,11 @@ public class Disciplina implements Serializable {
         this.nome = nome;
     }
 
-    public int getTurma() {
+    public Integer getTurma() {
         return turma;
     }
 
-    public void setTurma(int turma) {
+    public void setTurma(Integer turma) {
         this.turma = turma;
     }
 

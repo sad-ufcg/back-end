@@ -20,8 +20,10 @@ public interface DisciplinaService {
      * @param disciplina disciplina a ser adicionada no sistema.
      *
      * @return disciplina cadastrada.
+     * @throws EntidadeNotFoundException Lança exceção se o professor passado não existir.
+     * @throws EntidadeInvalidaException Lança exceção se o aluno não for criado corretamente.
      */
-    Disciplina cadastrarDisciplina(Disciplina disciplina) throws EntidadeNotFoundException;
+    Disciplina cadastrarDisciplina(Disciplina disciplina) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
     /**
      * Recupera uma disciplina através do Id
@@ -29,6 +31,7 @@ public interface DisciplinaService {
      * @param id Id da disciplina.
      *
      * @return disciplina.
+     * @throws EntidadeNotFoundException Lança exceção se a disciplina não existir.
      */
     Disciplina getDisciplina(Long id) throws EntidadeNotFoundException;
 
@@ -45,13 +48,16 @@ public interface DisciplinaService {
      * @param disciplina disciplina atualizada.
      *
      * @return Discioplina atualizada.
+     * @throws EntidadeInvalidaException Lança exceção se o aluno não for criado corretamente.
+     * @throws EntidadeNotFoundException Lança exceção se a disciplina não existir.
      */
-    Disciplina atualizarDisciplina(Disciplina disciplina);
+    Disciplina atualizarDisciplina(Disciplina disciplina) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
     /**
      * Remove uma discilina do sistema.
      *
      * @param disciplina disciplina a ser removida.
+     * @throws EntidadeNotFoundException Lança exceção se a disciplina não existir.
      */
     void removerDisciplina(Disciplina disciplina) throws EntidadeNotFoundException;
 
@@ -63,8 +69,8 @@ public interface DisciplinaService {
      *
      * @return Disciplina atualizada.
      *
-     * @throws EntidadeNotFoundException Lança exceção se a turma passada não existir
-     * @throws EntidadeInvalidaException Lança exceção se o aluno não for criado corretamente
+     * @throws EntidadeNotFoundException Lança exceção se a turma passada não existir.
+     * @throws EntidadeInvalidaException Lança exceção se o aluno não for criado corretamente.
      */
     Aluno vincularAluno(Long idDisciplina, Aluno aluno) throws EntidadeNotFoundException, EntidadeInvalidaException;
 }

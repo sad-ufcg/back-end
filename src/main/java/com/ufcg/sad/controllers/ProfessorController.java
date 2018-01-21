@@ -33,12 +33,12 @@ public class ProfessorController {
 	 * @param professor
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<Professor> atualizarProfessor(@RequestBody Professor professor) {
+	public ResponseEntity<Object> atualizarProfessor(@RequestBody Professor professor) {
 		try {
 			Professor professorAtualizado = professorService.atualizarProfessor(professor);
-			return new ResponseEntity<Professor>(professorAtualizado, HttpStatus.OK);
+			return new ResponseEntity<Object>(professorAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Professor>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -48,9 +48,9 @@ public class ProfessorController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Professor> criarProfessor(@RequestBody Professor professor) {
+	public ResponseEntity<Object> criarProfessor(@RequestBody Professor professor) {
 		Professor professorCriado = professorService.criarProfessor(professor);
-	    return new ResponseEntity<Professor>(professorCriado, HttpStatus.CREATED);
+	    return new ResponseEntity<Object>(professorCriado, HttpStatus.CREATED);
 	}
 	
 	/**
@@ -58,12 +58,12 @@ public class ProfessorController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Professor> getProfessor(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getProfessor(@PathVariable("id") Long id) {
 		try {
 			Professor professor = professorService.getProfessor(id);
-			return new ResponseEntity<Professor>(professor, HttpStatus.OK);
+			return new ResponseEntity<Object>(professor, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Professor>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 

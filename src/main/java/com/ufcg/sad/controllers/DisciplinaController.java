@@ -43,12 +43,12 @@ public class DisciplinaController {
      * @return disciplina recuperada.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Disciplina> getDisciplina(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> getDisciplina(@PathVariable("id") Long id) {
         try {
             Disciplina disciplina = disciplinaService.getDisciplina(id);
-            return new ResponseEntity<Disciplina>(disciplina, HttpStatus.OK);
+            return new ResponseEntity<Object>(disciplina, HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
-           return new ResponseEntity<Disciplina>(HttpStatus.NOT_FOUND);
+           return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -65,9 +65,11 @@ public class DisciplinaController {
 		try {
 			disciplinaCadastrada = disciplinaService.cadastrarDisciplina(disciplina);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-
+		
         return new ResponseEntity<Object>(disciplinaCadastrada, HttpStatus.CREATED);
     }
 
@@ -99,9 +101,9 @@ public class DisciplinaController {
 
             return new ResponseEntity<Object>(alunoCadastrado, HttpStatus.CREATED);
         } catch (EntidadeNotFoundException e) {
-            return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch(EntidadeInvalidaException e) {
-        	return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+        	return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
