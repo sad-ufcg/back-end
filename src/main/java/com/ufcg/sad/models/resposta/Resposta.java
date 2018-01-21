@@ -16,6 +16,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -48,9 +50,11 @@ public abstract class Resposta implements Serializable {
     private Date  dataResposta;
 
     @Column
+    @NotNull
     private Long idQuestao;
 
     @Column
+    @NotNull
     private Long idQuestionarioAplicado;
 
     /**

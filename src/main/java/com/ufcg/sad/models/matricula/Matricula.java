@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Classe que representa a relação entre uma disciplina e um aluno.
@@ -28,10 +29,12 @@ public class Matricula implements Serializable {
     private Long id;
 
     @ManyToOne
+    @NotNull
     @JsonBackReference
     private Aluno aluno;
 
     @ManyToOne
+    @NotNull
     @JsonBackReference
     private Disciplina disciplina;
 

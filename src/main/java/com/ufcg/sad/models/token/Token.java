@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -26,6 +27,7 @@ public class Token {
 
     @Column
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private Long idQuestionarioAplicado;
 
     public Token(Long idQuestionarioAplicado) {

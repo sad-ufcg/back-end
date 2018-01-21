@@ -1,5 +1,7 @@
 package com.ufcg.sad.models.questao;
 
+import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +18,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.ufcg.sad.models.opcao.Opcao;
 import com.ufcg.sad.models.professor.Professor;
@@ -41,18 +47,22 @@ public class Questao implements Serializable {
 	
 	@Column
 	@NotNull
+    @Length(max = TAMANHO_MAX_STRING)
 	private String enunciado;
 	
 	@Column
+    @Length(max = TAMANHO_MAX_STRING)
 	private String comentario;
 	
 	@OneToOne(cascade = CascadeType.REFRESH)
 	private Professor autor;
 	
 	@Column
+	@Temporal(TemporalType.DATE)
 	private Date dataCriacao;
 	
 	@Column
+	@Temporal(TemporalType.DATE)
 	private Date dataUltimaEdicao;
 	
 	@Column

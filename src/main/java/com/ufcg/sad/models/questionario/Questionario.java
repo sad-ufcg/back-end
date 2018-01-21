@@ -1,5 +1,7 @@
 package com.ufcg.sad.models.questionario;
 
+import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,6 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questao.Questao;
@@ -34,9 +41,12 @@ public class Questionario implements Serializable {
 	private Long id;
 	
 	@Column
+    @NotNull
+    @Length(max = TAMANHO_MAX_STRING)
 	private String nome;
 	
 	@Column
+    @Length(max = TAMANHO_MAX_STRING)
 	private String descricao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -46,9 +56,11 @@ public class Questionario implements Serializable {
 	private Professor autor;
 	
 	@Column
+	@Temporal(TemporalType.DATE)
 	private Date dataCriacao;
 	
 	@Column
+	@Temporal(TemporalType.DATE)
 	private Date dataUltimaEdicao;
 
 	/**

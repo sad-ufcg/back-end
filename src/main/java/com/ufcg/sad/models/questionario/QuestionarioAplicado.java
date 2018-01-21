@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -34,12 +34,14 @@ public class QuestionarioAplicado implements Serializable {
     private Long id;
 
     @Column
+    @NotNull
     private Long idQuestionario;
 
     @Column
     private Long idProfessor;
 
     @Column
+    @NotNull
     private Long idDisciplina;
 
     @OneToMany(fetch = FetchType.LAZY,

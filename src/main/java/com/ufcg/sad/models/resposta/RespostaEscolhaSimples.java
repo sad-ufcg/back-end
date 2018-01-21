@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,10 +22,11 @@ public class RespostaEscolhaSimples extends Resposta implements Serializable{
 
     @Range(min=Questao.MIN_ESCOLHA_SIMPLES, max=Questao.MAX_ESCOLHA_SIMPLES)
     @Column
+    @NotNull
     private Integer escolhaSimples;
 
-    @Length(max = TAMANHO_MAX_STRING)
     @Column
+    @Length(max = TAMANHO_MAX_STRING)
     private String comentario;
 
     /**

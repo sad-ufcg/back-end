@@ -41,10 +41,12 @@ public class Aluno implements Serializable {
     private Long id;
 
     @Column
+    @NotNull
     @Length(max = TAMANHO_MAX_STRING)
     private String nome;
 
     @Column
+    @NotNull
     @Length(max = TAMANHO_MAX_STRING)
     private String sobrenome;
 
