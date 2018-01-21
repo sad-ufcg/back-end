@@ -10,7 +10,7 @@ import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
-import com.ufcg.sad.repositories.questionario.QuestaoRepository;
+import com.ufcg.sad.repositories.QuestaoRepository;
 
 /**
  * Serviço para a entidade Questão.

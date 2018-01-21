@@ -3,7 +3,7 @@ package com.ufcg.sad.services.resposta;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.resposta.Resposta;
-import com.ufcg.sad.repositories.resposta.RespostaRepository;
+import com.ufcg.sad.repositories.RespostaRepository;
 import com.ufcg.sad.services.questionario.QuestionarioAplicadoService;
 import com.ufcg.sad.services.token.TokenService;
 

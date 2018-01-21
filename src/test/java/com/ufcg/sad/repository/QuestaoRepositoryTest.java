@@ -7,7 +7,8 @@ import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.models.util.Utils;
-import com.ufcg.sad.repositories.questionario.QuestaoRepository;
+import com.ufcg.sad.repositories.QuestaoRepository;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
