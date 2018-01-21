@@ -1,5 +1,6 @@
 package com.ufcg.sad.controllers;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -99,6 +100,8 @@ public class DisciplinaController {
             return new ResponseEntity<Object>(alunoCadastrado, HttpStatus.CREATED);
         } catch (EntidadeNotFoundException e) {
             return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+        } catch(EntidadeInvalidaException e) {
+        	return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
         }
     }
 

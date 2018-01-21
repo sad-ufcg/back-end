@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.csv;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 @Service
 public class CsvUploaderImpl implements CsvUploader {
@@ -29,24 +32,29 @@ public class CsvUploaderImpl implements CsvUploader {
     private final String LINE_SEPARATOR = ",";
 
     @Override
-    public void cadastrarDisciplina(MultipartFile csv) throws Exception {
+    public void cadastrarDisciplina(MultipartFile csv) throws EntidadeInvalidaException, Exception {
         Scanner leitor = new Scanner(new ByteArrayInputStream(csv.getBytes()));
 
+        
         String dadosDaDisciplina = leitor.nextLine();
         String dadosDoProfessor = leitor.nextLine();
+
+        Set<Aluno> alunos = new HashSet<>();
+        while (leitor.hasNext()) {
+            alunos.add(criaAluno(leitor.nextLine()));
+        }
+
         Disciplina disciplina = criaDisciplina(dadosDaDisciplina);
         Professor professor = criaProfessor(dadosDoProfessor);
 
         disciplina.setProfessorId(professor.getId());
         professor.addDisciplina(disciplina);
-
-        while (leitor.hasNext()) {
-            Aluno aluno = criaAluno(leitor.nextLine());
+        
+        for(Aluno aluno: alunos) {
             aluno.adicionarDisciplina(disciplina);
-
             alunoService.atualizarAluno(aluno);
         }
-
+        
         professorService.atualizarProfessor(professor);
         disciplinaService.atualizarDisciplina(disciplina);
 
@@ -101,18 +109,25 @@ public class CsvUploaderImpl implements CsvUploader {
      * @param entrada String contendo a linha com os dados do CSV.
      *
      * @return Um objeto Aluno.
+     * @throws EntidadeInvalidaException 
+     * @throws EntidadeNotFoundException 
      */
-    private Aluno criaAluno(String entrada) {
+    private Aluno criaAluno(String entrada) throws EntidadeInvalidaException, EntidadeNotFoundException {
         String[] dadosAluno = entrada.split(LINE_SEPARATOR);
-        Aluno aluno = alunoService.procurarPorEmail(dadosAluno[2]);
-        if (aluno == null) {
+        Aluno aluno;
+        try {
+        	aluno = alunoService.procurarPorEmail(dadosAluno[2]);
+        } catch(EntidadeNotFoundException entidadeNotFoundException) {
             aluno = new Aluno();
             aluno.setNome(dadosAluno[0]);
             aluno.setSobrenome(dadosAluno[1]);
             aluno.setEmail(dadosAluno[2]);
-            aluno = alunoService.criarAluno(aluno);
+            try {
+            	aluno = alunoService.criarAluno(aluno);
+            } catch(Exception e) {
+            	throw new EntidadeInvalidaException("Algum dos alunos apresenta dados inválidos.");
+            }
         }
-
         return aluno;
     }
 
