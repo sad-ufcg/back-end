@@ -29,4 +29,9 @@ target/*
 .classpath
 .project
 .pydevproject
+
 /target/
+
+.DS_Store
+sad.iml
+*.iml

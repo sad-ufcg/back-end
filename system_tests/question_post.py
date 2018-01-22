@@ -20,13 +20,13 @@ def send(resource, json, secure=True):
 
 def insecure_upload():
     with open('example.csv', 'rb') as f:
-        r = requests.post('http://localhost:8080/upload', files={'file': f})
+        r = requests.post('http://localhost:8080/disciplinas/csv', files={'file': f})
         assert r.status_code == 401
 
 
 def upload():
     with open('example.csv', 'rb') as f:
-        r = requests.post('http://localhost:8080/upload', files={'file': f}, auth=HTTPBasicAuth('user', 'pass'))
+        r = requests.post('http://localhost:8080/disciplinas/csv', files={'file': f}, auth=HTTPBasicAuth('user', 'pass'))
         assert r.status_code == 200
 
 
@@ -49,7 +49,7 @@ def questoes():
         "Para as aulas que o professor faltou (no caso, faltas não previstas no cronograma da disciplina), houve reposição.",
         "O professor equilibrou teoria/prática na disciplina (em disciplinas de laboratório, considere como 'teoria' a orientação do professor para os exercícios).",
         "A comunicação da turma com o professor foi bem efetuada.",
-        "O professor demonstra preocupação com o aprendizado dos alunos.",
+        "O professor demonstra preocupação com o aprendizado dos matriculas.",
         "A climatização da sala de aula (ou laboratório) é adequada.",
         "Os recursos didáticos (software, computador, quadro, datashow, etc.) da sala de aula (ou laboratório) são adequados.",
         "O mobiliário (cadeiras, mesas, etc.) da sala de aula (ou laboratório) é adequado.",
@@ -74,8 +74,8 @@ def mailman():
     send('mailman', {"questionnaire": 1})
 
 
-def token(t):
-    send('questionnaireanswers', {'token': {'id': t}, 
+def tokens(t):
+    send('questionnaireanswers', {'tokens': {'id': t},
                                   'answers':
                                   [{'question': {'id': 1}, "answerText": "banana2", "choiceNumber": 1},
                                    {'question': {'id': 2}, "answerText": "banana3", "choiceNumber": 1},
@@ -90,4 +90,4 @@ questionario()
 questoes()
 mailman()
 
-#token("xpto")
+#tokens("xpto")
