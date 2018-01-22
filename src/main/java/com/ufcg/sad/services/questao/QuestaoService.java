@@ -20,8 +20,9 @@ public interface QuestaoService {
      *
      * @return Questao
      * @throws EntidadeInvalidaException 
+     * @throws EntidadeNotFoundException 
      */
-    Questao criaQuestao(Questao questao) throws EntidadeInvalidaException;
+    Questao criaQuestao(Questao questao) throws EntidadeInvalidaException, EntidadeNotFoundException;
 
     /**
      * Recupera um questão através do Id
@@ -44,8 +45,9 @@ public interface QuestaoService {
 	 * Método auxiliar para validar uma questão.
 	 * @param questao
 	 * @throws EntidadeInvalidaException 
+	 * @throws EntidadeNotFoundException 
 	 */
-    void validaQuestao(Questao questao) throws EntidadeInvalidaException;
+    void validaQuestao(Questao questao) throws EntidadeInvalidaException, EntidadeNotFoundException;
 
     /**
      * Atualiza uma Questão no sistema
@@ -54,7 +56,8 @@ public interface QuestaoService {
      *
      * @return Questao atualizada.
      * @throws EntidadeNotFoundException
+     * @throws EntidadeInvalidaException 
      */
-    Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException;
+    Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
 }

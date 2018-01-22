@@ -27,7 +27,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     	return "Professor com " + parametroProcura + " " + itemProcurado + "não existe.";
     }
     
-    private void validaProfessor(Professor professor) throws EntidadeInvalidaException, EntidadeNotFoundException { 	
+    public void validaProfessor(Professor professor) throws EntidadeInvalidaException, EntidadeNotFoundException { 	
     	if(professor.getSiape() == null || !professor.getSiape().matches(REGEX_SIAPE)) {
     		throw new EntidadeInvalidaException("Siape inválido: " + professor.getSiape());
     	}

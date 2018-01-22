@@ -13,6 +13,17 @@ import java.util.List;
  */
 public interface ProfessorService {
 
+	/**
+     * Valida um professor.
+     *
+     * @param professor Professor a ser validado.
+     *
+     * @return Professor
+     * @throws EntidadeNotFoundException 
+     * @throws EntidadeInvalidaException 
+     */
+    void validaProfessor(Professor professor) throws EntidadeInvalidaException, EntidadeNotFoundException;	
+	
     /**
      * Cadastra um novo Professor.
      *
