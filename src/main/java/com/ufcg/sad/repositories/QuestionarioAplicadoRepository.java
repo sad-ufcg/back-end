@@ -24,6 +24,6 @@ public interface QuestionarioAplicadoRepository extends JpaRepository<Questionar
     List<QuestionarioAplicado> findByIdIn(List<Long> ids);
 
     @Override
-    @Query("SELECT new QuestionarioAplicado(q.id, q.idDisciplina, q.idProfessor, (SELECT d.nome FROM Disciplina d WHERE d.id = q.idDisciplina)) FROM QuestionarioAplicado q")
+    @Query("SELECT new QuestionarioAplicado(q.id,q.idQuestionario, q.idDisciplina, q.idProfessor, (SELECT d.nome FROM Disciplina d WHERE d.id = q.idDisciplina)) FROM QuestionarioAplicado q")
     List<QuestionarioAplicado> findAll();
 }
