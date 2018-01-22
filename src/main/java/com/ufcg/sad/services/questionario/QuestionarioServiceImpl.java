@@ -68,9 +68,10 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	/**
 	 * Método que salva um questionário.
 	 * @param questionario
+	 * @throws EntidadeNotFoundException 
 	 * @throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException 
 	 */
-	public Questionario criaQuestionario(Questionario questionario) throws EntidadeInvalidaException, ParametroInvalidoException {
+	public Questionario criaQuestionario(Questionario questionario) throws EntidadeInvalidaException, ParametroInvalidoException, EntidadeNotFoundException {
 		
 		if(questionario.getId() != null) {
 			throw new ParametroInvalidoException();

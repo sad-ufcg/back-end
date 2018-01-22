@@ -34,12 +34,12 @@ public class QuestaoController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Questao> getQuestionario(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getQuestionario(@PathVariable("id") Long id) {
 		try {
 			Questao questao = questaoService.getQuestao(id);
-			return new ResponseEntity<Questao>(questao, HttpStatus.OK);
+			return new ResponseEntity<Object>(questao, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Questao>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}	
 	/**
@@ -52,7 +52,9 @@ public class QuestaoController {
 			Questao questaoAtualizada = questaoService.atualizaQuestao(questao);
 			return new ResponseEntity<Object>(questaoAtualizada, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -76,7 +78,9 @@ public class QuestaoController {
 	    	Questao questaoCriada = questaoService.criaQuestao(questao);
 	    	return new ResponseEntity<Object>(questaoCriada, HttpStatus.CREATED);	
 	    } catch (EntidadeInvalidaException e) {
-	    	return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+	    	return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	    } catch (EntidadeNotFoundException e) {
+	    	return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 	    }
 	}
 }

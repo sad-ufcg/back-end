@@ -21,8 +21,9 @@ public interface QuestionarioService {
      *
      * @return Questionario
      * @throws EntidadeInvalidaException, ParametroInvalidoException 
+     * @throws EntidadeNotFoundException 
      */
-    Questionario criaQuestionario(Questionario questionario) throws ParametroInvalidoException, EntidadeInvalidaException;
+    Questionario criaQuestionario(Questionario questionario) throws ParametroInvalidoException, EntidadeInvalidaException, EntidadeNotFoundException;
 
     /**
      * Recupera um questionário através do Id

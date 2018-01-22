@@ -14,6 +14,18 @@ import java.util.List;
  */
 public interface DisciplinaService {
 
+	/**
+     * Valida uma disciplina.
+     *
+     * @param disciplina disciplina a ser validada.
+     *
+     * @return disciplina.
+     * @throws EntidadeNotFoundException Lança exceção se o professor não existir.
+     * @throws EntidadeInvalidaException Lança exceção se a disciplina for inválida.
+     */
+    void validaDisciplina(Disciplina disciplina) throws EntidadeNotFoundException, EntidadeInvalidaException;
+
+	
     /**
      * Cadastra uma disciplina no sistema
      *

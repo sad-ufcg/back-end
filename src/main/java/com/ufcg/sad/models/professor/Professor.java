@@ -1,11 +1,11 @@
 package com.ufcg.sad.models.professor;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import org.hibernate.validator.constraints.Length;
 
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,8 +44,7 @@ public class Professor implements Serializable {
     @Length(max = TAMANHO_MAX_STRING)
     private String nome;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Disciplina> disciplinas;
 
     /**

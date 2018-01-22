@@ -37,12 +37,12 @@ public class QuestionarioController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Questionario> getQuestionario(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getQuestionario(@PathVariable("id") Long id) {
 		try {
 			Questionario questionario = questionarioService.getQuestionario(id);
-			return new ResponseEntity<Questionario>(questionario, HttpStatus.OK);
+			return new ResponseEntity<Object>(questionario, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Questionario>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}	
 	/**
@@ -55,9 +55,9 @@ public class QuestionarioController {
 			Questionario questionarioAtualizado = questionarioService.atualizaQuestionario(questionario);
 			return new ResponseEntity<Object>(questionarioAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (EntidadeInvalidaException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -81,7 +81,9 @@ public class QuestionarioController {
 	    	Questionario questionarioCriado = questionarioService.criaQuestionario(questionario);
 	    	return new ResponseEntity<Object>(questionarioCriado, HttpStatus.CREATED);	
 	    } catch (EntidadeInvalidaException e) {
-	    	return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+	    	return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	    } catch (EntidadeNotFoundException e) {
+	    	return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 	    }
 	}
 }

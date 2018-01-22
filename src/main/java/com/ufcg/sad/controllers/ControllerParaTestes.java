@@ -15,7 +15,7 @@ public class ControllerParaTestes {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<String> testParaGet(){
-        return new ResponseEntity<String>("Deu bom", HttpStatus.FOUND);
+        return new ResponseEntity<String>("OK!", HttpStatus.FOUND);
     }
 
 

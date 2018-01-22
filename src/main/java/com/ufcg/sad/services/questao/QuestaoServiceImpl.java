@@ -12,6 +12,7 @@ import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questao.TipoQuestao;
 import com.ufcg.sad.repositories.QuestaoRepository;
+import com.ufcg.sad.services.professor.ProfessorService;
 
 /**
  * Serviço para a entidade Questão.
@@ -25,6 +26,9 @@ TODO: precisa criar uma interface QuestaoService
 public class QuestaoServiceImpl implements QuestaoService {
 
 	@Autowired
+	private ProfessorService professorService;
+	
+	@Autowired
 	private QuestaoRepository questaoRepository;
 
 	/**
@@ -32,11 +36,9 @@ public class QuestaoServiceImpl implements QuestaoService {
 	 */
 	public QuestaoServiceImpl() {}
 
-	public void validaQuestao(Questao questao) throws EntidadeInvalidaException {
+	public void validaQuestao(Questao questao) throws EntidadeInvalidaException, EntidadeNotFoundException {
 		
-		if(questao.getId() != null) {
-			throw new EntidadeInvalidaException("Questão não se deve conter ID.");
-		}
+		professorService.validaProfessor(questao.getAutor());
 		
 		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
 			throw new EntidadeInvalidaException("Questão deve conter enunciado.");
@@ -44,6 +46,10 @@ public class QuestaoServiceImpl implements QuestaoService {
 
 		if(questao.getTipoQuestao() == null) {
 			throw new EntidadeInvalidaException("Questão deve conter tipo.");
+		}
+		
+		if(questao.getDataCriacao() != null || questao.getDataUltimaEdicao() != null) {
+			throw new EntidadeInvalidaException("Data não deve ser passada.");
 		}
 		
 		boolean tipoValido = false;
@@ -57,6 +63,13 @@ public class QuestaoServiceImpl implements QuestaoService {
 		if(!tipoValido) {
 			throw new EntidadeInvalidaException("Questão contém tipo inválido: " + questao.getTipoQuestao());
 		}
+	}
+	
+	private void validaCriacaoQuestao(Questao questao) throws EntidadeInvalidaException, EntidadeNotFoundException {
+		if(questao.getId() != null) {
+			throw new EntidadeInvalidaException("Questão não se deve conter ID.");
+		}
+		validaQuestao(questao);
 	}
 	
 	/**
@@ -93,22 +106,24 @@ public class QuestaoServiceImpl implements QuestaoService {
 	/**
 	 * Método para criar uma questão.
 	 * @param questao
+	 * @throws EntidadeNotFoundException, EntidadeInvalidaException
 	 */
-	public Questao criaQuestao(Questao questao) throws EntidadeInvalidaException {
-		validaQuestao(questao);
+	public Questao criaQuestao(Questao questao) throws EntidadeInvalidaException, EntidadeNotFoundException {
+		validaCriacaoQuestao(questao);
 		
-		if(questao.getDataCriacao() == null) {
-			questao.setDataCriacao(new Date());
-		}
-		
-		if(questao.getDataUltimaEdicao() == null) {
-			questao.setDataUltimaEdicao(new Date());
-		}
+		Date hoje = new Date();
+		questao.setDataCriacao(hoje);
+		questao.setDataUltimaEdicao(hoje);
 		
 		return questaoRepository.save(questao);
 	}
 
-	public Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException {
+	public Questao atualizaQuestao(Questao questao) throws EntidadeNotFoundException, EntidadeInvalidaException {
+		validaQuestao(questao);
+
+		Date hoje = new Date();
+		questao.setDataUltimaEdicao(hoje);
+		
 		return questaoRepository.save(questao);
 	}
 }

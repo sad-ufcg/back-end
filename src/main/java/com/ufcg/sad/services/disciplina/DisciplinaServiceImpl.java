@@ -31,7 +31,7 @@ public class DisciplinaServiceImpl implements DisciplinaService {
     @Autowired
     ProfessorService professorService;
     
-    private void validaDisciplina(Disciplina disciplina) throws EntidadeNotFoundException, EntidadeInvalidaException {
+    public void validaDisciplina(Disciplina disciplina) throws EntidadeNotFoundException, EntidadeInvalidaException {
     	// Checa se professor existe
     	if(disciplina.getProfessorId() != null) {
     		 professorService.getProfessor(disciplina.getProfessorId());
@@ -52,7 +52,7 @@ public class DisciplinaServiceImpl implements DisciplinaService {
     
     private void validaCriacaoDisciplina(Disciplina disciplina) throws EntidadeInvalidaException, EntidadeNotFoundException {
     	if(disciplina.getId() != null) {
-    		throw new EntidadeInvalidaException("Id deve ser nulo para a criação");
+    		throw new EntidadeInvalidaException("Id deve ser nulo para a criação de Disciplina.");
     	}
     	
     	validaDisciplina(disciplina);
