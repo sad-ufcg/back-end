@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.professor.Professor;
 import com.ufcg.sad.services.professor.ProfessorService;
@@ -39,6 +40,8 @@ public class ProfessorController {
 			return new ResponseEntity<Object>(professorAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -49,8 +52,15 @@ public class ProfessorController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Object> criarProfessor(@RequestBody Professor professor) {
-		Professor professorCriado = professorService.criarProfessor(professor);
-	    return new ResponseEntity<Object>(professorCriado, HttpStatus.CREATED);
+		Professor professorCriado;
+		try {
+			professorCriado = professorService.criarProfessor(professor);
+		    return new ResponseEntity<Object>(professorCriado, HttpStatus.CREATED);
+		} catch (EntidadeInvalidaException e) {
+		    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (EntidadeNotFoundException e) {
+		    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	/**

@@ -85,11 +85,12 @@ public class CsvUploaderImpl implements CsvUploader {
      * @param entrada String contendo a linha com os dados do CSV.
      *
      * @return Um objeto Professor.
+     * @throws EntidadeNotFoundException 
+     * @throws EntidadeInvalidaException 
      */
-    private Professor criaProfessor(String entrada) {
+    private Professor criaProfessor(String entrada) throws EntidadeInvalidaException, EntidadeNotFoundException {
         String[] dadosProfessor = entrada.split(LINE_SEPARATOR);
         Professor professor;
-
         try {
             professor = professorService.procurarProfessorPeloSiape(dadosProfessor[0]);
         } catch (EntidadeNotFoundException e) {
