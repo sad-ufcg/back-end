@@ -68,11 +68,13 @@ public class QuestionarioAplicado implements Serializable {
         this.tokens = new HashSet<>();
     }
 
-    public QuestionarioAplicado(Long id, Long idDisciplina, Long idProfessor, String disciplina) {
+
+    public QuestionarioAplicado(Long id,Long idQuestionario, Long idDisciplina, Long idProfessor, String disciplina) {
         this.id = id;
         this.idDisciplina = idDisciplina;
         this.idProfessor = idProfessor;
         this.disciplina = disciplina;
+        this.idQuestionario = idQuestionario;
     }
 
     /**
@@ -91,6 +93,8 @@ public class QuestionarioAplicado implements Serializable {
         this.respostas = respostas;
         this.tokens = tokens;
     }
+
+
 
     public String getDisciplina() {
         return disciplina;
