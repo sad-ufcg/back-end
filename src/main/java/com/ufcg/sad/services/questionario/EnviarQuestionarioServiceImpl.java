@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.questionario;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -36,7 +37,7 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
             Logger.getLogger(EnviarQuestionarioService.class);
 
     @Override
-    public void enviarEmail(List<Long> questionariosAplicados) throws EntidadeNotFoundException {
+    public void enviarEmail(List<Long> questionariosAplicados) throws EntidadeNotFoundException, EntidadeInvalidaException {
         List<QuestionarioAplicado> questionarios = questionarioAplicadoService.getListaDeQuestionariosAplicados(questionariosAplicados);
         for (QuestionarioAplicado questionarioAplicado : questionarios) {
             enviarEmail(questionarioAplicado);
@@ -44,12 +45,12 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
     }
 
     @Override
-    public void enviarEmail(Long idQuestionarioAplicado) throws EntidadeNotFoundException {
+    public void enviarEmail(Long idQuestionarioAplicado) throws EntidadeNotFoundException, EntidadeInvalidaException {
         QuestionarioAplicado questionarioAplicado = questionarioAplicadoService.getQuestionarioAplicado(idQuestionarioAplicado);
         enviarEmail(questionarioAplicado);
     }
 
-    private void enviarEmail(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException {
+    private void enviarEmail(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException, EntidadeInvalidaException {
         Long idDisciplina = questionarioAplicado.getIdDisciplina();
         Disciplina disciplina = disciplinaService.getDisciplina(idDisciplina);
 
@@ -62,7 +63,7 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
         questionarioAplicadoService.atualizaQuestionarioAplicado(questionarioAplicado);
     }
 
-    private void enviarEmail(Aluno aluno, QuestionarioAplicado questionarioAplicado, Disciplina disciplina) throws EntidadeNotFoundException {
+    private void enviarEmail(Aluno aluno, QuestionarioAplicado questionarioAplicado, Disciplina disciplina) throws EntidadeNotFoundException, EntidadeInvalidaException {
         Token token = new Token(questionarioAplicado.getId(), aluno.getId());
         token = tokenService.criaToken(token);
         questionarioAplicado.addToken(token);

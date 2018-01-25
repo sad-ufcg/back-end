@@ -1,6 +1,7 @@
 package com.ufcg.sad.services.token;
 
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.Questionario;
@@ -30,8 +31,9 @@ public interface TokenService {
      * Cria um novo token
      * @param token token a ser criado
      * @return token criado
+     * @throws EntidadeNotFoundException, EntidadeInvalidaException 
      */
-    Token criaToken (Token token) throws EntidadeNotFoundException;
+    Token criaToken (Token token) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
 	Questionario buscarQuestionario(String tokenID) throws EntidadeNotFoundException;
 

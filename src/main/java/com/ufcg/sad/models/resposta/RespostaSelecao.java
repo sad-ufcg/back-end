@@ -10,9 +10,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 
 @Entity
@@ -24,23 +24,23 @@ public class RespostaSelecao extends Resposta implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @NotNull
-    private Set<Opcao> opcoesSelecionadas;
+    private List<Opcao> opcoesSelecionadas;
 
     /**
      * Construtor vazio para o hibernate
      */
-    public RespostaSelecao() { this.opcoesSelecionadas = new HashSet<Opcao>();}
+    public RespostaSelecao() { this.opcoesSelecionadas = new ArrayList<Opcao>();}
 
-    public RespostaSelecao(Long id, Date dataResposta, Long questao, Long questionarioAplicado, Set<Opcao> opcoesSelecionadas) {
+    public RespostaSelecao(Long id, Date dataResposta, Long questao, Long questionarioAplicado, List<Opcao> opcoesSelecionadas) {
         super(id, dataResposta, questao, questionarioAplicado);
         this.opcoesSelecionadas = opcoesSelecionadas;
     }
 
-    public Set<Opcao> getOpcoesSelecionadas() {
+    public List<Opcao> getOpcoesSelecionadas() {
         return opcoesSelecionadas;
     }
 
-    public void setOpcoesSelecionadas(Set<Opcao> opcoesSelecionadas) {
+    public void setOpcoesSelecionadas(List<Opcao> opcoesSelecionadas) {
         this.opcoesSelecionadas = opcoesSelecionadas;
     }
 

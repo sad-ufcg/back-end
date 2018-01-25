@@ -1,6 +1,8 @@
 package com.ufcg.sad.repository;
 
 import com.ufcg.sad.SadApplicationTests;
+import com.ufcg.sad.models.aluno.Aluno;
+import com.ufcg.sad.models.matricula.Matricula;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.models.token.Token;
@@ -31,19 +33,23 @@ public class TokenRepositoryTest extends SadApplicationTests {
 
     private Token token;
     private QuestionarioAplicado questionarioAplicado;
+    private Aluno aluno;
     
     @Before
     public void setUp() {
     	questionarioAplicado = new QuestionarioAplicado(null, new Long(1), new Long(1), new Long(1), new HashSet<Resposta>(), new HashSet<Token>());
-	}
+    	aluno = new Aluno(null, "Joao", "joao@ccc.ufcg.edu.br", new HashSet<Matricula>());
+    	aluno.setSobrenome("Silva");
+    }
 
     @Test
     public void retonaTokenPeloID () {
 
-    	token = new Token(new Long(1));
+    	token = new Token(new Long(1), new Long(1));
         // TODO: persistir conjunto no futuro.
         //entityManager.persist(questionarioAplicado.getRespostas());
         entityManager.persist(questionarioAplicado);
+        entityManager.persist(aluno);
         entityManager.persist(token);
         entityManager.flush();
         Token encontrada = tokenRepository.findById(token.getId());
@@ -54,15 +60,15 @@ public class TokenRepositoryTest extends SadApplicationTests {
     @Test
     public void IDInvalidoNaoRetoraToken () {
 
-        token = new Token(new Long(1));
+        token = new Token(new Long(1), new Long(1));
         // TODO: persistir conjunto no futuro.
         //entityManager.persist(questionarioAplicado.getRespostas());
         entityManager.persist(questionarioAplicado);
-
+        entityManager.persist(aluno);
+        
         entityManager.persist(token);
 
-        // TODO: melhor criar outro questionarioAplicado no futuro.
-        Token outroToken = new Token(new Long(1));
+        Token outroToken = new Token(new Long(1), new Long(1));
         entityManager.persist(outroToken);
         entityManager.flush();
         Token encontrada = tokenRepository.findById(token.getId());

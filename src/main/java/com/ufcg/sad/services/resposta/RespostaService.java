@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.resposta;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.resposta.Resposta;
 
@@ -17,9 +18,10 @@ public interface RespostaService {
      * @param token, resposta Resposta a ser cadastrada
      *
      * @return Resposta cadastrada.
+	 * @throws EntidadeInvalidaException 
 	 * @throws EntidadeNotFoundException.
      */
-    Resposta criarResposta(Resposta resposta) throws EntidadeNotFoundException;
+    Resposta criarResposta(Resposta resposta) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
     /**
      * Recupera uma resposta através do Id

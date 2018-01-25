@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.questionario;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
@@ -18,8 +19,10 @@ public interface QuestionarioAplicadoService {
      * @param questionarioAplicado QuestionarioAplicado a ser cadastrado.
      *
      * @return Questionário aplicado criado.
+	 * @throws EntidadeNotFoundException 
+	 * @throws EntidadeInvalidaException 
      */
-	QuestionarioAplicado criaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws ParametroInvalidoException;
+	QuestionarioAplicado criaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws ParametroInvalidoException, EntidadeInvalidaException, EntidadeNotFoundException;
 
     /**
      * Recupera um questionário aplicado através do Id.

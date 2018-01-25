@@ -35,6 +35,33 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	 */
 	public QuestionarioServiceImpl() {}
 	
+	
+	private void validaQuestionario(Questionario questionario) throws EntidadeInvalidaException, EntidadeNotFoundException {
+		if(questionario.getNome() == null || questionario.getNome().isEmpty()) {
+			throw new EntidadeInvalidaException("Questionário sem nome.");
+		}
+		
+		if(questionario.getDataCriacao() != null || questionario.getDataUltimaEdicao() != null) {
+			throw new EntidadeInvalidaException("Data não deve ser passada para a criação de questionário.");
+		}
+		
+		if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
+			throw new EntidadeInvalidaException("Questionário não pode ser vazio.");
+		}
+		
+		for(Questao questao : questionario.getQuestoes()) {
+			questaoService.validaQuestao(questao);
+		}
+	}
+	
+	private void validaCriacaoQuestionario(Questionario questionario) throws EntidadeInvalidaException, EntidadeNotFoundException {
+		if(questionario.getId() != null) {
+			throw new ParametroInvalidoException("Id deve ser nulo para a criação do questionário.");
+		}
+		
+		validaQuestionario(questionario);
+	}
+	
 	/**
 	 * Método que busca um questionário a partir de um certo id.
 	 * @param id
@@ -47,7 +74,7 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 			return questionario;
 		}
 		else {
-			throw new EntidadeNotFoundException();
+			throw new EntidadeNotFoundException("Questionário com id " + id + " não existe.");
 		}
 	}
 	
@@ -72,32 +99,16 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	 * @throws QuestionarioVazioException, QuestionarioSemNomeException, QuestaoInvalidaException, ParametroInvalidoException 
 	 */
 	public Questionario criaQuestionario(Questionario questionario) throws EntidadeInvalidaException, ParametroInvalidoException, EntidadeNotFoundException {
+		validaCriacaoQuestionario(questionario);
 		
-		if(questionario.getId() != null) {
-			throw new ParametroInvalidoException();
-		}
-		
-		if(questionario.getNome() == null || questionario.getNome().isEmpty()) {
-			throw new EntidadeInvalidaException("Questionário sem nome.");
+		for(Questao questao: questionario.getQuestoes()) {
+			questaoService.criaQuestao(questao);
 		}
 		
-		if(questionario.getDataCriacao() == null) {
-			questionario.setDataCriacao(new Date());
-		}
+		Date hoje = new Date();
+		questionario.setDataCriacao(hoje);
+		questionario.setDataUltimaEdicao(hoje);
 		
-		if(questionario.getDataUltimaEdicao() == null) {
-			questionario.setDataUltimaEdicao(new Date());
-		}
-		
-		if(questionario.getQuestoes() == null || questionario.getQuestoes().isEmpty()) {
-			throw new EntidadeInvalidaException("Questionário vazio.");
-		}
-		else {
-			for(Questao questao : questionario.getQuestoes()) {
-				questaoService.criaQuestao(questao);
-			}
-		}
-
 		return questionarioRepository.save(questionario);
 	}
 
@@ -108,13 +119,8 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 	 * @throws EntidadeInvalidaException 
 	 */
 	public Questionario atualizaQuestionario(Questionario questionario) throws EntidadeNotFoundException, EntidadeInvalidaException {
-		
-		if(questionario.getQuestoes() != null && !questionario.getQuestoes().isEmpty()) {	
-			for(Questao questao : questionario.getQuestoes()) {
-				questaoService.validaQuestao(questao);
-			}
-		}
-		
+		validaQuestionario(questionario);
+		questionario.setDataUltimaEdicao(new Date());
 		return questionarioRepository.save(questionario);
 	}
 }
