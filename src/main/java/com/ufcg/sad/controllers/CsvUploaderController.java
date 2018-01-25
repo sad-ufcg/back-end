@@ -32,9 +32,11 @@ public class CsvUploaderController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseEntity<Object> enviarCSV(@RequestParam("csv")MultipartFile csv) {
+    public ResponseEntity<Object> enviarCSV(@RequestParam("csv")MultipartFile[] arquivos) {
         try {
-            csvUploader.cadastrarDisciplina(csv);
+            for(MultipartFile arquivoCSV: arquivos) {
+            	csvUploader.cadastrarDisciplina(arquivoCSV);
+            }
             return new ResponseEntity<Object>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
