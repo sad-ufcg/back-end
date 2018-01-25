@@ -83,13 +83,9 @@ public class TokenController {
   	    try {
   	    	Token tokenCriado = tokenService.criaToken(token);
   	    	return new ResponseEntity<>(tokenCriado, HttpStatus.CREATED);	
-  	    } catch (ParametroInvalidoException e) {
-  			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-  		} catch (EntidadeNotFoundException e) {
-  	        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        } catch (EntidadeInvalidaException e) {
-  			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
+  	    } catch (ParametroInvalidoException | EntidadeNotFoundException | EntidadeInvalidaException e) {
+  			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+  		}
   	}
   	
   	/**
@@ -102,10 +98,8 @@ public class TokenController {
   	    try {
   	    	tokenService.deletaToken(tokenID);
   	    	return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
-  	    } catch (ParametroInvalidoException e) {
+  	    } catch (ParametroInvalidoException | EntidadeNotFoundException | EntidadeInvalidaException e) {
   			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-  		} catch (EntidadeNotFoundException e) {
-  			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
+  		}
   	}
 }

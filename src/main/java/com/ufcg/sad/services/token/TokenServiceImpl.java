@@ -101,7 +101,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
 	@Override
-	public void deletaToken(String tokenID) throws EntidadeNotFoundException {
+	public void deletaToken(String tokenID) throws EntidadeNotFoundException, EntidadeInvalidaException {
 		Token token = this.verificaSeTokenExiste(tokenID);
 		// Remove token de questionario aplicado
 		QuestionarioAplicado questionarioAplicado = this.buscarQuestionarioAplicado(tokenID);

@@ -37,7 +37,7 @@ public class CsvUploaderController {
             csvUploader.cadastrarDisciplina(csv);
             return new ResponseEntity<Object>(HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

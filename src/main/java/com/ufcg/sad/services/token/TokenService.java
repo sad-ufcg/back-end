@@ -39,7 +39,7 @@ public interface TokenService {
 
 	QuestionarioAplicado buscarQuestionarioAplicado(String tokenId) throws EntidadeNotFoundException;
 
-	void deletaToken(String token) throws EntidadeNotFoundException;
+	void deletaToken(String token) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
 	Disciplina buscarDisciplina(String tokenId) throws EntidadeNotFoundException;
 }

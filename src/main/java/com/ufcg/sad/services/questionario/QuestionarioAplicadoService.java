@@ -46,8 +46,9 @@ public interface QuestionarioAplicadoService {
      * @param questionarioAplicado QuestionarioAplicado a ser atualizado.
      *
      * @return Questionário aplicado atualizado.
+     * @throws EntidadeInvalidaException 
      */
-    QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException;
+    QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException, EntidadeInvalidaException;
 
     /**
      * Recupera uma lista de Questionários Aplicados.

@@ -43,12 +43,8 @@ public class QuestionarioAplicadoController {
 	    try {
 	    	QuestionarioAplicado questionarioAplicadoCriado = questionarioAplicadoService.criaQuestionarioAplicado(questionarioAplicado);
 	    	return new ResponseEntity<Object>(questionarioAplicadoCriado, HttpStatus.CREATED);	
-	    } catch (ParametroInvalidoException e) {
+	    } catch (ParametroInvalidoException | EntidadeInvalidaException | EntidadeNotFoundException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		} catch (EntidadeInvalidaException e) {
-			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -86,6 +82,8 @@ public class QuestionarioAplicadoController {
 			return new ResponseEntity<Object>(questionarioAplicadoAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }

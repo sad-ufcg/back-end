@@ -112,8 +112,10 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
 	 * @param questionarioAplicado
 	 * 
 	 * @return questionarioAplicado atualizado
+	 * @throws EntidadeInvalidaException 
 	 */
-	public QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException {
+	public QuestionarioAplicado atualizaQuestionarioAplicado(QuestionarioAplicado questionarioAplicado) throws EntidadeNotFoundException, EntidadeInvalidaException {
+		validaQuestionarioAplicado(questionarioAplicado);
 		return questionarioAplicadoRepository.save(questionarioAplicado);
 	}
 
