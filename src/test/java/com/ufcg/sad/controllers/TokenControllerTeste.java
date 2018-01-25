@@ -85,7 +85,7 @@ public class TokenControllerTeste extends SadApplicationTests {
 
     	QuestionarioAplicado questionarioAplicado = new QuestionarioAplicado(null, new Long(1), new Long(1), new Long(1), new HashSet<Resposta>(), new HashSet<Token>());
 
-    	Token token = new Token(new Long(1));
+    	Token token = new Token(new Long(1), new Long(1));
 
         questionarioAplicadoRepository.saveAndFlush(questionarioAplicado);
         tokenRepository.saveAndFlush(token);

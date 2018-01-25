@@ -52,7 +52,7 @@ public class Aluno implements Serializable {
     @Length(max = TAMANHO_MAX_STRING)
     private String sobrenome;
 
-    @Column
+    @Column(unique = true)
     @NotNull
     @Length(max = TAMANHO_MAX_STRING)
     @Email(message = "Email inválido.")
@@ -125,7 +125,6 @@ public class Aluno implements Serializable {
     public void adicionarDisciplina(Disciplina disciplina) {
         Matricula matricula = new Matricula(this, disciplina);
         this.matriculas.add(matricula);
-        disciplina.getMatriculas().add(matricula);
     }
 
     /**

@@ -37,8 +37,9 @@ public class QuestaoServiceImpl implements QuestaoService {
 	public QuestaoServiceImpl() {}
 
 	public void validaQuestao(Questao questao) throws EntidadeInvalidaException, EntidadeNotFoundException {
-		
-		professorService.validaProfessor(questao.getAutor());
+		if(questao.getAutor() != null) {
+			professorService.validaProfessor(questao.getAutor());
+		}
 		
 		if(questao.getEnunciado() == null || questao.getEnunciado().isEmpty()) {
 			throw new EntidadeInvalidaException("Questão deve conter enunciado.");

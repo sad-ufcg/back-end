@@ -1,5 +1,6 @@
 package com.ufcg.sad.controllers;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.disciplina.Disciplina;
@@ -40,7 +41,7 @@ public class TokenController {
 			Questionario questionario = tokenService.buscarQuestionario(tokenId);
 			return new ResponseEntity<>(questionario, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
     }
     
@@ -54,7 +55,7 @@ public class TokenController {
 			QuestionarioAplicado questionarioAplicado = tokenService.buscarQuestionarioAplicado(tokenId);
 			return new ResponseEntity<>(questionarioAplicado, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
     }
     
@@ -68,7 +69,7 @@ public class TokenController {
 			Disciplina disciplina = tokenService.buscarDisciplina(tokenId);
 			return new ResponseEntity<>(disciplina, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
     }
 
@@ -78,15 +79,13 @@ public class TokenController {
   	 */
   	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   	@ResponseStatus(HttpStatus.CREATED)
-  	public ResponseEntity<Token> criaToken(@RequestBody Token token) {
+  	public ResponseEntity<Object> criaToken(@RequestBody Token token) {
   	    try {
   	    	Token tokenCriado = tokenService.criaToken(token);
-  	    	return new ResponseEntity<Token>(tokenCriado, HttpStatus.CREATED);	
-  	    } catch (ParametroInvalidoException e) {
-  			return new ResponseEntity<Token>(HttpStatus.BAD_REQUEST);
-  		} catch (EntidadeNotFoundException e) {
-  	        return new ResponseEntity<Token>(HttpStatus.NOT_FOUND);
-        }
+  	    	return new ResponseEntity<>(tokenCriado, HttpStatus.CREATED);	
+  	    } catch (ParametroInvalidoException | EntidadeNotFoundException | EntidadeInvalidaException e) {
+  			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+  		}
   	}
   	
   	/**
@@ -99,10 +98,8 @@ public class TokenController {
   	    try {
   	    	tokenService.deletaToken(tokenID);
   	    	return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
-  	    } catch (ParametroInvalidoException e) {
-  			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
-  		} catch (EntidadeNotFoundException e) {
-  			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
-		}
+  	    } catch (ParametroInvalidoException | EntidadeNotFoundException | EntidadeInvalidaException e) {
+  			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+  		}
   	}
 }

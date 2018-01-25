@@ -31,7 +31,8 @@ public class Token {
     private Long idQuestionarioAplicado;
 
     @Column
-	private Long  idAluno;
+    @NotNull
+	private Long idAluno;
 
     public Token(Long idQuestionarioAplicado, Long idAluno) {
         this.id = UUID.randomUUID().toString();

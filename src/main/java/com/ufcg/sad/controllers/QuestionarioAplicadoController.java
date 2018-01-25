@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
@@ -38,12 +39,12 @@ public class QuestionarioAplicadoController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<QuestionarioAplicado> criaQuestionarioAplicado(@RequestBody QuestionarioAplicado questionarioAplicado) {
+	public ResponseEntity<Object> criaQuestionarioAplicado(@RequestBody QuestionarioAplicado questionarioAplicado) {
 	    try {
 	    	QuestionarioAplicado questionarioAplicadoCriado = questionarioAplicadoService.criaQuestionarioAplicado(questionarioAplicado);
-	    	return new ResponseEntity<QuestionarioAplicado>(questionarioAplicadoCriado, HttpStatus.CREATED);	
-	    } catch (ParametroInvalidoException e) {
-			return new ResponseEntity<QuestionarioAplicado>(HttpStatus.BAD_REQUEST);
+	    	return new ResponseEntity<Object>(questionarioAplicadoCriado, HttpStatus.CREATED);	
+	    } catch (ParametroInvalidoException | EntidadeInvalidaException | EntidadeNotFoundException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -52,12 +53,12 @@ public class QuestionarioAplicadoController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<QuestionarioAplicado> getQuestionarioAplicado(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getQuestionarioAplicado(@PathVariable("id") Long id) {
 		try {
 			QuestionarioAplicado questionarioAplicado = questionarioAplicadoService.getQuestionarioAplicado(id);
-			return new ResponseEntity<QuestionarioAplicado>(questionarioAplicado, HttpStatus.OK);
+			return new ResponseEntity<Object>(questionarioAplicado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<QuestionarioAplicado>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}	
 	
@@ -75,12 +76,14 @@ public class QuestionarioAplicadoController {
 	 * @param questionarioAplicado
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<QuestionarioAplicado> atualizaQuestionarioAplicado(@RequestBody QuestionarioAplicado questionarioAplicado) {
+	public ResponseEntity<Object> atualizaQuestionarioAplicado(@RequestBody QuestionarioAplicado questionarioAplicado) {
 		try {
 			QuestionarioAplicado questionarioAplicadoAtualizado = questionarioAplicadoService.atualizaQuestionarioAplicado(questionarioAplicado);
-			return new ResponseEntity<QuestionarioAplicado>(questionarioAplicadoAtualizado, HttpStatus.OK);
+			return new ResponseEntity<Object>(questionarioAplicadoAtualizado, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<QuestionarioAplicado>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.ufcg.sad.controllers;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.services.questionario.EnviarQuestionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,9 @@ public class EnviarQuestionarioController {
             return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        } catch (EntidadeInvalidaException e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
     }
 
     /**
@@ -54,7 +57,9 @@ public class EnviarQuestionarioController {
             return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        } catch (EntidadeInvalidaException e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
     }
 
 }

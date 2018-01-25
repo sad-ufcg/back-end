@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.resposta.Resposta;
 import com.ufcg.sad.services.resposta.RespostaService;
@@ -42,8 +43,8 @@ public class RespostaController {
 	    Resposta respostaCriada;
 		try {
 			respostaCriada = respostaService.criarResposta(resposta);
-		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+		} catch (EntidadeNotFoundException | EntidadeInvalidaException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	    return new ResponseEntity<Object>(respostaCriada, HttpStatus.CREATED);
 	}
@@ -53,12 +54,12 @@ public class RespostaController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Resposta> getResposta(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> getResposta(@PathVariable("id") Long id) {
 		try {
 			Resposta resposta = respostaService.getResposta(id);
-			return new ResponseEntity<Resposta>(resposta, HttpStatus.OK);
+			return new ResponseEntity<Object>(resposta, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
-			return new ResponseEntity<Resposta>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -85,7 +86,7 @@ public class RespostaController {
 		try {
 			ret = respostaService.addRespostas(token, respostas);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
     	return new ResponseEntity<Object>(ret, HttpStatus.CREATED);
     }
