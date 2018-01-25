@@ -22,9 +22,9 @@ def criaProfessor():
 
 def criaAluno():
     r = requests.post('http://localhost:8080/alunos', json = {
-      'nome': 'joao',
-      'sobrenome': 'silva',
-      'email': 'joao.silva@ccc.ufcg.edu.br'
+      'nome': 'Marianne',
+      'sobrenome': 'Monteiro',
+      'email': 'marianne.monteiro@ccc.ufcg.edu.br'
     })
     assert r.status_code == 201
     print_criacao('Aluno', r.json())
@@ -34,7 +34,7 @@ def criaAluno():
 def criaQuestionario(professor):
     r = requests.post('http://localhost:8080/questionarios', json = {
       'nome': 'Questionario Estrutural',
-      'descricao': 'Um questionário para avaliar a estrutura da sala.',
+      'descricao': 'Avaliar a estrutura da sala.',
       'questoes': [
         {
           'enunciado': 'A estrutura da sala demonstra seguir os padrões de segurança?',
@@ -102,7 +102,6 @@ def criaToken(questionarioAplicado, aluno):
 
 
 def main():
-    
     aluno = criaAluno()
     professor = criaProfessor()
     disciplina = criaDisciplina(professor)
