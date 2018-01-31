@@ -89,7 +89,7 @@ public class Disciplina implements Serializable {
         this.matriculas = matriculas;
     }
 
-    public Disciplina(String nome, int turma, Long professorId, String semestre, Set<Matricula> matriculas) {
+    public Disciplina(String nome, Integer turma, Long professorId, String semestre, Set<Matricula> matriculas) {
         this.nome = nome;
         this.turma = turma;
         this.professorId = professorId;

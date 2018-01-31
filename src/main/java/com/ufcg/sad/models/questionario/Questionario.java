@@ -3,9 +3,9 @@ package com.ufcg.sad.models.questionario;
 import static com.ufcg.sad.models.util.Utils.TAMANHO_MAX_STRING;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,7 +51,7 @@ public class Questionario implements Serializable {
 	private String descricao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Questao> questoes;
+	private List<Questao> questoes;
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Professor autor;
@@ -76,7 +76,7 @@ public class Questionario implements Serializable {
 	 * @param dataCriacao
 	 * @param dataUltimaEdicao
 	 */
-	public Questionario(Long id, String nome, String descricao, Set<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao) {
+	public Questionario(Long id, String nome, String descricao, List<Questao> questoes, Professor autor, Date dataCriacao, Date dataUltimaEdicao) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -90,7 +90,7 @@ public class Questionario implements Serializable {
 	 * Método para construir uma instância do tipo questionário
 	 */
 	public Questionario() { 
-		this.questoes = new HashSet<Questao>();
+		this.questoes = new ArrayList<Questao>();
 	}
 
 	public Long getId() {
@@ -117,11 +117,11 @@ public class Questionario implements Serializable {
 		this.descricao = descricao;
 	}
 	
-	public Set<Questao> getQuestoes() {
+	public List<Questao> getQuestoes() {
 		return questoes;
 	}
 
-	public void setQuestoes(Set<Questao> questoes) {
+	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
 	}
 

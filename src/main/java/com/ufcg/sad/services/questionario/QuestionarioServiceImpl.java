@@ -12,6 +12,7 @@ import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.repositories.QuestionarioRepository;
 import com.ufcg.sad.services.questao.QuestaoService;
 
@@ -29,6 +30,10 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 
 	@Autowired
 	private QuestaoService questaoService;
+	
+
+	@Autowired
+	private QuestionarioAplicadoService questionarioAplicadoService;
 
 	/**
 	 * Construtor para o tipo QuestionarioService.
@@ -122,5 +127,11 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 		validaQuestionario(questionario);
 		questionario.setDataUltimaEdicao(new Date());
 		return questionarioRepository.save(questionario);
+	}
+
+
+	@Override
+	public List<QuestionarioAplicado> getQuestionariosAplicados(Long id) {
+		return questionarioAplicadoService.getQuestionarioAplicados(id);
 	}
 }

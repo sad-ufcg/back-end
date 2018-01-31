@@ -4,6 +4,7 @@ import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
 import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import java.util.List;
 
@@ -51,4 +52,11 @@ public interface QuestionarioService {
      * @throws EntidadeInvalidaException
      */
     Questionario atualizaQuestionario(Questionario questionario) throws EntidadeNotFoundException, EntidadeInvalidaException;
+
+    /**
+     * 
+     * @param id id do Questionário
+     * @return Lista de QuestionariosAplicados
+     */
+	List<QuestionarioAplicado> getQuestionariosAplicados(Long id);
 }

@@ -48,6 +48,9 @@ public class QuestionarioAplicado implements Serializable {
 
     @Transient
     private String disciplina;
+    
+    @Transient
+    private Integer turma;
 
     @OneToMany(fetch = FetchType.LAZY,
                cascade=CascadeType.ALL)
@@ -67,14 +70,43 @@ public class QuestionarioAplicado implements Serializable {
         this.respostas = new HashSet<>();
         this.tokens = new HashSet<>();
     }
+    
+    /*
+     * FIXME(Marianne Linhares): construtor utilizado apenas na query do
+     * QuestionarioAplicadoRepository que busca retornar os questionarios
+     * aplicados de um dado questionário.
+     */
+    public QuestionarioAplicado(QuestionarioAplicado q, String disciplina, Integer turma) {
+        this.id = q.getId();
+        this.idDisciplina = q.getIdDisciplina();
+        this.idProfessor = q.getIdProfessor();
+        this.disciplina = disciplina;
+        this.turma = turma;
+        this.idQuestionario = q.getIdQuestionario();
+        this.respostas = q.getRespostas();
+        this.tokens = q.getTokens();
+    }
 
-
-    public QuestionarioAplicado(Long id,Long idQuestionario, Long idDisciplina, Long idProfessor, String disciplina) {
+    public QuestionarioAplicado(Long id, Long idQuestionario, Long idDisciplina,
+    		                    Long idProfessor, String disciplina) {
         this.id = id;
         this.idDisciplina = idDisciplina;
         this.idProfessor = idProfessor;
         this.disciplina = disciplina;
         this.idQuestionario = idQuestionario;
+    }
+    
+    public QuestionarioAplicado(Long id, Long idQuestionario, Long idDisciplina,
+    		                    Long idProfessor, String disciplina, Integer turma,
+    		                    Set<Resposta> respostas, Set<Token> tokens) {
+        this.id = id;
+        this.idDisciplina = idDisciplina;
+        this.idProfessor = idProfessor;
+        this.disciplina = disciplina;
+        this.turma = turma;
+        this.idQuestionario = idQuestionario;
+        this.respostas = respostas;
+        this.tokens = tokens;
     }
 
     /**
@@ -93,8 +125,14 @@ public class QuestionarioAplicado implements Serializable {
         this.respostas = respostas;
         this.tokens = tokens;
     }
+    
+    public Integer getTurma() {
+        return turma;
+    }
 
-
+    public void setTurma(Integer turma) {
+        this.turma = turma;
+    }
 
     public String getDisciplina() {
         return disciplina;
