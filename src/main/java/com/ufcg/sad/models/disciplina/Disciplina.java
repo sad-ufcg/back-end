@@ -1,6 +1,7 @@
 package com.ufcg.sad.models.disciplina;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ufcg.sad.models.aluno.Aluno;
 import com.ufcg.sad.models.matricula.Matricula;
 
 import javax.persistence.CascadeType;
@@ -52,7 +53,8 @@ public class Disciplina implements Serializable {
     @Column
     private String codigo;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "disciplina",
+    		fetch = FetchType.LAZY,
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JsonIgnore
@@ -150,6 +152,17 @@ public class Disciplina implements Serializable {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+    
+    /**
+     * Adiciona um novo aluno a disciplina.
+     *
+     * @param aluno aluno a ser adicionado.
+     */
+    public void adicionarAluno(Aluno aluno) {
+        Matricula matricula = new Matricula(aluno, this);
+        this.matriculas.add(matricula);
+    }
+
 
     @Override
     public boolean equals(Object o) {
