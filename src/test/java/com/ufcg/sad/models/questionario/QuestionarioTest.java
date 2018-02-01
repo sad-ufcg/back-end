@@ -36,7 +36,7 @@ public class QuestionarioTest extends SadApplicationTests {
 
 		assertEquals(questionario.getNome(), "Questionário 1");
 		assertEquals(questionario.getDescricao(), "");
-		assertEquals(questionario.getQuestoes(), new HashSet<Questao>());
+		assertEquals(questionario.getQuestoes(), new ArrayList<Questao>());
 		assertEquals(questionario.getQuestoes().size(), 0);
 
 		questionario.setQuestoes(getQuestoes());
