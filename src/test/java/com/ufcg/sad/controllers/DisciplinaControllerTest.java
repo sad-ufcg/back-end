@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,12 +24,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureTestDatabase
 public class DisciplinaControllerTest extends SadApplicationTests {
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @Test
     public void verificaGetAll() throws Exception {
+        MvcResult logar = logar();
+
         mockMvc.perform(get("/disciplinas")
+                .header("Authentication", logar.getRequest().getHeader("Authentication"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
