@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.models.questionario.Questionario;
+import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.services.questionario.QuestionarioService;
 
 /**
@@ -44,9 +45,20 @@ public class QuestionarioController {
 		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-	}	
+	}
+	
 	/**
-	 * Método para atualizar um questionário a partir de um certo id.
+	 * Método para recuperar todas as respostas de um questionário a partir de um certo id.
+	 * @param id
+	 */
+	@RequestMapping(value = "/{id}/questionariosAplicados/", method = RequestMethod.GET)
+	public ResponseEntity<Object> getQuestionariosAplicados(@PathVariable("id") Long id) {
+		List<QuestionarioAplicado> questionario = questionarioService.getQuestionariosAplicados(id);
+		return new ResponseEntity<Object>(questionario, HttpStatus.OK);
+	}
+	
+	/**
+	 * Método para atualizar um Questionario a partir de um certo id.
 	 * @param id
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)

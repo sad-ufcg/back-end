@@ -60,4 +60,10 @@ public interface QuestionarioAplicadoService {
      *          Lista com os Questionários Aplicados.
      */
     List<QuestionarioAplicado> getListaDeQuestionariosAplicados(List<Long> ids);
+    
+    /**
+     * Recupara um Set de Questionários Aplicados que são de um certo Questionário.
+     * @param id do questionário.
+     */
+	List<QuestionarioAplicado> getQuestionarioAplicados(Long id);
 }

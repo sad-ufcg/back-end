@@ -123,4 +123,14 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
     public List<QuestionarioAplicado> getListaDeQuestionariosAplicados(List<Long> ids) {
         return questionarioAplicadoRepository.findByIdIn(ids);
     }
+
+    /**
+     * Busca questionarios aplicados de um certo questionário.
+     * @param id do questionário.
+     * 
+     */
+	@Override
+	public List<QuestionarioAplicado> getQuestionarioAplicados(Long id) {
+		return questionarioAplicadoRepository.findByIdQuestionario(id);
+	}
 }

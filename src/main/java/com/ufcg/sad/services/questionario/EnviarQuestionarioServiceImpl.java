@@ -55,8 +55,9 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
         Disciplina disciplina = disciplinaService.getDisciplina(idDisciplina);
 
         Set<Matricula> matriculas = disciplina.getMatriculas();
-
+        System.out.println("oi");
         for (Matricula matricula : matriculas) {
+        	System.out.println(matricula.getAluno().getEmail());
             enviarEmail(matricula.getAluno(), questionarioAplicado, disciplina);
         }
 
@@ -82,7 +83,7 @@ public class EnviarQuestionarioServiceImpl implements EnviarQuestionarioService 
                     .append(",")
                     .append(aluno.getEmail())
                     .toString();
-
+            System.out.print(erro);
             logger.warn(erro);
         }
     }

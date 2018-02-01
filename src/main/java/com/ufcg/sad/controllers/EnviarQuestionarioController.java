@@ -53,7 +53,7 @@ public class EnviarQuestionarioController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Object> enviarEmailParaVariosQuestionarios(@RequestBody List<Long> ids) {
         try {
-            enviarQuestionarioService.enviarEmail(ids);
+        	enviarQuestionarioService.enviarEmail(ids);
             return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (EntidadeNotFoundException e) {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
