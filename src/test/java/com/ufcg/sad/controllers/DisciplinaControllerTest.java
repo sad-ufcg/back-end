@@ -24,12 +24,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureTestDatabase
 public class DisciplinaControllerTest extends SadApplicationTests {
 
+    @Autowired
+    MockMvc mockMvc;
+
     @Test
     public void verificaGetAll() throws Exception {
-        MvcResult logar = logar();
+        MvcResult logar = logar(mockMvc);
 
         mockMvc.perform(get("/disciplinas")
-                .header("Authentication", logar.getRequest().getHeader("Authentication"))
+                .header("Authorization", logar.getResponse().getHeader("Authorization"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
