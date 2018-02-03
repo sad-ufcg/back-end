@@ -26,7 +26,8 @@ public interface QuestionarioAplicadoRepository extends JpaRepository<Questionar
     
     @Query("SELECT new QuestionarioAplicado(q,"
     		+ "(SELECT d.nome FROM Disciplina d WHERE d.id = q.idDisciplina),"
-    		+ "(SELECT d.turma FROM Disciplina d WHERE d.id = q.idDisciplina))"
+    		+ "(SELECT d.turma FROM Disciplina d WHERE d.id = q.idDisciplina),"
+    		+ "(SELECT d.semestre FROM Disciplina d WHERE d.id = q.idDisciplina))"
     		+ "FROM QuestionarioAplicado q WHERE q.idQuestionario = :idQuestionario")
     List<QuestionarioAplicado> findByIdQuestionario(@Param("idQuestionario")Long idQuestionario);
     

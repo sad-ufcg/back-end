@@ -51,6 +51,9 @@ public class QuestionarioAplicado implements Serializable {
     
     @Transient
     private Integer turma;
+    
+    @Transient
+    private String semestre;
 
     @OneToMany(fetch = FetchType.LAZY,
                cascade=CascadeType.ALL)
@@ -76,15 +79,16 @@ public class QuestionarioAplicado implements Serializable {
      * QuestionarioAplicadoRepository que busca retornar os questionarios
      * aplicados de um dado questionário.
      */
-    public QuestionarioAplicado(QuestionarioAplicado q, String disciplina, Integer turma) {
+    public QuestionarioAplicado(QuestionarioAplicado q, String disciplina, Integer turma, String semestre) {
         this.id = q.getId();
         this.idDisciplina = q.getIdDisciplina();
         this.idProfessor = q.getIdProfessor();
-        this.disciplina = disciplina;
-        this.turma = turma;
         this.idQuestionario = q.getIdQuestionario();
         this.respostas = q.getRespostas();
         this.tokens = q.getTokens();
+        this.disciplina = disciplina;
+        this.turma = turma;
+        this.semestre = semestre;
     }
 
     public QuestionarioAplicado(Long id, Long idQuestionario, Long idDisciplina,
@@ -132,6 +136,14 @@ public class QuestionarioAplicado implements Serializable {
 
     public void setTurma(Integer turma) {
         this.turma = turma;
+    }
+    
+    public String getSemestre() {
+    	return semestre;
+    }
+    
+    public void setSemestre(String semestre) {
+    	this.semestre = semestre;
     }
 
     public String getDisciplina() {
