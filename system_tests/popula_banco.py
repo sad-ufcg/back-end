@@ -2,7 +2,7 @@
 
 import json
 import requests
-
+import random
 
 def print_criacao(entidade, resposta):
     print '%s criado(a):' % entidade
@@ -101,6 +101,38 @@ def criaToken(questionarioAplicado, aluno):
     return r.json()
 
 
+def enviarRespostas(respostas, token):
+    r = requests.post('http://localhost:8080/respostas/', json=respostas, params={'token': token['id']})
+    print(r.status_code)
+    print(r)
+    assert r.status_code == 201
+    print_criacao('Respostas', r.json())
+    return r.json()
+  
+
+def botDeRespostas(questionario, questionarioAplicado, aluno, numRespostas=10):
+    for i in xrange(numRespostas):
+        token = criaToken(questionarioAplicado, aluno)
+    
+    respostas = []
+    for i in xrange(numRespostas):
+        for questao in questionario['questoes']:
+            print(questao)
+            r = {
+              'type' : questao[u'tipoQuestao'],
+              'idQuestao': questao[u'id'],
+              'idQuestionarioAplicado': questionarioAplicado[u'id'],
+              'comentario': 'Que lindo eu amei!'
+            }
+
+            if questao['tipoQuestao'] == 'ESCOLHA_SIMPLES':
+              r['escolhaSimples'] = random.randint(1, 5)
+
+            respostas.append(r)
+
+    print(respostas)
+    enviarRespostas(respostas, token)    
+
 def main():
     aluno = criaAluno()
     professor = criaProfessor()
@@ -110,6 +142,7 @@ def main():
     
     questionario = criaQuestionario(professor)
     questionarioAplicado = criaQuestionarioAplicado(disciplina, questionario)
+    botDeRespostas(questionario, questionarioAplicado, aluno)
     token = criaToken(questionarioAplicado, aluno)
 
     print 'Execute o front-end (angular-ui) e acesse:'
