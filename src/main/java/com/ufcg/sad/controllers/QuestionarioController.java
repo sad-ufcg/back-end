@@ -52,7 +52,8 @@ public class QuestionarioController {
 	 * @param id
 	 */
 	@RequestMapping(value = "/{id}/questionariosAplicados/", method = RequestMethod.GET)
-	public ResponseEntity<Object> getQuestionariosAplicados(@PathVariable("id") Long id) {
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Object> getQuestionariosAplicadosByIDs(@PathVariable("id") Long id) {
 		List<QuestionarioAplicado> questionario = questionarioService.getQuestionariosAplicados(id);
 		return new ResponseEntity<Object>(questionario, HttpStatus.OK);
 	}
