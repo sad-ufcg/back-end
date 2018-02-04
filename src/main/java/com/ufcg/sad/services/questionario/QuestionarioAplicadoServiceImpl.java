@@ -1,5 +1,6 @@
 package com.ufcg.sad.services.questionario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.repositories.QuestionarioAplicadoRepository;
 import com.ufcg.sad.services.disciplina.DisciplinaService;
@@ -130,7 +132,39 @@ public class QuestionarioAplicadoServiceImpl implements QuestionarioAplicadoServ
      * 
      */
 	@Override
-	public List<QuestionarioAplicado> getQuestionarioAplicados(Long id) {
-		return questionarioAplicadoRepository.findByIdQuestionario(id);
+	public List<QuestionarioAplicado> getQuestionarioAplicados(Long id, String semestre, Long idDisciplina) {
+		if(idDisciplina == null) {
+			if(semestre == null || semestre.isEmpty()) {
+				return questionarioAplicadoRepository.findByIdQuestionario(id);
+			} else {
+				return questionarioAplicadoRepository.findByIdQuestionario(id, semestre);
+			}
+		} else {
+			if(semestre == null || semestre.isEmpty()) {
+				return questionarioAplicadoRepository.findByIdQuestionarioAndIdDisciplina(id, idDisciplina);
+			} else {
+				return questionarioAplicadoRepository.findByIdQuestionarioAndIdDisciplina(id, idDisciplina, semestre);
+			}
+		}
+	}
+
+	@Override
+	public List<Disciplina> getDisciplina(Long idQuestionario) throws EntidadeNotFoundException {
+		List<Long> idDisciplinas = questionarioAplicadoRepository.findDisciplinaQuestionario(idQuestionario);
+		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+		for(Long id: idDisciplinas) {
+			disciplinas.add(disciplinaService.getDisciplina(id));
+		}
+		return disciplinas;
+	}
+
+	@Override
+	public List<Disciplina> getDisciplina(Long idQuestionario, String semestre) throws EntidadeNotFoundException {
+		List<Long> idDisciplinas = questionarioAplicadoRepository.findDisciplinaQuestionario(idQuestionario, semestre);
+		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+		for(Long id: idDisciplinas) {
+			disciplinas.add(disciplinaService.getDisciplina(id));
+		}
+		return disciplinas;
 	}
 }

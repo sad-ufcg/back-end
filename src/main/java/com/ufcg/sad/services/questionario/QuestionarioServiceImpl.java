@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questao.Questao;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
@@ -131,7 +132,17 @@ public class QuestionarioServiceImpl implements QuestionarioService {
 
 
 	@Override
-	public List<QuestionarioAplicado> getQuestionariosAplicados(Long id) {
-		return questionarioAplicadoService.getQuestionarioAplicados(id);
+	public List<QuestionarioAplicado> getQuestionariosAplicados(Long id, String semestre, Long idDisciplina) {
+		return questionarioAplicadoService.getQuestionarioAplicados(id, semestre, idDisciplina);
+	}
+
+
+	@Override
+	public List<Disciplina> getDisciplinas(Long idQuestionario, String semestre) throws EntidadeNotFoundException {
+		if(semestre == null || semestre.isEmpty()) {
+			return questionarioAplicadoService.getDisciplina(idQuestionario);
+		} else {
+			return questionarioAplicadoService.getDisciplina(idQuestionario, semestre);
+		}
 	}
 }
