@@ -3,6 +3,7 @@ package com.ufcg.sad.services.questionario;
 import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
 import com.ufcg.sad.exceptions.ParametroInvalidoException;
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 
 import java.util.List;
@@ -64,6 +65,11 @@ public interface QuestionarioAplicadoService {
     /**
      * Recupara um Set de Questionários Aplicados que são de um certo Questionário.
      * @param id do questionário.
+     * @param idDisciplina 
+     * @param semestre 
      */
-	List<QuestionarioAplicado> getQuestionarioAplicados(Long id);
+	List<QuestionarioAplicado> getQuestionarioAplicados(Long id, String semestre, Long idDisciplina);
+
+	List<Disciplina> getDisciplina(Long idQuestionario) throws EntidadeNotFoundException;
+	List<Disciplina> getDisciplina(Long idQuestionario, String semestre) throws EntidadeNotFoundException;
 }

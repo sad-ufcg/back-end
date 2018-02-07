@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.sad.exceptions.EntidadeInvalidaException;
 import com.ufcg.sad.exceptions.EntidadeNotFoundException;
+import com.ufcg.sad.models.disciplina.Disciplina;
 import com.ufcg.sad.models.questionario.Questionario;
 import com.ufcg.sad.models.questionario.QuestionarioAplicado;
 import com.ufcg.sad.services.questionario.QuestionarioService;
@@ -53,9 +55,29 @@ public class QuestionarioController {
 	 */
 	@RequestMapping(value = "/{id}/questionariosAplicados/", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Object> getQuestionariosAplicadosByIDs(@PathVariable("id") Long id) {
-		List<QuestionarioAplicado> questionario = questionarioService.getQuestionariosAplicados(id);
+	public ResponseEntity<Object> getQuestionariosAplicadosByIDs(@PathVariable("id") Long id,
+																 @RequestParam(value = "semestre", required = false) String semestre,
+																 @RequestParam(value = "idDisciplina", required = false) Long idDisciplina) {
+		List<QuestionarioAplicado> questionario = questionarioService.getQuestionariosAplicados(id, semestre, idDisciplina);
 		return new ResponseEntity<Object>(questionario, HttpStatus.OK);
+	}
+	
+	/**
+	 * Método para recuperar todos as disciplinas associadas a um
+	 * questionário por meio de um questionário aplicado.
+	 * @param id
+	 */
+	@RequestMapping(value = "/{id}/disciplinas/", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Object> getDisciplinas(@RequestParam(value = "semestre", required = false) String semestre,
+			                                     @PathVariable("id") Long id) {
+		List<Disciplina> disciplinas;
+		try {
+			disciplinas = questionarioService.getDisciplinas(id, semestre);
+		} catch (EntidadeNotFoundException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Object>(disciplinas, HttpStatus.OK);
 	}
 	
 	/**
