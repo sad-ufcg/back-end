@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Usuario {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
