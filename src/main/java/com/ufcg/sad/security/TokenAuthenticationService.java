@@ -5,8 +5,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 
@@ -26,6 +28,17 @@ public class TokenAuthenticationService {
                 .compact();
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+        String body = Json.createObjectBuilder()
+                .add(HEADER_STRING, TOKEN_PREFIX + " "+ JWT)
+                .build()
+                .toString();
+        try {
+            response.getWriter().write(body);
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+
+        }
     }
 
     static Authentication getAuthentication(HttpServletRequest request) {
