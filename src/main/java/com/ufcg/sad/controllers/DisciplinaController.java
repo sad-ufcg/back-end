@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/disciplinas")
-//@CrossOrigin
+@CrossOrigin
 public class DisciplinaController {
 
     @Autowired
