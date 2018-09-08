@@ -1,0 +1,1 @@
+openssl pkcs12 -export -in /etc/letsencrypt/live/sad.splab.ufcg.edu.br/fullchain.pem -inkey /etc/letsencrypt/live/sad.splab.ufcg.edu.br/privkey.pem -out cert_and_key.p12 -name tomcat -CAfile /etc/letsencrypt/live/sad.splab.ufcg.edu.br/chain.pem -caname root

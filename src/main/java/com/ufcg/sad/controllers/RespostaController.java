@@ -40,6 +40,7 @@ public class RespostaController {
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Object> criarResposta(@RequestBody Resposta resposta) {
+        /*
 	    Resposta respostaCriada;
 		try {
 			respostaCriada = respostaService.criarResposta(resposta);
@@ -47,6 +48,8 @@ public class RespostaController {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	    return new ResponseEntity<Object>(respostaCriada, HttpStatus.CREATED);
+        */
+        return null;
 	}
 	
 	/**
@@ -55,12 +58,15 @@ public class RespostaController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getResposta(@PathVariable("id") Long id) {
+        /*
 		try {
 			Resposta resposta = respostaService.getResposta(id);
 			return new ResponseEntity<Object>(resposta, HttpStatus.OK);
 		} catch (EntidadeNotFoundException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
+        */
+        return null;
 	}
 
 	/**
@@ -70,8 +76,11 @@ public class RespostaController {
     public ResponseEntity<List<Resposta>> getTodasAsRespostas(
     			@RequestParam(value="tipoResposta", required=false) String tipoResposta,
     	        @RequestParam(value="idQuestao", required=false) Long idQuestao) {
+        /*
         List<Resposta> respostas = respostaService.getTodasAsRespostas(tipoResposta, idQuestao);
         return new ResponseEntity<List<Resposta>>(respostas, HttpStatus.OK);
+        */
+        return null;
     }
     
     /**
